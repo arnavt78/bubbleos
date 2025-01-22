@@ -43,23 +43,21 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
               .catch(reject);
           } else {
             Verbose.custom("Encountered too many redirects.");
-            resolve(
-              InfoMessages.error(
-                `Too many redirects. Stopped following after ${5 - maxRedirects} redirects.`
-              )
+            InfoMessages.error(
+              `Too many redirects. Stopped following after ${5 - maxRedirects} redirects.`
             );
+            resolve();
           }
         } else {
           Verbose.custom("Encountered a redirect without a Location header...");
-          resolve(
-            InfoMessages.error(
-              `Redirect received, but no Location header found. Status code: ${res.statusCode}.`
-            )
+          InfoMessages.error(
+            `Redirect received, but no Location header found. Status code: ${res.statusCode}.`
           );
+          resolve();
         }
       } else if (res.statusCode === 200) {
         Verbose.custom("The server is responding with status code 200.");
-        resolve(
+        console.log(
           chalk.green(
             `The server, ${chalk.bold.italic(
               formattedURL
@@ -68,7 +66,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
         );
       } else {
         Verbose.custom("The server is not responding with status code 200.");
-        resolve(
+        console.log(
           chalk.red(
             `The server, ${chalk.bold.italic(formattedURL)}, responded with status code ${
               res.statusCode
@@ -82,7 +80,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
 
     req.on("timeout", () => {
       Verbose.custom("The server timed out.");
-      resolve(chalk.red(`The server, ${chalk.bold.italic(formattedURL)}, has timed out.\n`));
+      console.log(chalk.red(`The server, ${chalk.bold.italic(formattedURL)}, has timed out.\n`));
     });
 
     req.end();
@@ -104,7 +102,6 @@ const ping = async (host, ...args) => {
 
     Verbose.custom("Making connection...");
     const result = await _makeConnection(hostname[0], path);
-    console.log(result);
   } catch (err) {
     if (err.code === "ENOTFOUND") {
       Verbose.custom("An error occurred while trying to ping the address.");

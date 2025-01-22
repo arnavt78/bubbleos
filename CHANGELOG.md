@@ -18,6 +18,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - The information in the `sysinfo` command now shows bolded instead of italicized.
 - Increased the timeout time in the `ping` command from 5 seconds to 15 seconds.
 - Fixed an issue where the `ping` command would crash BubbleOS if the status code returned was not 200, and also if the connection to the address was refused.
+- Fixed an issue where the `ping` command would sometimes show _undefined_.
 - Fixed an issue where using the `dirtree` command would crash BubbleOS.
 - Fixed an issue where running BubbleOS with an incorrectly-cased path as the CWD would show that in BubbleOS.
 - Fixed an issue where the `bub` command would not show the command being executed if it was the `exit` command or the `bub` command running the same file.
