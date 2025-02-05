@@ -28,14 +28,19 @@ class Checks {
    * Returns `true` if the path exists, else, returns `false`.
    */
   doesExist() {
-    return fs.existsSync(this.param);
+    try {
+      fs.statSync(this.param);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /**
    * Returns `true` if the file is a text file, else, returns `false` (also returns `false` if the path does not exist or is a directory).
    */
   validEncoding() {
-    if (!fs.existsSync(this.param) || fs.lstatSync(this.param).isDirectory()) return false;
+    if (!this.doesExist() || fs.statSync(this.param).isDirectory()) return false;
     return isText(this.param, fs.readFileSync(this.param, { flag: "r" }));
   }
 
@@ -43,8 +48,8 @@ class Checks {
    * Returns `true` if the path is a directory, else, returns `false` (also returns `false` if the path does not exist).
    */
   validateType() {
-    if (!fs.existsSync(this.param)) return false;
-    return fs.lstatSync(this.param).isDirectory();
+    if (!this.doesExist()) return false;
+    return fs.statSync(this.param).isDirectory();
   }
 
   /**

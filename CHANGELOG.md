@@ -24,6 +24,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where the `bub` command would not show the command being executed if it was the `exit` command or the `bub` command running the same file.
 - Fixed an issue where changing the directory in a `.bub` file would keep its changes after it was done executing.
 - Fixed a consistency issue where the user information had its values bolded instead of italicized in the `sysinfo` command.
+- Internally removed the usage of a deprecated function in code.
 
 ### Removed Features
 
