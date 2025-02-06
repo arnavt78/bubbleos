@@ -22,9 +22,7 @@ const lock = (...args) => {
       Errors.invalidOS("Windows, macOS and/or Linux");
     } else if (err.message.toLowerCase().includes("no applicable command found")) {
       Verbose.custom("No command was found to lock the system on Linux.");
-      InfoMessages.error(
-        "Locking the OS failed. Please consider installing xdg-screensaver, gnome-screensaver, cinnamon-screensaver, or dm-tool, and try again."
-      );
+      InfoMessages.error("Locking the OS failed. Please install xdg-screensaver and try again.");
     } else {
       Verbose.fatalError();
       _fatalError(err);

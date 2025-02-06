@@ -70,5 +70,13 @@ if (!config.getConfig().firstIntro) {
   console.log(`To exit the ${GLOBAL_NAME} shell, type ${chalk.italic("'exit'")}.\n`);
 }
 
+if (config.getConfig().lastCrashed) {
+  InfoMessages.warning(
+    `${GLOBAL_NAME} crashed the last time it was run. For more information, find the error information file in the directory you ran ${GLOBAL_NAME} in.`
+  );
+
+  config.addData({ lastCrashed: false });
+}
+
 // Make sure long intro cannot display again on the system
 config.addData({ firstIntro: true });

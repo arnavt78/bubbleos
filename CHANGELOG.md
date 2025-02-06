@@ -9,12 +9,14 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added the ability to kill processes by specifying the process name instead of the PID in `taskkill` (PIDs are still supported).
 - The `sysinfo` command now displays the battery percentage and if the battery is on charge, if the device has a battery.
 - Added an option to crash the device with a Blue Screen of Death on Windows using the `crash` command. **This is a very dangerous option!**
+- Added safeguards against deleting the BubbleOS configuration file.
+- Added a check to see if BubbleOS crashed the last time it ran. If it did, a warning message will show on startup.
 - Added a startup check to make sure the terminal supports color. If not, BubbleOS will end prematurely.
 
 ### Changed/Fixed Features
 
 - Improved the selection algorithm of the `tips` command, so that it is impossible to fail finding a tip, and when there are no more tips to show, it will reset automatically.
-- The color for memory in `sysinfo` also has yellow text for if the memory usage is around the middle.
+- The color for memory in `sysinfo` now has yellow text for if the memory usage is around the middle.
 - The information in the `sysinfo` command now shows bolded instead of italicized.
 - Increased the timeout time in the `ping` command from 5 seconds to 15 seconds.
 - Fixed an issue where the `ping` command would crash BubbleOS if the status code returned was not 200, and also if the connection to the address was refused.

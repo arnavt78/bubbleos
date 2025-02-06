@@ -11,6 +11,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const ConfigManager = require("../classes/ConfigManager");
 
 /**
  * Delete a file/directory from BubbleOS. This is a CLI function.
@@ -61,6 +62,10 @@ const del = (path, ...args) => {
       return;
     } else if (pathChk.pathUNC()) {
       Errors.invalidUNCPath();
+      return;
+    } else if (new ConfigManager().isConfig(path)) {
+      // Prevents the user from deleting the configuration file
+      Errors.inUse("file", path);
       return;
     }
 

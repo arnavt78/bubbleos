@@ -15,6 +15,7 @@ const Checks = require("./Checks");
  * - `removeData(key)`
  * - `getConfig()`
  * - `addData(data)`
+ * - `isConfig(path)`
  */
 class ConfigManager {
   constructor() {
@@ -116,6 +117,10 @@ class ConfigManager {
     } catch {
       return false;
     }
+  }
+
+  isConfig(chkPath) {
+    return this.configPath === chkPath;
   }
 }
 

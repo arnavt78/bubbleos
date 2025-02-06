@@ -7,6 +7,7 @@ const { GLOBAL_NAME, SHORT_NAME } = require("../variables/constants");
 const _friendlyOS = require("./friendlyOS");
 
 const InfoMessages = require("../classes/InfoMessages");
+const ConfigManager = require("../classes/ConfigManager");
 
 /**
  * The name of the file to store the error message in.
@@ -94,11 +95,18 @@ const _fatalError = (err, doFileDump = true) => {
       InfoMessages.success(
         `Saved file ${chalk.bold(ERROR_INFO_FILENAME)} in ${chalk.bold(process.cwd())}.`
       );
-    } catch (saveErr) {
+    } catch {
       InfoMessages.error(
         `Could not save file ${chalk.bold(ERROR_INFO_FILENAME)} in ${chalk.bold(process.cwd())}.`
       );
     }
+  }
+
+  const config = new ConfigManager();
+  if (!config.addData({ lastCrashed: true })) {
+    InfoMessages.error(
+      `An error occurred while trying to save information to the configuration file.`
+    );
   }
 
   question(chalk.red("Press the Enter key to continue . . . "), { hideEchoBack: true, mask: "" });
