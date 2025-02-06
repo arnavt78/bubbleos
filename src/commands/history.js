@@ -110,8 +110,8 @@ const history = (numToDisplay, ...args) => {
         return;
       }
 
-      Verbose.custom("Removing 'history' key...");
-      config.removeData("history");
+      Verbose.custom("Resetting 'history' key...");
+      config.addData({ history: [] });
       console.log(chalk.green("Cleared the history.\n"));
       return;
     }

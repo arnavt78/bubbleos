@@ -19,7 +19,7 @@ const config = new ConfigManager();
 // Detection if configuration file is corrupt
 // TODO make this into a seperate function due to usage in 'history' command
 if (typeof config.getConfig() === "undefined") {
-  InfoMessages.error("Error when reading the configuration file. Resetting file...");
+  // InfoMessages.error("Error when reading the configuration file. Resetting file...");
 
   config.deleteConfig();
   config.createConfig();

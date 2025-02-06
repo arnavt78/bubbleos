@@ -88,7 +88,7 @@ const _fatalError = (err, doFileDump = true) => {
         date.getMonth() + 1
       }/${date.getDate()}/${date.getFullYear()}.\nGive the developer this information by going to https://github.com/arnavt78/bubbleos/issues/new (GitHub account required).\n\n${errorArr.join(
         "\n"
-      )}`;
+      )}\n`;
 
       fs.writeFileSync(ERROR_INFO_FILENAME, errorInfoTxt);
 

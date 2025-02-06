@@ -22,6 +22,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where the `ping` command would crash BubbleOS if the status code returned was not 200, and also if the connection to the address was refused.
 - Fixed an issue where the `ping` command would sometimes show _undefined_.
 - Fixed an issue where using the `dirtree` command would crash BubbleOS.
+- Fixed an issue where clearing the history would cause the next `history` command usage to give a corrupted configuration file error.
 - Fixed an issue where running BubbleOS with an incorrectly-cased path as the CWD would show that in BubbleOS.
 - Fixed an issue where the `bub` command would not show the command being executed if it was the `exit` command or the `bub` command running the same file.
 - Fixed an issue where changing the directory in a `.bub` file would keep its changes after it was done executing.
