@@ -9,6 +9,7 @@ const fs = require("fs");
  * @returns {string} The correctly cased path or the fallback value.
  */
 const _caseSensitivePath = (inputPath) => {
+  if (typeof inputPath !== "string") return;
   if (process.platform !== "win32") return path.resolve(inputPath);
 
   try {

@@ -2,6 +2,20 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 180 to 1?? (v1.8.0-beta to v1.?.?-beta)
+
+### Added Features
+
+_No added features._
+
+### Changed/Fixed Features
+
+- Fixed an issue where commands that required a path such as `del`, `cd`, and `readfile` would crash if it was not passed.
+
+### Removed Features
+
+_No removed features._
+
 ## Build 167 to 180 (v1.6.7-beta to v1.8.0-beta)
 
 ### Added Features
