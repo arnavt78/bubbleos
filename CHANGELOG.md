@@ -2,7 +2,7 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 167 to 1?? (v1.6.7-beta to v1.?.?-beta)
+## Build 167 to 180 (v1.6.7-beta to v1.8.0-beta)
 
 ### Added Features
 
