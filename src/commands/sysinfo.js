@@ -192,17 +192,21 @@ const sysinfo = async (...args) => {
         const onCharge = await isCharging();
         const batteryPercent = await batteryLevel();
 
-        // The Math.floor() is to prevent a floating-point precision
-        // error that can occur sometimes
-        console.log(
-          `Battery level: ${chalk.bold(
-            `${await _determineColor(
-              "battery",
-              Math.floor(batteryPercent * 100) + "%" + (onCharge ? " (charging)" : ""),
-              { onCharge, batteryPercent } // To minimize lag, pass the variables that were already defined
+        // Sometimes, there will be no error but the device has no battery
+        // Usually happens on Windows, so this is to prevent that
+        if (!isNaN(batteryPercent)) {
+          // The Math.floor() is to prevent a floating-point precision
+          // error that can occur sometimes
+          console.log(
+            `Battery level: ${chalk.bold(
+              `${await _determineColor(
+                "battery",
+                Math.floor(batteryPercent * 100) + "%" + (onCharge ? " (charging)" : ""),
+                { onCharge, batteryPercent } // To minimize lag, pass the variables that were already defined
+              )}`
             )}`
-          )}`
-        );
+          );
+        }
       } catch {}
 
       console.log();
