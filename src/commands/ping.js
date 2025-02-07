@@ -64,6 +64,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
             )}, is responding with status code 200 (OK)!\n`
           )
         );
+        resolve();
       } else {
         Verbose.custom("The server is not responding with status code 200.");
         console.log(
@@ -73,6 +74,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
             } (${HTTP_CODES_AND_MESSAGES[res.statusCode] ?? "N/A"}).\n`
           )
         );
+        resolve();
       }
     });
 
@@ -81,6 +83,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
     req.on("timeout", () => {
       Verbose.custom("The server timed out.");
       console.log(chalk.red(`The server, ${chalk.bold.italic(formattedURL)}, has timed out.\n`));
+      resolve();
     });
 
     req.end();
