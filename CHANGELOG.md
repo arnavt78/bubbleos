@@ -6,7 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-_No added features._
+- Added the `stat` command, which displays information of a file or directory, including the location, size, created, modified, and accessed dates.
 
 ### Changed/Fixed Features
 
@@ -15,7 +15,7 @@ _No added features._
 
 ### Removed Features
 
-_No removed features._
+- Removed the `size` command, in favor of the `stat` command.
 
 ## Build 167 to 180 (v1.6.7-beta to v1.8.0-beta)
 

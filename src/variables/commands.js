@@ -29,7 +29,7 @@ const ping = require("../commands/ping");
 const print = require("../commands/print");
 const readfile = require("../commands/readfile");
 const rename = require("../commands/rename");
-const size = require("../commands/size");
+const stat = require("../commands/stat");
 const symlink = require("../commands/symlink");
 const sysinfo = require("../commands/sysinfo");
 const taskkill = require("../commands/taskkill");
@@ -102,7 +102,7 @@ const COMMANDS = {
   echo: print,
   readfile,
   rename,
-  size,
+  stat,
   symlink,
   sysinfo,
   taskkill,
@@ -144,7 +144,7 @@ const ALIASES = {
   print: [],
   readfile: ["cat", "more", "type", "rdfile", "read", "tail"],
   rename: ["mv", "ren"],
-  size: ["df"],
+  stat: ["df", "fileinfo", "dirinfo", "pathinfo"],
   symlink: ["symblnk", "ln", "link"],
   sysinfo: ["uname", "systeminfo", "userinfo", "whoami"],
   taskkill: ["kill"],

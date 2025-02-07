@@ -226,12 +226,12 @@ const HELP = {
         "If this flag is passed, no success output will be shown, but error messages will still be shown.",
     },
   },
-  size: {
-    usage: "size <path>",
-    desc: "Show the size of a file or directory in either bytes, kilobytes, megabytes, or gigabytes (the measurement is automatically chosen).",
+  stat: {
+    usage: "stat <path>",
+    desc: "Show the location, size, created, modified, and accessed dates of a file or directory.",
     args: {
       "<path>":
-        "The file or directory to measure the size of. Both absolute and relative paths are accepted.",
+        "The file or directory to get the information of. Both absolute and relative paths are accepted.",
     },
   },
   symlink: {
