@@ -7,6 +7,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Added Features
 
 - Added the `stat` command, which displays information of a file or directory, including the location, size, created, modified, and accessed dates.
+- Added better error handling to the `ping` command, so that it is much less likely to encounter a fatal error.
 
 ### Changed/Fixed Features
 

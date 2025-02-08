@@ -104,7 +104,7 @@ const ping = async (host, ...args) => {
     const path = split.length !== 0 ? "/" + split.join("/") : "";
 
     Verbose.custom("Making connection...");
-    const result = await _makeConnection(hostname[0], path);
+    await _makeConnection(hostname[0], path);
   } catch (err) {
     if (err.code === "ENOTFOUND") {
       Verbose.custom("An error occurred while trying to ping the address.");
@@ -113,6 +113,26 @@ const ping = async (host, ...args) => {
     } else if (err.code === "ECONNREFUSED") {
       Verbose.custom("The connection to the address was refused.");
       InfoMessages.error("The connection to the address was refused.");
+      return;
+    } else if (err.code === "EHOSTUNREACH" || err.code === "ENETUNREACH") {
+      Verbose.custom("The address is unreachable.");
+      InfoMessages.error("The address is unreachable.");
+      return;
+    } else if (err.code === "EADDRINUSE") {
+      Verbose.custom("The address is in use.");
+      InfoMessages.error("The address is in use.");
+      return;
+    } else if (err.code === "EADDRNOTAVAIL") {
+      Verbose.custom("The address is not available.");
+      InfoMessages.error("The address is not available.");
+      return;
+    } else if (err.code === "ECONNRESET") {
+      Verbose.custom("The connection was forcibly closed by the remote host.");
+      InfoMessages.error("The connection was forcibly closed by the remote host.");
+      return;
+    } else if (err.code === "EPIPE") {
+      Verbose.custom("The connection was closed unexpectedly.");
+      InfoMessages.error("The connection was closed unexpectedly.");
       return;
     } else {
       Verbose.fatalError();
