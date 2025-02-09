@@ -160,8 +160,14 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
       console.log(_logDirContents(all, options));
     }
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    if (err.code === "EPERM") {
+      Verbose.permError();
+      Errors.noPermissions("read", dir);
+      return;
+    } else {
+      Verbose.fatalError();
+      _fatalError(err);
+    }
   }
 };
 
