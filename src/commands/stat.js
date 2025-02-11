@@ -114,11 +114,9 @@ const stat = (path, ...args) => {
     if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("get additional information of the file/directory", path);
-      return;
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file/directory", path);
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

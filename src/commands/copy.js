@@ -142,21 +142,17 @@ const copy = (src, dest, ...args) => {
     if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("copy", src);
-      return;
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file/directory", `${src} and/or ${dest}`);
-      return;
     } else if (err.code === "EISDIR") {
       // If the user attempted to copy a file to a directory
       Verbose.chkType(dest, "file");
       Errors.expectedFile(dest);
-      return;
     } else if (err.code === "ENOTDIR") {
       // If the user attempted to copy a directory to a file
       Verbose.chkType(dest, "directory");
       Errors.expectedDir(dest);
-      return;
     } else if (err.code === "ERR_FS_CP_DIR_TO_NON_DIR") {
       // If the user attempted to copy a directory to a non-directory
 
@@ -172,7 +168,6 @@ const copy = (src, dest, ...args) => {
       );
 
       Errors.dirToNonDir();
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

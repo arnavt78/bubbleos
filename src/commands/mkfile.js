@@ -146,18 +146,15 @@ const mkfile = (file, ...args) => {
       // If the parent directory does not exist
       Verbose.chkExists(file);
       Errors.doesNotExist("file", file);
-      return;
     } else if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("make the file", file);
-      return;
     } else if (err.code === "ENAMETOOLONG") {
       // Name too long
       // This code only seems to appear on Linux and macOS
       // On Windows, the code is 'EINVAL'
       Verbose.custom("The file name was detected to be too long.");
       Errors.pathTooLong(file);
-      return;
     } else if (err.code === "EINVAL") {
       // Invalid characters; basically just goes for Windows
       // NTFS' file system character limitations
@@ -171,7 +168,6 @@ const mkfile = (file, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         dir
       );
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

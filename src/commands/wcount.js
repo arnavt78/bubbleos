@@ -98,11 +98,9 @@ const wcount = (file, ...args) => {
     if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("read the file", file);
-      return;
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file", file);
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

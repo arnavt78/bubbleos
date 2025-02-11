@@ -7,7 +7,6 @@ const _fatalError = require("../functions/fatalError");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 
-// I don't know what the hell a map is, but it works, so DON'T TOUCH
 const userFriendlyMap = new Map([
   ["address", "IP Address"],
   ["netmask", "Net Mask"],
@@ -48,16 +47,20 @@ const _makeValueFriendly = (value) => (typeof value === "boolean" ? (value ? "Ye
 const ifnet = (...args) => {
   try {
     // Get the network interfaces once
+    Verbose.custom("Getting and sorting network interfaces...");
     const interfaces = sortKeys(networkInterfaces(), { deep: true });
     const keys = Object.keys(interfaces);
 
     if (!keys.length) {
+      Verbose.custom(`No network interfaces found: ${keys.length}`);
       InfoMessages.error("No active network interfaces found.");
       return;
     }
 
     // Display each network interface and its properties
+    Verbose.custom("Displaying network interfaces and properties...");
     for (const [name, details] of Object.entries(interfaces)) {
+      Verbose.custom(`Displaying network interface ${name} and properties...`);
       console.log(chalk.red.underline.bold(name));
       details.forEach((detail) => {
         for (const [key, value] of Object.entries(detail)) {
@@ -67,9 +70,9 @@ const ifnet = (...args) => {
       });
     }
   } catch (err) {
+    Verbose.fatalError();
     _fatalError(err);
   }
 };
 
-// Export the function
 module.exports = ifnet;

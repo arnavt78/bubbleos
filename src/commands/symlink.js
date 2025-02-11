@@ -107,7 +107,6 @@ const symlink = (path, newPath, ...args) => {
       Verbose.permError();
       InfoMessages.info(`Try running ${GLOBAL_NAME} with elevated privileges.`);
       Errors.noPermissions("make the symbolic link", newPath);
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

@@ -91,7 +91,6 @@ const link = (path, newPath, ...args) => {
     if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("make the link", newPath);
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

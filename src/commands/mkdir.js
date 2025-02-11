@@ -109,18 +109,15 @@ const mkdir = (dir, ...args) => {
       // throw an error if a parent directory does not exist
       Verbose.chkExists(dir);
       Errors.doesNotExist("directory", dir);
-      return;
     } else if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("create the directory", dir);
-      return;
     } else if (err.code === "ENAMETOOLONG") {
       // The name is too long
       // This code only seems to appear on Linux and macOS
       // On Windows, the code is 'EINVAL'
       Verbose.custom("The directory name was detected to be too long.");
       Errors.pathTooLong(dir);
-      return;
     } else if (err.code === "EINVAL") {
       // Invalid characters; basically just goes for Windows
       // NTFS' file system character limitations
@@ -136,7 +133,6 @@ const mkdir = (dir, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         dir
       );
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

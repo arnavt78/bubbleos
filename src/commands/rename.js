@@ -95,18 +95,15 @@ const rename = (oldName, newName, ...args) => {
     if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("rename the file/directory", `${oldName}/${newName}`);
-      return;
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file/directory", `${oldName}/${newName}`);
-      return;
     } else if (err.code === "ENAMETOOLONG") {
       // The name is too long
       // This code only seems to appear on Linux and macOS
       // On Windows, the code is 'EINVAL'
       Verbose.custom("The file name was detected to be too long.");
       Errors.pathTooLong(newName);
-      return;
     } else if (err.code === "EINVAL") {
       // Invalid characters; basically just goes for Windows
       // NTFS' file system character limitations
@@ -120,7 +117,6 @@ const rename = (oldName, newName, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         newName
       );
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

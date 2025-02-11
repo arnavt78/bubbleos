@@ -84,11 +84,9 @@ const exec = (file, ...args) => {
     } else if (err.code === "EPERM") {
       Verbose.permError();
       Errors.noPermissions("run the file", file);
-      return;
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file", file);
-      return;
     } else {
       Verbose.fatalError();
       _fatalError(err);

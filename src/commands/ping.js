@@ -4,6 +4,7 @@ const https = require("https");
 const HTTP_CODES_AND_MESSAGES = require("../data/httpCodes.json");
 
 const _fatalError = require("../functions/fatalError");
+const { GLOBAL_NAME } = require("../variables/constants");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -109,31 +110,29 @@ const ping = async (host, ...args) => {
     if (err.code === "ENOTFOUND") {
       Verbose.custom("An error occurred while trying to ping the address.");
       InfoMessages.error("The address could not be located.");
-      return;
     } else if (err.code === "ECONNREFUSED") {
       Verbose.custom("The connection to the address was refused.");
       InfoMessages.error("The connection to the address was refused.");
-      return;
     } else if (err.code === "EHOSTUNREACH" || err.code === "ENETUNREACH") {
       Verbose.custom("The address is unreachable.");
       InfoMessages.error("The address is unreachable.");
-      return;
     } else if (err.code === "EADDRINUSE") {
       Verbose.custom("The address is in use.");
       InfoMessages.error("The address is in use.");
-      return;
     } else if (err.code === "EADDRNOTAVAIL") {
       Verbose.custom("The address is not available.");
       InfoMessages.error("The address is not available.");
-      return;
     } else if (err.code === "ECONNRESET") {
       Verbose.custom("The connection was forcibly closed by the remote host.");
       InfoMessages.error("The connection was forcibly closed by the remote host.");
-      return;
     } else if (err.code === "EPIPE") {
       Verbose.custom("The connection was closed unexpectedly.");
       InfoMessages.error("The connection was closed unexpectedly.");
-      return;
+    } else if (err.code === "SELF_SIGNED_CERT_IN_CHAIN") {
+      Verbose.custom("Self-signed certificate in chain.");
+      InfoMessages.error(
+        `Self-signed certificate in chain. ${GLOBAL_NAME} does not support pinging servers with self-signed certificates to prevent security issues such as the man-in-the-middle attack.`
+      );
     } else {
       Verbose.fatalError();
       _fatalError(err);
