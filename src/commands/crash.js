@@ -148,8 +148,15 @@ const crash = async (...args) => {
     }
   } catch (err) {
     // If an unknown exception occurred, or the user selected to purposely crash BubbleOS with a fatal error
-    Verbose.fatalError();
-    _fatalError(err);
+    if (err.message.toLowerCase.includes("exit code 1")) {
+      // If the BSOD failed to run. This is usually due to Windows
+      // 'taskkill' not existing/being blocked by the system.
+      Verbose.custom("Failed to crash Windows with a BSOD...");
+      InfoMessages.error(`${GLOBAL_NAME} failed to crash Windows with a BSOD.`);
+    } else {
+      Verbose.fatalError();
+      _fatalError(err);
+    }
   }
 };
 

@@ -16,6 +16,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where the `ls` command would crash BubbleOS if it did not have permissions to read the directory.
 - Fixed an issue where the battery percentage would sometimes show as `NaN%` if the device does not have a battery (mainly affected Windows devices).
 - Fixed an issue where the `cd` and `ls` would rarely crash BubbleOS if the directory did not exist.
+- Fixed an issue where the `crash` command would crash BubbleOS with a fatal error when crashing Windows with a BSOD, if the Windows `taskkill` command didn't exist or was blocked by the system.
 - Fixed an issue where the `ifnet` command did not have any verbose messages.
 
 ### Removed Features
