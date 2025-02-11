@@ -81,7 +81,7 @@ const exec = (file, ...args) => {
       // TODO make it so that if a file has no way of running, make it show this error
       Verbose.custom("Cannot execute file due to no known way of launching.");
       Errors.unknown("execute the file", file);
-    } else if (err.code === "EPERM") {
+    } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("run the file", file);
     } else if (err.code === "EBUSY") {

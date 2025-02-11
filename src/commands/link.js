@@ -88,7 +88,7 @@ const link = (path, newPath, ...args) => {
       InfoMessages.success(`Successfully linked ${chalk.bold(newPath)} to ${chalk.bold(path)}.`);
     else console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("make the link", newPath);
     } else {

@@ -111,7 +111,7 @@ const stat = (path, ...args) => {
 
     console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("get additional information of the file/directory", path);
     } else if (err.code === "EBUSY") {

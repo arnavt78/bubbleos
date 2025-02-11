@@ -72,7 +72,7 @@ const mkdir = (dir, ...args) => {
           fs.rmSync(dir, { recursive: true, force: true });
           InfoMessages.success(`Successfully deleted ${chalk.bold(dir)}.`);
         } catch {
-          if (err.code === "EPERM") {
+          if (err.code === "EPERM" || err.code === "EACCES") {
             Verbose.permError();
             Errors.noPermissions("delete the directory", dir);
           } else if (err.code === "EBUSY") {
@@ -109,7 +109,7 @@ const mkdir = (dir, ...args) => {
       // throw an error if a parent directory does not exist
       Verbose.chkExists(dir);
       Errors.doesNotExist("directory", dir);
-    } else if (err.code === "EPERM") {
+    } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("create the directory", dir);
     } else if (err.code === "ENAMETOOLONG") {

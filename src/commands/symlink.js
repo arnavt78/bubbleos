@@ -100,7 +100,7 @@ const symlink = (path, newPath, ...args) => {
       );
     else console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       // If there are no permissions to make the symbolic link
       // Note that on Windows (and maybe Linux/macOS), you need
       // to run it with elevated privileges to make the command work.

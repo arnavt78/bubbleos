@@ -159,7 +159,7 @@ const bub = async (intCmds, file, ...args) => {
     Verbose.custom("Changing current working directory to path before file was executed...");
     process.chdir(_caseSensitivePath(beforeCwd));
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("read the file", file);
     } else if (err.code === "EBUSY") {

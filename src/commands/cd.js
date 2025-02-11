@@ -90,7 +90,7 @@ const cd = (dir, ...args) => {
       return;
     }
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("change into", dir);
     } else if (err.code === "ENOENT") {

@@ -95,7 +95,7 @@ const wcount = (file, ...args) => {
 
     console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("read the file", file);
     } else if (err.code === "EBUSY") {

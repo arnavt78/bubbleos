@@ -12,6 +12,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Changed/Fixed Features
 
 - Fixed an issue where commands that required a path such as `del`, `cd`, and `readfile` would crash if it was not passed on some systems.
+- Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
 - Fixed an issue where the `ping` command would hang BubbleOS if the status code was 200 or the server timed out. BubbleOS would also terminate if the status code was not 200.
 - Fixed an issue where the `ls` command would crash BubbleOS if it did not have permissions to read the directory.
 - Fixed an issue where the battery percentage would sometimes show as `NaN%` if the device does not have a battery (mainly affected Windows devices).

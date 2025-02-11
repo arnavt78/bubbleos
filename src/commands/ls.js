@@ -160,7 +160,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
       console.log(_logDirContents(all, options));
     }
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("read", dir);
     } else if (err.code === "ENOENT") {

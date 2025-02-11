@@ -119,7 +119,7 @@ const readfile = (file, ...args) => {
     console.log(fs.readFileSync(file, { encoding: "utf-8", flag: "r" }));
     console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("read the file", file);
     } else if (err.code === "EBUSY") {

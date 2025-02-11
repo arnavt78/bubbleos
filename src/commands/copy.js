@@ -139,7 +139,7 @@ const copy = (src, dest, ...args) => {
       InfoMessages.success(`Successfully copied to ${chalk.bold(src)} to ${chalk.bold(dest)}.`);
     else console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("copy", src);
     } else if (err.code === "EBUSY") {

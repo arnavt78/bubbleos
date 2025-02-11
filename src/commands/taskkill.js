@@ -108,7 +108,7 @@ const taskkill = async (processName, ...args) => {
           } catch (err) {
             // In case there are some processes that have perm errors,
             // one error won't cause the command to terminate
-            if (err.code === "EPERM") {
+            if (err.code === "EPERM" || err.code === "EACCES") {
               Verbose.permError();
               Errors.noPermissions("kill the process", processName);
             }
@@ -117,7 +117,7 @@ const taskkill = async (processName, ...args) => {
       });
     }
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("kill the process", processName);
     } else if (err.code === "ESRCH") {

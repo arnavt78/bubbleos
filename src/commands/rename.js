@@ -92,7 +92,7 @@ const rename = (oldName, newName, ...args) => {
       );
     else console.log();
   } catch (err) {
-    if (err.code === "EPERM") {
+    if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("rename the file/directory", `${oldName}/${newName}`);
     } else if (err.code === "EBUSY") {

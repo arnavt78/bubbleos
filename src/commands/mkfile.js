@@ -68,7 +68,7 @@ const mkfile = (file, ...args) => {
           fs.rmSync(file, { recursive: true, force: true });
           InfoMessages.success(`Successfully deleted ${chalk.bold(file)}.`);
         } catch {
-          if (err.code === "EPERM") {
+          if (err.code === "EPERM" || err.code === "EACCES") {
             Verbose.permError();
             Errors.noPermissions("delete the file", file);
           } else if (err.code === "EBUSY") {
@@ -146,7 +146,7 @@ const mkfile = (file, ...args) => {
       // If the parent directory does not exist
       Verbose.chkExists(file);
       Errors.doesNotExist("file", file);
-    } else if (err.code === "EPERM") {
+    } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("make the file", file);
     } else if (err.code === "ENAMETOOLONG") {
