@@ -100,12 +100,14 @@ const ping = async (host, ...args) => {
     }
 
     Verbose.custom("Initializing URL parser...");
-    const split = host.split("/");
-    const hostname = split.splice(0, 1);
-    const path = split.length !== 0 ? "/" + split.join("/") : "";
+    const url = new URL(
+      (!host.startsWith("http://") && !host.startsWith("https://") ? "https://" : "") + host
+    );
+    const hostname = url.hostname;
+    const path = url.pathname;
 
     Verbose.custom("Making connection...");
-    await _makeConnection(hostname[0], path);
+    await _makeConnection(hostname, path);
   } catch (err) {
     if (err.code === "ENOTFOUND") {
       Verbose.custom("An error occurred while trying to ping the address.");
