@@ -33,7 +33,7 @@ const _intCmds = async (command, storeInHistory = true) => {
     Verbose.custom("Checking if command entered is empty...");
     const isEmpty = command.length === 0;
     Verbose.custom("Checking entered command...");
-    const enteredCmd = command.split(" ")[0];
+    const enteredCmd = command.split(" ")[0].toLowerCase();
 
     // The command is currently unrecognized
     let recognized = false;

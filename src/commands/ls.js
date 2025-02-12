@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const _parseDoubleQuotes = require("../functions/parseQuotes");
 const _fatalError = require("../functions/fatalError");
+const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -103,7 +104,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
     if (dir === "-s") dir = process.cwd();
 
     Verbose.parseQuotes();
-    dir = _parseDoubleQuotes([dir, ...args])[0];
+    dir = _caseSensitivePath(_parseDoubleQuotes([dir, ...args])[0]);
 
     Verbose.initChecker();
     const dirChk = new Checks(dir);

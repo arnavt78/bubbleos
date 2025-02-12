@@ -10,6 +10,7 @@ const cd = require("../commands/cd");
 const cls = require("../commands/cls");
 const copy = require("../commands/copy");
 const crash = require("../commands/crash");
+const cwd = require("../commands/cwd");
 const date = require("../commands/date");
 const del = require("../commands/del");
 const dirtree = require("../commands/dirtree");
@@ -74,9 +75,9 @@ const COMMANDS = {
   clear: cls,
   copy,
   crash,
-  cwd: () => {
-    console.log(process.cwd() + "\n");
-  },
+  // Aliases: cwd, pwd
+  cwd,
+  pwd: cwd,
   date,
   del,
   // Aliases: dirtree, tree
