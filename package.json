@@ -16,11 +16,6 @@
     "bubble": "./index.js"
   },
   "homepage": "https://github.com/arnavt78/bubbleos#readme",
-  "pkg": {
-    "assets": [
-      "node_modules/@inquirer/**/*"
-    ]
-  },
   "dependencies": {
     "@inquirer/prompts": "^7.3.1",
     "battery-level": "^3.0.0",

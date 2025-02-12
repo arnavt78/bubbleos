@@ -133,7 +133,12 @@ const ping = async (host, ...args) => {
     } else if (err.code === "SELF_SIGNED_CERT_IN_CHAIN") {
       Verbose.custom("Self-signed certificate in chain.");
       InfoMessages.error(
-        `Self-signed certificate in chain. ${GLOBAL_NAME} does not support pinging servers with self-signed certificates to prevent security issues such as the man-in-the-middle attack.`
+        `Self-signed certificate in chain. ${GLOBAL_NAME} does not support pinging servers with self-signed certificates for security reasons, such as the man-in-the-middle attack.`
+      );
+    } else if (err.code === "DEPTH_ZERO_SELF_SIGNED_CERT") {
+      Verbose.custom("Self-signed certificate.");
+      InfoMessages.error(
+        `Self-signed certificate. ${GLOBAL_NAME} does not support pinging servers with self-signed certificates for security reasons, such as the man-in-the-middle attack.`
       );
     } else {
       Verbose.fatalError();
