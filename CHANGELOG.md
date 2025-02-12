@@ -9,6 +9,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
 - Added the `pwd` command as an alias to `cwd`.
+- Internally moved all help messages to a JSON file.
 
 ### Changed/Fixed Features
 
@@ -18,6 +19,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where the `ping` command would hang BubbleOS if the status code was 200 or the server timed out. BubbleOS would also terminate if the status code was not 200.
 - Fixed an issue where the `ping` command would fail to locate the address if it began with _https://_ or _http://_.
 - Fixed an issue where the `ls` command would crash BubbleOS if it did not have permission to read the directory.
+- Fixed an issue where "hard aliases" would show as not recognized in the `help` command, despite them working in the BubbleOS CLI.
 - Fixed an issue where the battery percentage would sometimes show as `NaN%` if the device does not have a battery (mainly affected Windows devices).
 - Fixed an issue where the `cd` and `ls` commands would rarely crash BubbleOS if the directory did not exist.
 - Fixed an issue where the `crash` command would crash BubbleOS with a fatal error when crashing Windows with a BSOD if the Windows `taskkill` command didn't exist or was blocked by the system.
@@ -28,6 +30,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Removed Features
 
 - Removed the `size` command, in favor of the `stat` command.
+- Internally removed the `helpMessages.js` file, in favor of the `helpMsgs.json` file.
 
 ## Build 167 to 180 (v1.6.7-beta to v1.8.0-beta)
 

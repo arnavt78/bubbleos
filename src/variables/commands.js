@@ -145,7 +145,7 @@ const ALIASES = {
   print: [],
   readfile: ["cat", "more", "type", "rdfile", "read", "tail"],
   rename: ["mv", "ren"],
-  stat: ["df", "fileinfo", "dirinfo", "pathinfo"],
+  stat: ["df", "fileinfo", "dirinfo", "pathinfo", "size"],
   symlink: ["symblnk", "ln", "link"],
   sysinfo: ["uname", "systeminfo", "userinfo", "whoami"],
   taskkill: ["kill"],

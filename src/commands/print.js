@@ -19,7 +19,7 @@ const print = (...text) => {
 
     // Print the text, and end it with a newline
     Verbose.custom("Printing text...");
-    console.log(`${text.join(" ")}\n`);
+    console.log(text.join(" ") + "\n");
   } catch (err) {
     Verbose.fatalError();
     _fatalError(err);

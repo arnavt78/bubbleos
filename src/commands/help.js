@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const sortKeys = require("sort-keys");
 
-const HELP_MESSAGES = require("../variables/helpMessages");
+const HELP_MESSAGES = require("../data/helpMsgs.json");
 
 const _fatalError = require("../functions/fatalError");
 
