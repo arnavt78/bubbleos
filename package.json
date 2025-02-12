@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/arnavt78/bubbleos#readme",
   "dependencies": {
+    "@inquirer/prompts": "^7.3.1",
     "battery-level": "^3.0.0",
     "chalk": "^4.1.2",
     "execa": "^5.1.1",

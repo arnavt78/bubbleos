@@ -7,11 +7,11 @@ const Verbose = require("../classes/Verbose");
 /**
  * Exit the BubbleOS shell with an exit code of
  * `0` (success). This is a CLI tool for use with
- * the BubbleOS shell only. It is recommended to
- * use the command over `^C`, as `^C` force-closes
- * BubbleOS, making the system unstable, as well as
- * exiting the process with an exit code of `1`
- * (failed) instead of the success code.
+ * the BubbleOS shell only.
+ *
+ * This command is also used when the user presses
+ * Ctrl+C to exit the shell (but only when on the
+ * prompt).
  *
  * The exit command should not be used for generic
  * exiting. To exit because an unknown error occurred,

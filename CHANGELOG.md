@@ -7,6 +7,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Added Features
 
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
+- Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
 - Added the `pwd` command as an alias to `cwd`.
 - Internally moved all help messages to a JSON file.
