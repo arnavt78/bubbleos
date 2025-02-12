@@ -16,8 +16,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Changed/Fixed Features
 
 - The `fif` command will no longer accept blank responses.
-- Fixed an old issue where commands had to be recognized in all lowercase.
-- Fixed an issue where commands that required a path such as `del`, `cd`, and `readfile` would crash if it was not passed on some systems.
+- Fixed an old issue where commands had to be in all lowercase to be recognized.
+- Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
 - Fixed an issue where the `ping` command would hang BubbleOS if the status code was 200 or the server timed out. BubbleOS would also terminate if the status code was not 200.
 - Fixed an issue where the `ping` command would fail to locate the address if it began with _https://_ or _http://_.
@@ -28,12 +28,13 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where the `crash` command would crash BubbleOS with a fatal error when crashing Windows with a BSOD if the Windows `taskkill` command didn't exist or was blocked by the system.
 - Fixed an inconsistency in the `ls` command where the error message would not show the full directory path.
 - Fixed an issue where the `ifnet` command had no verbose messages.
-- Internally moved the `cwd` command to its separate file, and fixed an issue where the `cwd` command had no verbose messages.
+- Internally moved the `cwd` command to a separate file and fixed an issue where it had no verbose messages.
 
 ### Removed Features
 
 - Removed the `size` command, in favor of the `stat` command.
-- Removed the leniency of yes/no prompts, so that only _y_ or _yes_ are accepted.
+- Removed the ability to use the up-arrow key to cycle through previous commands, however, this functionality was broken on Linux and macOS (and in some cases, in Windows). This may be reintroduced in a future version.
+- Removed the leniency of yes/no prompts, so that only _y_ or _yes_ are accepted. This may be reintroduced in a future version.
 - Removed an Easter egg :(
 - Internally removed the `helpMessages.js` file, in favor of the `helpMsgs.json` file.
 
