@@ -53,7 +53,3 @@ if (!_detectArgs("verbose"))
   InfoMessages.info(
     `It is highly recommended to run ${GLOBAL_NAME} with the --verbose flag to find bugs relating to it. Report bugs found with the verbose feature at https://github.com/arnavt78/bubbleos/issues/new.`
   );
-
-InfoMessages.info(
-  `Major prompt overhaul, but it also removes functionality for using up-arrow key on Windows for previous commands. Functionality was broken on macOS and Linux though, so this might be kept (you can still do copy-pasting).`
-);

@@ -1,5 +1,5 @@
 const chalk = require("chalk");
-const { keyInSelect } = require("readline-sync");
+const { select } = require("@inquirer/prompts");
 const isElevated = require("is-elevated");
 const execa = require("execa");
 
@@ -8,17 +8,35 @@ const { GLOBAL_NAME } = require("../variables/constants");
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
 
+const exit = require("./exit");
+
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 
 /**
  * A list of all the crashes that are possible.
  */
-const AVAILABLE_CRASHES = [
-  `Fatal Error (${GLOBAL_NAME})`,
-  "Hang",
-  "Memory Leak",
-  "Blue Screen of Death (Windows)",
+const CRASHES = [
+  {
+    name: "Fatal Error (BubbleOS)",
+    value: 1,
+    description: "Crash BubbleOS with a fatal error.",
+  },
+  {
+    name: "Hang",
+    value: 2,
+    description: "Hang the terminal.",
+  },
+  {
+    name: "Memory Leak",
+    value: 3,
+    description: "Leak memory from the computer.",
+  },
+  {
+    name: "Blue Screen of Death (Windows)",
+    value: 4,
+    description: "Crash a Windows device with a BSOD.",
+  },
 ];
 
 /**
@@ -48,14 +66,17 @@ const crash = async (...args) => {
       "Using this command can cause issues such as loss of data, high CPU/RAM usage, and more. Save all data before continuing."
     );
 
-    const index = keyInSelect(AVAILABLE_CRASHES, "Please select your crashing method");
+    const index = await select({
+      message: "Select a crashing method:",
+      choices: CRASHES,
+    });
 
     if (index === -1 || index === NaN) {
       // If the user 'cancelled' on the prompt
       Verbose.custom(`Index is either -1 or NaN (${index}), exiting...`);
       console.log(chalk.yellow("Process aborted.\n"));
       return;
-    } else if (index > AVAILABLE_CRASHES.length - 1 || index < 0) {
+    } else if (index > CRASHES.length || index <= 0) {
       // If the index is greater than the length of the crash array, or is less than 0
       // This should never happen :)
       Verbose.custom("Index is unknown, exiting...");
@@ -67,7 +88,7 @@ const crash = async (...args) => {
     if (
       !_promptForYN(
         `You have chosen ${chalk.italic(
-          `'${AVAILABLE_CRASHES[index]}'`
+          `'${CRASHES[index - 1].name}'`
         )}. Are you sure you want to do this?`
       )
     ) {
@@ -78,18 +99,18 @@ const crash = async (...args) => {
 
     console.log();
 
-    if (index === 0) {
+    if (index === 1) {
       // Fatal error
       Verbose.custom("Crashing method: fatal error.");
       throw new Error(`${GLOBAL_NAME} was purposefully crashed with the 'crash' command.`);
-    } else if (index === 1) {
+    } else if (index === 2) {
       // Crash BubbleOS by continuously writing 'clear screen' to the terminal.
       // This can make the terminal hang, and sometimes make it impossible to press ^C.
       Verbose.custom("Crashing method: hang.");
       while (true) {
         process.stdout.write("\x1bc");
       }
-    } else if (index === 2) {
+    } else if (index === 3) {
       // Node.js will crash once the heap has run out of memory
       Verbose.custom("Crashing method: memory leak.");
       InfoMessages.info(
@@ -102,7 +123,7 @@ const crash = async (...args) => {
       for (let i = 0; i < Number.MAX_VALUE; i++) {
         crashArr.push(new Array(100000000));
       }
-    } else if (index === 3) {
+    } else if (index === 4) {
       Verbose.custom("Crashing method: BSOD.");
 
       if (process.platform !== "win32") {
@@ -147,13 +168,18 @@ const crash = async (...args) => {
       );
     }
   } catch (err) {
-    // If an unknown exception occurred, or the user selected to purposely crash BubbleOS with a fatal error
-    if (err.message.toLowerCase.includes("exit code 1")) {
+    if (err.name === "ExitPromptError") {
+      // If the user presses Ctrl+C, exit BubbleOS gracefully
+      Verbose.custom("Detected Ctrl+C, exiting...");
+      exit();
+    } else if (err.message.toLowerCase.includes("exit code 1")) {
       // If the BSOD failed to run. This is usually due to Windows
       // 'taskkill' not existing/being blocked by the system.
       Verbose.custom("Failed to crash Windows with a BSOD...");
       InfoMessages.error(`${GLOBAL_NAME} failed to crash Windows with a BSOD.`);
     } else {
+      // If an unknown exception occurred, or the user selected
+      // to purposely crash BubbleOS with a fatal error
       Verbose.fatalError();
       _fatalError(err);
     }

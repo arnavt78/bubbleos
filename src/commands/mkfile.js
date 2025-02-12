@@ -1,7 +1,7 @@
 const fs = require("fs");
 const chalk = require("chalk");
 const path = require("path");
-const { question, questionInt } = require("readline-sync");
+const { input } = require("@inquirer/prompts");
 
 const _parseDoubleQuotes = require("../functions/parseQuotes");
 const _convertAbsolute = require("../functions/convAbs");
@@ -13,6 +13,97 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+
+const _fileContents = async (file, silent) => {
+  try {
+    console.log(
+      `Add the content of the new file. Type ${chalk.italic(
+        "'!SAVE'"
+      )} to save changes, ${chalk.italic("'!CANCEL'")} to discard, or ${chalk.italic(
+        "'!EDIT'"
+      )} to modify previous input:\n`
+    );
+
+    // Collect new content line by line
+    let contents = [];
+    while (true) {
+      Verbose.custom("Asking for line input...");
+      const line = await input({
+        message: "",
+        theme: {
+          prefix: chalk.bold(">"),
+          style: {
+            answer: (text) => chalk.reset(text),
+          },
+        },
+      });
+
+      if (line.toUpperCase() === "!SAVE") {
+        // Save the new content to the file, ensuring no trailing newline
+        Verbose.custom("Saving file with provided file contents...");
+        fs.writeFileSync(file, contents.join("\n"), "utf8");
+
+        // If the user requested output, show a success message, else, show a newline
+        if (!silent) InfoMessages.success(`Successfully made the file ${chalk.bold(file)}.`);
+        else console.log();
+        return;
+      } else if (line.toUpperCase() === "!CANCEL") {
+        Verbose.custom("Discarding changes and removing file...");
+        console.log(chalk.yellow("Edits discarded and process aborted."));
+        return;
+      } else if (line.toUpperCase() === "!EDIT") {
+        if (contents.length === 0) {
+          console.log(chalk.yellow("No previous input to edit.\n"));
+        } else {
+          Verbose.custom("Asking for the line to edit...");
+          const lineNumber = await input({
+            message: chalk.blue("Choose a line number to edit (1-" + contents.length + "): "),
+            validate: (value) => {
+              const num = parseInt(value, 10);
+              return num >= 1 && num <= contents.length;
+            },
+            theme: {
+              style: {
+                answer: (text) => chalk.reset(text),
+              },
+            },
+          });
+
+          if (lineNumber) {
+            Verbose.custom("Requesting for new line content...");
+            const newLine = await input({
+              message: `Edit line ${lineNumber}: `,
+              default: contents[lineNumber - 1],
+              theme: {
+                style: {
+                  answer: (text) => chalk.reset(text),
+                },
+              },
+            });
+
+            Verbose.custom("Updating content...");
+            contents[lineNumber - 1] = newLine; // Replace the selected line
+            console.log(chalk.green(`Line ${lineNumber} has been updated.\n`));
+          } else {
+            console.log(chalk.red("Invalid line number.\n"));
+          }
+        }
+      } else {
+        Verbose.custom("Adding line to memory...");
+        contents.push(line);
+      }
+    }
+  } catch (err) {
+    if (err.name === "ExitPromptError") {
+      // If the user presses Ctrl+C, exit BubbleOS gracefully
+      Verbose.custom("Detected Ctrl+C, exiting...");
+      exit();
+    } else {
+      Verbose.fatalError();
+      _fatalError(err);
+    }
+  }
+};
 
 /**
  * Make a file synchronously using `fs.mkfileSync()`.
@@ -34,7 +125,7 @@ const Verbose = require("../classes/Verbose");
  * @param {string} file The file that should be created. Both absolute and relative paths are accepted.
  * @param {...string} args Arguments to change the behavior of `mkfile()`. Available arguments are listed above.
  */
-const mkfile = (file, ...args) => {
+const mkfile = async (file, ...args) => {
   try {
     // Converts path to an absolute path and corrects
     // casing on Windows, and resolves spaces
@@ -90,57 +181,7 @@ const mkfile = (file, ...args) => {
       return;
     }
 
-    console.log(
-      `Add the content of the new file. Type ${chalk.italic(
-        "'!SAVE'"
-      )} to save changes, ${chalk.italic("'!CANCEL'")} to discard, or ${chalk.italic(
-        "'!EDIT'"
-      )} to modify previous input:\n`
-    );
-
-    // Collect new content line by line
-    let contents = [];
-    while (true) {
-      Verbose.custom("Asking for line input...");
-      const input = question("> ");
-
-      if (input.toUpperCase() === "!SAVE") {
-        // Save the new content to the file, ensuring no trailing newline
-        Verbose.custom("Saving file with provided file contents...");
-        fs.writeFileSync(file, contents.join("\n"), "utf8");
-
-        // If the user requested output, show a success message, else, show a newline
-        if (!silent) InfoMessages.success(`Successfully made the file ${chalk.bold(file)}.`);
-        else console.log();
-        return;
-      } else if (input.toUpperCase() === "!CANCEL") {
-        Verbose.custom("Discarding changes and removing file...");
-        console.log(chalk.yellow("Edits discarded and process aborted."));
-        return;
-      } else if (input.toUpperCase() === "!EDIT") {
-        if (contents.length === 0) {
-          console.log(chalk.yellow("No previous input to edit.\n"));
-        } else {
-          Verbose.custom("Asking for the line to edit...");
-          const lineNumber = questionInt(
-            chalk.blue("Choose a line number to edit (1-" + contents.length + "): ")
-          );
-          if (lineNumber >= 1 && lineNumber <= contents.length) {
-            Verbose.custom("Requesting for new line content...");
-            const newLine = question(`Edit line ${lineNumber}: `, { defaultInput: "\n" });
-
-            Verbose.custom("Updating content...");
-            contents[lineNumber - 1] = newLine; // Replace the selected line
-            console.log(chalk.green(`Line ${lineNumber} has been updated.\n`));
-          } else {
-            console.log(chalk.red("Invalid line number.\n"));
-          }
-        }
-      } else {
-        Verbose.custom("Adding line to memory...");
-        contents.push(input);
-      }
-    }
+    await _fileContents(file, silent);
   } catch (err) {
     if (err.code === "ENOENT") {
       // If the parent directory does not exist

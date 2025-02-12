@@ -1,8 +1,3 @@
-const chalk = require("chalk");
-const { keyInPause } = require("readline-sync");
-
-const { GLOBAL_NAME } = require("./constants");
-
 // Import all commands
 const about = require("../commands/about");
 const bub = require("../commands/bub");
@@ -39,24 +34,6 @@ const time = require("../commands/time");
 const tips = require("../commands/tips");
 const wcount = require("../commands/wcount");
 
-// Easter egg :D
-const cConCon = () => {
-  console.log(`${chalk.bgGray.blue(` ${GLOBAL_NAME} `)}\n`);
-  console.log(
-    chalk.blueBright(
-      "A fatal exception OE has occurred at 0028:C0034B03 in VXD VFAT(01) + 0000A3D7. The current application will be terminated.\n"
-    )
-  );
-  console.log(chalk.blueBright(`*  Press any key to terminate ${GLOBAL_NAME}.`));
-  console.log(chalk.blueBright(`*  Press CTRL+ALT+DEL to terminate your PC.\n`));
-  keyInPause(chalk.blueBright(`Press any key to continue ${chalk.bold.grey("_")}`), {
-    guide: false,
-  });
-
-  console.log();
-  process.exit(1);
-};
-
 /**
  * All of the BubbleOS commands and their respective functions.
  *
@@ -68,7 +45,6 @@ const cConCon = () => {
 const COMMANDS = {
   about,
   bub,
-  "C:\\con\\con": cConCon,
   cd,
   // Aliases: cls, clear
   cls,

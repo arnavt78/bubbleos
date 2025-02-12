@@ -8,7 +8,6 @@ const { GLOBAL_NAME, SHORT_NAME, VERSION, BUILD } = require("./src/variables/con
 const _intCmds = require("./src/functions/interpret");
 const _detectArgs = require("./src/functions/detectArgs");
 const _caseSensitivePath = require("./src/functions/caseSensitivePath");
-const _fatalError = require("./src/functions/fatalError");
 
 const exit = require("./src/commands/exit");
 

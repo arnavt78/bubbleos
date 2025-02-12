@@ -1,5 +1,4 @@
 const chalk = require("chalk");
-const yn = require("yn");
 const { question } = require("readline-sync");
 
 const _fatalError = require("./fatalError");
@@ -17,12 +16,11 @@ const _fatalError = require("./fatalError");
  */
 const _promptForYN = (message) => {
   try {
-    return yn(
-      question(`${message} [${chalk.green("y")}/${chalk.red.bold("N")}] `, { guide: false }),
-      {
-        lenient: true,
-      }
-    );
+    const answer = question(`${message} (${chalk.green("y")}/${chalk.red.bold("N")}) `, {
+      guide: false,
+    }).toLowerCase();
+
+    return answer === "y" || answer === "yes";
   } catch (err) {
     _fatalError(err);
   }

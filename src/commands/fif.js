@@ -1,11 +1,14 @@
 const fs = require("fs");
+const path = require("path");
 const chalk = require("chalk");
-const { question } = require("readline-sync");
+const { input } = require("@inquirer/prompts");
 
 const _parseDoubleQuotes = require("../functions/parseQuotes");
 const _convertAbsolute = require("../functions/convAbs");
 const _fatalError = require("../functions/fatalError");
 const _caseSensitivePath = require("../functions/caseSensitivePath");
+
+const exit = require("./exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -46,7 +49,7 @@ const escapeRegExp = (str) => str.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
  * @param {string} file A path to the file to search in. Please note directories are not valid.
  * @param {...string} args All recognized arguments. All available arguments are listed above.
  */
-const fif = (file, ...args) => {
+const fif = async (file, ...args) => {
   try {
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
@@ -90,18 +93,18 @@ const fif = (file, ...args) => {
 
     // Ask user for the phrase
     Verbose.custom("Prompting user for phrase to find...");
-    const toFind =
-      question(`Please enter the phrase to find (${chalk.italic("'Enter'")} to accept): `) ?? "";
+    const toFind = await input({
+      message: `Enter the phrase to find in ${chalk.italic(path.relative(process.cwd(), file))}:`,
+      required: true,
+      theme: {
+        style: {
+          answer: (text) => chalk.reset(text),
+          error: () => chalk.red("You must enter a phrase."),
+        },
+      },
+    });
 
     console.log();
-
-    // Checks if phrase is empty
-    Verbose.custom("Checking if phrase is empty...");
-    if (!toFind) {
-      Verbose.custom("Phrase was detected to be empty, aborting process...");
-      console.log(chalk.yellow(`No phrase entered.\nProcess aborted.\n`));
-      return;
-    }
 
     // The RegExp code will match against the contents,
     // and if 'null' is returned, it'll default to [].
@@ -160,8 +163,14 @@ const fif = (file, ...args) => {
       console.log();
     }
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    if (err.name === "ExitPromptError") {
+      // If the user presses Ctrl+C, exit BubbleOS gracefully
+      Verbose.custom("Detected Ctrl+C, exiting...");
+      exit();
+    } else {
+      Verbose.fatalError();
+      _fatalError(err);
+    }
   }
 };
 

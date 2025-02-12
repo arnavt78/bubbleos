@@ -1,12 +1,14 @@
 const chalk = require("chalk");
 const fs = require("fs");
 const crypto = require("crypto");
-const { question } = require("readline-sync");
+const { input } = require("@inquirer/prompts");
 
 const _parseDoubleQuotes = require("../functions/parseQuotes");
 const _convertAbsolute = require("../functions/convAbs");
 const _fatalError = require("../functions/fatalError");
 const _caseSensitivePath = require("../functions/caseSensitivePath");
+
+const exit = require("./exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -15,7 +17,7 @@ const Verbose = require("../classes/Verbose");
 /**
  * All of the available hashes in the `crypto` module.
  */
-const AVAILABLE_HASHES = [
+const HASHES = [
   "md5",
   "sha1",
   "sha224",
@@ -33,7 +35,7 @@ const AVAILABLE_HASHES = [
 /**
  * Logs the hash requested in a `console.log`.
  *
- * @param {string} hashAlgo The hash algorithm, one in `AVAILABLE_HASHES`.
+ * @param {string} hashAlgo The hash algorithm, one in `HASHES`.
  * @param {string} contents The contents of the file.
  */
 const _logHash = (hashAlgo, contents) => {
@@ -47,14 +49,14 @@ const _logHash = (hashAlgo, contents) => {
 
 /**
  * List hashes of a file. Available hashes are in the
- * `AVAILABLE_HASHES` array.
+ * `HASHES` array.
  *
  * There are no arguments for this command, other than the required file.
  *
  * @param {string} file The file to check the hash for.
  * @param {...string} args All recognized arguments. All available arguments are listed above.
  */
-const hash = (file, ...args) => {
+const hash = async (file, ...args) => {
   try {
     // Converts path to an absolute path and corrects
     // casing on Windows, and resolves spaces
@@ -87,11 +89,17 @@ const hash = (file, ...args) => {
 
     // Ask user for hashes
     // If not hashes are provided, the default is to show all hashes
-    Verbose.custom("Prompting user for hashes...");
-    const requested = question(
-      `Enter the file hashes to be shown (${chalk.italic("'Enter'")} to accept; ${chalk.italic(
-        "'all'"
-      )} for all hashes; insert space to add multiple): `
+    const requested = (
+      await input({
+        message: `Enter the file hashes to be shown (${chalk.italic(
+          "'all'"
+        )} for all hashes; insert space to add multiple):`,
+        theme: {
+          style: {
+            answer: (text) => chalk.reset(text),
+          },
+        },
+      })
     ).split(" ");
 
     Verbose.custom("Reading file...");
@@ -105,7 +113,7 @@ const hash = (file, ...args) => {
 
     if (all) {
       Verbose.custom("Showing all hashes...");
-      AVAILABLE_HASHES.forEach((hashAlgo) => {
+      HASHES.forEach((hashAlgo) => {
         Verbose.custom(`Showing '${hashAlgo.toUpperCase()}' hash...`);
         _logHash(hashAlgo, contents);
       });
@@ -113,7 +121,7 @@ const hash = (file, ...args) => {
       Verbose.custom("Showing specified hashes...");
       requested.forEach((hashAlgo) => {
         Verbose.custom(`Showing '${hashAlgo.toUpperCase()}' hash...`);
-        if (!AVAILABLE_HASHES.includes(hashAlgo))
+        if (!HASHES.includes(hashAlgo))
           console.log(chalk.yellow(`Unrecognized hash: ${chalk.italic(hashAlgo)}`));
         else _logHash(hashAlgo, contents);
       });
@@ -121,7 +129,11 @@ const hash = (file, ...args) => {
 
     console.log();
   } catch (err) {
-    if (err.code === "EPERM" || err.code === "EACCES") {
+    if (err.name === "ExitPromptError") {
+      // If the user presses Ctrl+C, exit BubbleOS gracefully
+      Verbose.custom("Detected Ctrl+C, exiting...");
+      exit();
+    } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("read the file", file);
     } else if (err.code === "EBUSY") {

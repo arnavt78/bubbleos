@@ -8,12 +8,14 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
+- Added a list selection prompt to the `crash` command.
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
 - Added the `pwd` command as an alias to `cwd`.
 - Internally moved all help messages to a JSON file.
 
 ### Changed/Fixed Features
 
+- The `fif` command will no longer accept blank responses.
 - Fixed an old issue where commands had to be recognized in all lowercase.
 - Fixed an issue where commands that required a path such as `del`, `cd`, and `readfile` would crash if it was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
@@ -31,6 +33,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Removed Features
 
 - Removed the `size` command, in favor of the `stat` command.
+- Removed the leniency of yes/no prompts, so that only _y_ or _yes_ are accepted.
+- Removed an Easter egg :(
 - Internally removed the `helpMessages.js` file, in favor of the `helpMsgs.json` file.
 
 ## Build 167 to 180 (v1.6.7-beta to v1.8.0-beta)
