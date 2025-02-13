@@ -19,6 +19,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - The `fif` command will no longer accept blank responses.
 - Changed the `date` command to show the slash-format date in the format _{month}/{day}_ and no longer made it italicized.
 - Changed the formatting of the `time` command so that it will no longer be bolded.
+- Edited almost all help messages.
 - Fixed an old issue where commands had to be in all lowercase to be recognized.
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
