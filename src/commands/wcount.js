@@ -1,14 +1,12 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Count the number of words, lines, and characters
@@ -34,7 +32,7 @@ const wcount = (file, ...args) => {
     // casing on Windows, and resolves spaces
     Verbose.pathAbsolute(file);
     Verbose.parseQuotes();
-    file = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([file, ...args])[0]));
+    file = PathUtil.all([file, ...args]);
 
     Verbose.initChecker();
     const fileChk = new Checks(file);

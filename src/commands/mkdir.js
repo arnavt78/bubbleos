@@ -2,9 +2,6 @@ const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _fatalError = require("../functions/fatalError");
 const _promptForYN = require("../functions/promptForYN");
 
@@ -12,6 +9,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Make a directory synchronously. This is meant
@@ -44,7 +42,7 @@ const mkdir = (dir, ...args) => {
     // casing on Windows, and resolves spaces
     Verbose.pathAbsolute(dir);
     Verbose.parseQuotes();
-    dir = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([dir, ...args])[0]));
+    dir = PathUtil.all([dir, ...args]);
 
     Verbose.initChecker();
     const dirChk = new Checks(dir);

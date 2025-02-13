@@ -49,9 +49,9 @@ class Errors {
    */
   static unrecognizedCommand(command) {
     const CODE = 1;
-    const MESSAGE = `The command, ${chalk.italic.bold(
-      `'${command}'`
-    )}, is unrecognized. Type ${chalk.italic("'help'")} for a list of available commands.`;
+    const MESSAGE = `The command, ${chalk.bold(
+      command
+    )}, is unrecognized. Type 'help' for a list of available commands.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -72,9 +72,7 @@ class Errors {
    */
   static enterParameter(type, example) {
     const CODE = 2;
-    const MESSAGE = `You must enter ${type}, for example, like so: ${chalk.italic.bold(
-      `'${example}'`
-    )}.`;
+    const MESSAGE = `You must enter ${type}, for example, like so: ${chalk.bold(example)}.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -95,7 +93,7 @@ class Errors {
    */
   static doesNotExist(type, variable) {
     const CODE = 3;
-    const MESSAGE = `The ${type}, ${chalk.italic.bold(`'${variable}'`)}, does not exist.`;
+    const MESSAGE = `The ${type}, ${chalk.bold(variable)}, does not exist.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -116,8 +114,8 @@ class Errors {
    */
   static noPermissions(todo, variable) {
     const CODE = 4;
-    const MESSAGE = `Invalid permissions to ${todo} ${chalk.italic.bold(
-      `'${variable}'`
+    const MESSAGE = `Invalid permissions to ${todo} ${chalk.bold(
+      variable
     )}. You need elevated privileges.`;
 
     _interpretError(CODE, MESSAGE);
@@ -139,7 +137,7 @@ class Errors {
    */
   static inUse(type, variable) {
     const CODE = 5;
-    const MESSAGE = `The ${type}, ${chalk.bold.italic(`'${variable}'`)}, is currently being used.`;
+    const MESSAGE = `The ${type}, ${chalk.bold(variable)}, is currently being used.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -159,9 +157,7 @@ class Errors {
    */
   static expectedFile(variable) {
     const CODE = 6;
-    const MESSAGE = `Expected a file, but got a directory (${chalk.bold.italic(
-      `'${variable}'`
-    )}) instead.`;
+    const MESSAGE = `Expected a file, but got a directory (${chalk.bold(variable)}) instead.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -181,9 +177,7 @@ class Errors {
    */
   static expectedDir(variable) {
     const CODE = 7;
-    const MESSAGE = `Expected a directory, but got a file (${chalk.bold.italic(
-      `'${variable}'`
-    )}) instead.`;
+    const MESSAGE = `Expected a directory, but got a file (${chalk.bold(variable)}) instead.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -226,8 +220,8 @@ class Errors {
    */
   static invalidCharacters(type, supposedTo, notContain, variable) {
     const CODE = 9;
-    const MESSAGE = `The ${type} can only contain ${supposedTo} and not contain ${notContain} (received ${chalk.bold.italic(
-      `'${variable}'`
+    const MESSAGE = `The ${type} can only contain ${supposedTo} and not contain ${notContain} (received ${chalk.bold(
+      variable
     )}).`;
 
     _interpretError(CODE, MESSAGE);
@@ -248,9 +242,7 @@ class Errors {
    */
   static pathTooLong(path) {
     const CODE = 10;
-    const MESSAGE = `The path (${chalk.bold.italic(
-      `'${path}'`
-    )}) is too long. Please choose a shorter path.`;
+    const MESSAGE = `The path (${chalk.bold(path)}) is too long. Please choose a shorter path.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -289,9 +281,7 @@ class Errors {
    */
   static unknown(toDo, variable) {
     const CODE = 12;
-    const MESSAGE = `${GLOBAL_NAME} does not know how to ${toDo} ${chalk.bold.italic(
-      `'${variable}'`
-    )}.`;
+    const MESSAGE = `${GLOBAL_NAME} does not know how to ${toDo} ${chalk.bold(variable)}.`;
 
     _interpretError(CODE, MESSAGE);
   }

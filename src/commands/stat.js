@@ -1,9 +1,6 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _convertSize = require("../functions/convSize");
 const _fatalError = require("../functions/fatalError");
 const _getSize = require("../functions/getSize");
@@ -11,6 +8,7 @@ const _getSize = require("../functions/getSize");
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * A function to calculate and return the sizes of a file or directory.
@@ -75,7 +73,9 @@ const stat = (path, ...args) => {
   try {
     // Converts path to an absolute path and corrects
     // casing on Windows, and resolves spaces
-    path = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([path, ...args])[0]));
+    Verbose.pathAbsolute(path);
+    Verbose.parseQuotes();
+    path = PathUtil.all([path, ...args]);
 
     Verbose.initChecker();
     const pathChk = new Checks(path);

@@ -3,16 +3,14 @@ const fs = require("fs");
 const crypto = require("crypto");
 const { input } = require("@inquirer/prompts");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
 const _fatalError = require("../functions/fatalError");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const exit = require("./exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * All of the available hashes in the `crypto` module.
@@ -62,7 +60,7 @@ const hash = async (file, ...args) => {
     // casing on Windows, and resolves spaces
     Verbose.pathAbsolute(file);
     Verbose.parseQuotes();
-    file = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([file, ...args])[0]));
+    file = PathUtil.all([file, ...args]);
 
     Verbose.initChecker();
     const fileChk = new Checks(file);

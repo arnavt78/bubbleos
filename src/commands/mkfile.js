@@ -3,9 +3,6 @@ const chalk = require("chalk");
 const path = require("path");
 const { input } = require("@inquirer/prompts");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSenstivePath = require("../functions/caseSensitivePath");
 const _fatalError = require("../functions/fatalError");
 const _promptForYN = require("../functions/promptForYN");
 
@@ -13,6 +10,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 const _fileContents = async (file, silent) => {
   try {
@@ -131,7 +129,7 @@ const mkfile = async (file, ...args) => {
     // casing on Windows, and resolves spaces
     Verbose.pathAbsolute(file);
     Verbose.parseQuotes();
-    file = _caseSenstivePath(_convertAbsolute(_parseDoubleQuotes([file, ...args])[0]));
+    file = PathUtil.all([file, ...args]);
 
     Verbose.initChecker();
     const fileChk = new Checks(file);

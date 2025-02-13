@@ -1,17 +1,15 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const ConfigManager = require("../classes/ConfigManager");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Delete a file/directory from BubbleOS. This is a CLI function.
@@ -41,7 +39,7 @@ const del = (path, ...args) => {
     // casing on Windows, and resolves spaces
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
-    path = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([path, ...args])[0]));
+    path = PathUtil.all([path, ...args]);
 
     Verbose.initChecker();
     const pathChk = new Checks(path);

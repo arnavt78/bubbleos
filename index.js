@@ -7,11 +7,11 @@ const { GLOBAL_NAME, SHORT_NAME, VERSION, BUILD } = require("./src/variables/con
 
 const _intCmds = require("./src/functions/interpret");
 const _detectArgs = require("./src/functions/detectArgs");
-const _caseSensitivePath = require("./src/functions/caseSensitivePath");
 
 const exit = require("./src/commands/exit");
 
 const Verbose = require("./src/classes/Verbose");
+const PathUtil = require("./src/classes/PathUtil");
 
 (async () => {
   // Check if terminal supports color
@@ -61,7 +61,7 @@ const Verbose = require("./src/classes/Verbose");
   while (true) {
     try {
       const command = await input({
-        message: `${chalk.blueBright(_caseSensitivePath(process.cwd()))} ${chalk.red("$")}`,
+        message: `${chalk.blueBright(PathUtil.caseSensitive(process.cwd()))} ${chalk.red("$")}`,
         theme: {
           prefix: chalk.bold.green(SHORT_NAME.toLowerCase()),
           style: {

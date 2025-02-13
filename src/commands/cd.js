@@ -1,14 +1,13 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
 const _fatalError = require("../functions/fatalError");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * The `cd` command, used to change into a directory.
@@ -23,7 +22,7 @@ const cd = (dir, ...args) => {
   try {
     // Converts path into case-sensitive path for Windows, and resolves spaces
     Verbose.parseQuotes();
-    dir = _caseSensitivePath(_parseDoubleQuotes([dir, ...args])[0]);
+    dir = PathUtil.all([dir, ...args], { convertAbsolute: false });
 
     Verbose.initChecker();
     const dirChk = new Checks(dir);

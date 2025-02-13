@@ -2,14 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Internal helper function to generate the tree for `dirtree`.
@@ -72,7 +70,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
   try {
     // Converts path into case-sensitive path for Windows, and resolves spaces
     Verbose.parseQuotes();
-    dir = _caseSensitivePath(_parseDoubleQuotes([dir, ...args])[0]);
+    dir = PathUtil.all([dir, ...args], { convertAbsolute: false });
 
     Verbose.initChecker();
     const dirChk = new Checks(dir);
@@ -92,7 +90,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
 
     // Start the tree generation
     Verbose.custom("Logging current directory...");
-    console.log(chalk.bold(_convertAbsolute(dir)));
+    console.log(chalk.bold(PathUtil.convertAbsolute(dir)));
     Verbose.custom("Starting tree generation...");
     _generateTree(dir);
   } catch (err) {

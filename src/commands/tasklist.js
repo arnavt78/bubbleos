@@ -2,10 +2,10 @@ const chalk = require("chalk");
 const psList = require("ps-list");
 
 const _fatalError = require("../functions/fatalError");
-const _parseDoubleQuotes = require("../functions/parseQuotes");
 
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Shows all the processes running on the system, or
@@ -17,8 +17,9 @@ const Verbose = require("../classes/Verbose");
  */
 const tasklist = async (filter, ...args) => {
   try {
+    // Interesting class name for this lol
     Verbose.parseQuotes();
-    filter = _parseDoubleQuotes([filter, ...args])[0];
+    filter = PathUtil.parseQuotes([filter, ...args])[0];
 
     Verbose.initChecker();
     const filterUndefined = new Checks(filter).paramUndefined();

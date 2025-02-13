@@ -1,9 +1,6 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
 
@@ -11,6 +8,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Renames a file for use in the BubbleOS shell.
@@ -35,8 +33,8 @@ const rename = (oldName, newName, ...args) => {
     // Replace spaces and then convert the path to an absolute one to both the old and new names
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
-    [oldName, newName] = _parseDoubleQuotes([oldName, newName, ...args]).map((path) =>
-      _caseSensitivePath(_convertAbsolute(path))
+    [oldName, newName] = PathUtil.parseQuotes([oldName, newName, ...args]).map((path) =>
+      PathUtil.all(path, { parseQuotes: false })
     );
 
     Verbose.initChecker();

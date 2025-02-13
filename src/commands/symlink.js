@@ -3,15 +3,13 @@ const fs = require("fs");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Either make a symbolic link or check if a path
@@ -49,11 +47,11 @@ const symlink = (path, newPath, ...args) => {
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
     if (!check) {
-      [path, newPath] = _parseDoubleQuotes([path, newPath, ...args]).map((p) =>
-        _caseSensitivePath(_convertAbsolute(p))
+      [path, newPath] = PathUtil.parseQuotes([path, newPath, ...args]).map((p) =>
+        PathUtil.all(path, { parseQuotes: false })
       );
     } else {
-      path = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([path, newPath, ...args])[0]));
+      path = PathUtil.all([path, newPath, ...args]);
     }
 
     Verbose.initChecker();

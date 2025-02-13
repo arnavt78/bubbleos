@@ -3,16 +3,14 @@ const path = require("path");
 const chalk = require("chalk");
 const { input } = require("@inquirer/prompts");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
 const _fatalError = require("../functions/fatalError");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const exit = require("./exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Escape all special characters in RegExp.
@@ -53,7 +51,7 @@ const fif = async (file, ...args) => {
   try {
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
-    file = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([file, ...args])[0]));
+    file = PathUtil.all([file, ...args]);
 
     Verbose.initChecker();
     const fileChk = new Checks(file);

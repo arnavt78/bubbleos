@@ -1,17 +1,15 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _convertAbsolute = require("../functions/convAbs");
-const _parseDoubleQuotes = require("../functions/parseQuotes");
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
 const _getSize = require("../functions/getSize");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * The size of the file/directory in bytes before showing a "this may take a while" message.
@@ -59,9 +57,12 @@ const copy = (src, dest, ...args) => {
     Verbose.parseQuotes();
     Verbose.pathAbsolute(src);
     Verbose.pathAbsolute(dest);
-    [src, dest] = _parseDoubleQuotes([src, dest, ...args])
-      .map(_convertAbsolute)
-      .map(_caseSensitivePath);
+
+    // Don't use PathUtil.all() because it doesn't work well with double paths
+    [src, dest] = PathUtil.parseQuotes([src, dest, ...args])
+      .map(PathUtil.homeDir)
+      .map(PathUtil.convertAbsolute)
+      .map(PathUtil.caseSensitive);
 
     Verbose.initChecker();
     const srcChk = new Checks(src);

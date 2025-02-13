@@ -1,9 +1,6 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
 
@@ -11,6 +8,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Creates a hard link on the system.
@@ -29,17 +27,18 @@ const link = (path, newPath, ...args) => {
     if (!unlink) {
       // Parse input and normalize paths when 'unlink' is false
       Verbose.parseQuotes();
-      [path, newPath] = _parseDoubleQuotes([path, newPath, ...args]);
+      [path, newPath] = PathUtil.parseQuotes([path, newPath, ...args]);
 
       Verbose.pathAbsolute(path);
-      path = _caseSensitivePath(_convertAbsolute(path));
+      path = PathUtil.all(path, { parseQuotes: false });
+
       Verbose.pathAbsolute(newPath);
-      newPath = _caseSensitivePath(_convertAbsolute(newPath));
+      newPath = PathUtil.all(newPath, { parseQuotes: false });
     } else {
       // Parse input and normalize only the first path when 'unlink' is true
       Verbose.pathAbsolute(path);
       Verbose.parseQuotes();
-      path = _convertAbsolute(_parseDoubleQuotes([path, newPath, ...args])[0]);
+      path = PathUtil.all([path, newPath, ...args]);
     }
 
     Verbose.initChecker();

@@ -2,15 +2,13 @@ const fs = require("fs");
 const chalk = require("chalk");
 const path = require("path");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
 const _fatalError = require("../functions/fatalError");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * Interpret a BubbleOS file. This function should only be
@@ -104,7 +102,7 @@ const bub = async (intCmds, file, ...args) => {
     // casing on Windows, and resolves spaces
     Verbose.pathAbsolute(file);
     Verbose.parseQuotes();
-    file = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([file, ...args])[0]));
+    file = PathUtil.all([file, ...args]);
 
     Verbose.initChecker();
     const fileChk = new Checks(file);
@@ -157,7 +155,7 @@ const bub = async (intCmds, file, ...args) => {
     await _interpretFile(intCmds, file, { displayCommand, allowExit });
 
     Verbose.custom("Changing current working directory to path before file was executed...");
-    process.chdir(_caseSensitivePath(beforeCwd));
+    process.chdir(PathUtil.caseSensitive(beforeCwd));
   } catch (err) {
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();

@@ -3,9 +3,6 @@ const chalk = require("chalk");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
-const _parseDoubleQuotes = require("../functions/parseQuotes");
-const _convertAbsolute = require("../functions/convAbs");
-const _caseSensitivePath = require("../functions/caseSensitivePath");
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
 
@@ -13,6 +10,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+const PathUtil = require("../classes/PathUtil");
 
 /**
  * The maximum amount of characters before BubbleOS
@@ -51,7 +49,9 @@ const readfile = (file, ...args) => {
   try {
     // Converts path to an absolute path and corrects
     // casing on Windows, and resolves spaces
-    file = _caseSensitivePath(_convertAbsolute(_parseDoubleQuotes([file, ...args])[0]));
+    Verbose.pathAbsolute(file);
+    Verbose.parseQuotes();
+    file = PathUtil.all([file, ...args]);
 
     Verbose.initChecker();
     const fileChk = new Checks(file);
