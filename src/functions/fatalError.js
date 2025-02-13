@@ -60,8 +60,6 @@ const _fatalError = (err, doFileDump = true) => {
 
   console.log(`${chalk.red.dim.underline("Technical Error Information\n")}`);
 
-  console.log(chalk.red.dim(`${chalk.italic(`${GLOBAL_NAME} PID`)}: ${process.pid}`));
-
   for (let error in errProperties) {
     if (typeof errProperties[error] !== "undefined")
       console.log(chalk.red.dim(`${chalk.italic(error)}: ${errProperties[error]}`));

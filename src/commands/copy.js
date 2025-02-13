@@ -159,15 +159,9 @@ const copy = (src, dest, ...args) => {
       // There is also a bug in BubbleOS which can do the same thing.
       // It seems kind of random to me; it only happened once in
       // my testing, even without changing the code. It seems to happen
-      // in fs.cpSync(). Fix it please!
+      // in fs.cpSync().
       Verbose.custom("Error copying a directory to a non-directory...");
-
-      // REMOVE IN BUILD 200?
-      InfoMessages.warning(
-        "IF YOU ENCOUNTERED THIS ISSUE: Make a new issue on Github (https://github.com/arnavt78/bubbleos/issues/new) detailing exactly what you did to get this issue."
-      );
-
-      Errors.dirToNonDir();
+      InfoMessages.error("Cannot overwrite a directory with a non-directory.");
     } else {
       Verbose.fatalError();
       _fatalError(err);

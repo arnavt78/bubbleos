@@ -16,6 +16,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Changed/Fixed Features
 
 - The `fif` command will no longer accept blank responses.
+- Changed the `date` command to show the slash-format date in the format _{month}/{day}_ and no longer made it italicized.
+- Changed the formatting of the `time` command so that it will no longer be bolded.
 - Fixed an old issue where commands had to be in all lowercase to be recognized.
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
@@ -37,6 +39,9 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Removed the ability to use the up-arrow key to cycle through previous commands, however, this functionality was broken on Linux and macOS (and in some cases, in Windows). This may be reintroduced in a future version.
 - Removed the leniency of yes/no prompts, so that only _y_ or _yes_ are accepted. This may be reintroduced in a future version.
 - Removed an Easter egg :(
+- Removed the codes at the end of some error messages.
+- Removed four error messages (most were unused).
+- Removed the BubbleOS PID from showing in the fatal error screen.
 - Internally removed the `helpMessages.js` file, in favor of the `helpMsgs.json` file.
 
 ## Build 167 to 180 (v1.6.7-beta to v1.8.0-beta)

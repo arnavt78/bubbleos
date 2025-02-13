@@ -27,7 +27,7 @@ const about = (...args) => {
     console.log(chalk.underline.bold.red(`About ${aboutName}\n`));
 
     // Information about build and author
-    console.log(`${aboutName}, v${VERSION} (build ${BUILD})`);
+    console.log(chalk.bold(`${aboutName}, v${VERSION} (build ${BUILD})`));
     console.log(`Made by ${AUTHOR}!\n`);
 
     // MIT Liecense (variable year)

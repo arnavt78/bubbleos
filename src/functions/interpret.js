@@ -20,7 +20,7 @@ const _multiParam = (command) => {
   return params;
 };
 
-const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+const _getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
 
 /**
  * Interpret all available BubbleOS commands.
@@ -66,7 +66,7 @@ const _intCmds = async (command, storeInHistory = true) => {
             Verbose.custom("Alias detected for entered command, show tip to user...");
             InfoMessages.info(
               `There is no command called ${chalk.italic(enteredCmd)}. Did you mean ${chalk.bold(
-                getKeyByValue(ALIASES, alias)
+                _getKeyByValue(ALIASES, alias)
               )}?`
             );
 

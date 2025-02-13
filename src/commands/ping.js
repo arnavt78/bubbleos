@@ -31,6 +31,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
     const req = https.request(options, (res) => {
       // Prevents the timed out error from appearing once the request is completed
       req.setTimeout(0);
+      req.destroy();
 
       if ([301, 302, 307, 308].includes(res.statusCode)) {
         const location = res.headers.location;

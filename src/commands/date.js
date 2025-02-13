@@ -59,7 +59,7 @@ const date = (...args) => {
 
     // Slash format
     Verbose.custom("Printing slash-format date...");
-    console.log(chalk.italic(`(${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()})`));
+    console.log(chalk.dim(`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`));
 
     console.log();
   } catch (err) {

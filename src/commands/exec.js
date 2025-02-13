@@ -1,6 +1,4 @@
 const chalk = require("chalk");
-
-const fs = require("fs");
 const childProcess = require("child_process");
 
 const _parseDoubleQuotes = require("../functions/parseQuotes");

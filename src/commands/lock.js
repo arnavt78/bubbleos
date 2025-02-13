@@ -19,7 +19,9 @@ const lock = (...args) => {
   } catch (err) {
     if (err.message.toLowerCase().includes("unsupported os")) {
       Verbose.custom(`The operating system does not support locking by ${GLOBAL_NAME}.`);
-      Errors.invalidOS("Windows, macOS and/or Linux");
+      InfoMessages.error(
+        "Locking the OS failed due to it being run on an unsupported operating system."
+      );
     } else if (err.message.toLowerCase().includes("no applicable command found")) {
       Verbose.custom("No command was found to lock the system on Linux.");
       InfoMessages.error("Locking the OS failed. Please install xdg-screensaver and try again.");

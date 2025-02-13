@@ -54,8 +54,8 @@ const time = (...args) => {
 
     // If the user wants the time in 24-hours, show it in raw format, else, convert it
     Verbose.custom("Printing the time in the specified format...");
-    if (isTwelveHours) console.log(chalk.bold(_convertTime(time)));
-    else console.log(chalk.bold(time));
+    if (isTwelveHours) console.log(_convertTime(time));
+    else console.log(time);
 
     console.log();
   } catch (err) {

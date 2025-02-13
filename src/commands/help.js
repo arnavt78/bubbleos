@@ -3,6 +3,8 @@ const sortKeys = require("sort-keys");
 
 const HELP_MESSAGES = require("../data/helpMsgs.json");
 
+const { GLOBAL_NAME } = require("../variables/constants");
+
 const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");
@@ -28,7 +30,7 @@ const _printHelp = (sorted, specific, cmd) => {
 
     // Show the description (if it is unavailable, show 'N/A')
     Verbose.custom("Showing description of command...");
-    console.log(`\n  ${sorted[cmd].desc ?? "N/A"}\n`);
+    console.log(`\n  ${sorted[cmd].desc.replace("{GLOBAL_NAME}", GLOBAL_NAME) ?? "N/A"}\n`);
 
     // If there are arguments
     Verbose.custom("Checking if arguments are available...");
@@ -38,7 +40,9 @@ const _printHelp = (sorted, specific, cmd) => {
         console.log("  " + chalk.underline("Arguments:"));
 
         for (const arg in sorted[cmd].args) {
-          console.log(`    ${arg.padEnd(15)} ${sorted[cmd].args[arg]}`);
+          console.log(
+            `    ${arg.padEnd(15)} ${sorted[cmd].args[arg].replace("{GLOBAL_NAME}", GLOBAL_NAME)}`
+          );
         }
 
         console.log();
