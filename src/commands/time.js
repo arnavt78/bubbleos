@@ -1,5 +1,3 @@
-const chalk = require("chalk");
-
 const _fatalError = require("../functions/fatalError");
 
 const Verbose = require("../classes/Verbose");

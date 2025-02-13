@@ -1,8 +1,6 @@
 const fs = require("fs");
 const { isText } = require("istextorbinary");
 
-const _fatalError = require("../functions/fatalError");
-
 /**
  * Validate multiple aspects of BubbleOS.
  */

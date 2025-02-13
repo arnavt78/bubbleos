@@ -5,7 +5,6 @@ const {
   EXPIRY_DATE,
 } = require("../../variables/constants");
 
-// Get functions
 const _startupError = require("./startupError");
 const _fatalError = require("../fatalError");
 

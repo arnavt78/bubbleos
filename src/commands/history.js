@@ -1,6 +1,5 @@
 const chalk = require("chalk");
 
-const _addToHist = require("../functions/addToHist");
 const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");

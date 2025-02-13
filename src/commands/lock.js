@@ -5,7 +5,6 @@ const { GLOBAL_NAME } = require("../variables/constants");
 const _friendlyOS = require("../functions/friendlyOS");
 const _fatalError = require("../functions/fatalError");
 
-const Errors = require("../classes/Errors");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 
