@@ -180,7 +180,6 @@ const sysinfo = async (...args) => {
           )
         )}`
       );
-      console.log(`CPU cores: ${chalk.bold(os.cpus().length)}`);
 
       const uptime = _convertTime(os.uptime(), 0).recommended;
       console.log(`System uptime: ${chalk.bold(`${uptime.value} ${uptime.type}`)}`);
@@ -209,6 +208,29 @@ const sysinfo = async (...args) => {
         }
       } catch {}
 
+      console.log(`CPU cores: ${chalk.bold(os.cpus().length)}`);
+
+      const cpus = os.cpus();
+      const cpuMap = new Map();
+
+      cpus.forEach((cpu) => {
+        const key = `${cpu.model} @ ${(cpu.speed / 1000).toFixed(2)}GHz`;
+        if (cpuMap.has(key)) {
+          cpuMap.set(key, cpuMap.get(key) + 1);
+        } else {
+          cpuMap.set(key, 1);
+        }
+      });
+
+      let cpuInfo = "CPU information: ";
+      cpuMap.forEach((count, key) => {
+        cpuInfo += `${chalk.bold(key)}${count > 1 ? ` x ${count}` : ""}, `;
+      });
+
+      // Remove the trailing comma and space
+      cpuInfo = cpuInfo.slice(0, -2);
+
+      console.log(cpuInfo);
       console.log();
     }
 

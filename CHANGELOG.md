@@ -7,6 +7,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Added Features
 
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
+- Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
 - Added a list selection prompt to the `crash` command.
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
