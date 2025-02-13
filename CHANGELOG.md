@@ -33,6 +33,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an inconsistency in the `ls` command where the error message would not show the full directory path.
 - Fixed an issue where the `ifnet` command had no verbose messages.
 - Internally moved the `cwd` command to a separate file and fixed an issue where it had no verbose messages.
+- Internally moved the "add to history" helper function to a dedicated file.
 
 ### Removed Features
 
@@ -42,6 +43,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Removed an Easter egg :(
 - Removed the codes at the end of some error messages.
 - Removed four error messages (most were unused).
+- Removed the CPU endianness from the `sysinfo` command.
 - Removed the BubbleOS PID from showing in the fatal error screen.
 - Internally removed the `helpMessages.js` file, in favor of the `helpMsgs.json` file.
 

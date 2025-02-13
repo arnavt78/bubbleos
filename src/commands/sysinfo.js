@@ -240,11 +240,6 @@ const sysinfo = async (...args) => {
       console.log(`${chalk.bold.underline("Advanced Information")}`);
 
       console.log(`NULL device: ${chalk.bold(os.devNull)}`);
-      console.log(
-        `CPU endianness: ${chalk.bold(
-          os.endianness() === "BE" ? "BE (big endian)" : "LE (little endian)"
-        )}`
-      );
 
       // On some operating systems, this value will throw an error if run
       console.log(

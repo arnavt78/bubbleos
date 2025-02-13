@@ -3,7 +3,7 @@ const chalk = require("chalk");
 const { COMMANDS, ALIASES } = require("../variables/commands");
 
 const _fatalError = require("./fatalError");
-const { _addToHist } = require("../commands/history");
+const _addToHist = require("../functions/addToHist");
 
 const Errors = require("../classes/Errors");
 const Verbose = require("../classes/Verbose");
