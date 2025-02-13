@@ -3,8 +3,9 @@ const https = require("https");
 
 const HTTP_CODES_AND_MESSAGES = require("../data/httpCodes.json");
 
-const _fatalError = require("../functions/fatalError");
 const { GLOBAL_NAME } = require("../variables/constants");
+
+const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -28,6 +29,9 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
   return new Promise((resolve, reject) => {
     Verbose.custom("Creating new request...");
     const req = https.request(options, (res) => {
+      // Prevents the timed out error from appearing once the request is completed
+      req.setTimeout(0);
+
       if ([301, 302, 307, 308].includes(res.statusCode)) {
         const location = res.headers.location;
         if (location) {
@@ -130,6 +134,42 @@ const ping = async (host, ...args) => {
     } else if (err.code === "EPIPE") {
       Verbose.custom("The connection was closed unexpectedly.");
       InfoMessages.error("The connection was closed unexpectedly.");
+    } else if (err.code === "EAI_AGAIN") {
+      Verbose.custom("DNS lookup timed-out error.");
+      InfoMessages.error("DNS lookup timed-out error.");
+    } else if (err.code === "ETIMEDOUT") {
+      Verbose.custom("The connection attempt timed out.");
+      InfoMessages.error("The connection attempt timed out.");
+    } else if (err.code === "ECONNABORTED") {
+      Verbose.custom("The connection was aborted.");
+      InfoMessages.error("The connection was aborted.");
+    } else if (err.code === "EHOSTDOWN") {
+      Verbose.custom("The host is down or not responding.");
+      InfoMessages.error("The host is down or not responding.");
+    } else if (err.code === "EPROTO") {
+      Verbose.custom("A protocol error occurred.");
+      InfoMessages.error("A protocol error occurred.");
+    } else if (err.code === "EBADF") {
+      Verbose.custom("A bad file descriptor error occurred.");
+      InfoMessages.error("A bad file descriptor error occurred.");
+    } else if (err.code === "EMFILE") {
+      Verbose.custom("Too many open files in the system.");
+      InfoMessages.error("Too many open files in the system.");
+    } else if (err.code === "ENETDOWN") {
+      Verbose.custom("The network is down.");
+      InfoMessages.error("The network is down.");
+    } else if (err.code === "EISCONN") {
+      Verbose.custom("The socket is already connected.");
+      InfoMessages.error("The socket is already connected.");
+    } else if (err.code === "ESHUTDOWN") {
+      Verbose.custom("The socket has been shut down.");
+      InfoMessages.error("The socket has been shut down.");
+    } else if (err.code === "ENOBUFS") {
+      Verbose.custom("No buffer space available.");
+      InfoMessages.error("No buffer space available.");
+    } else if (err.code === "EINVAL") {
+      Verbose.custom("Invalid argument passed to a function.");
+      InfoMessages.error("Invalid argument passed to a function.");
     } else if (err.code === "SELF_SIGNED_CERT_IN_CHAIN") {
       Verbose.custom("Self-signed certificate in chain.");
       InfoMessages.error(

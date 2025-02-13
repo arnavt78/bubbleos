@@ -19,6 +19,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an old issue where commands had to be in all lowercase to be recognized.
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
+- Fixed an issue where the `ping` command would show the "timed out" error once the request was completed after a few seconds, causing BubbleOS to hang. This only occurred on some systems.
 - Fixed an issue where the `ping` command would hang BubbleOS if the status code was 200 or the server timed out. BubbleOS would also terminate if the status code was not 200.
 - Fixed an issue where the `ping` command would fail to locate the address if it began with _https://_ or _http://_.
 - Fixed an issue where the `ls` command would crash BubbleOS if it did not have permission to read the directory.
