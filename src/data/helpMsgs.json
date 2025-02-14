@@ -286,13 +286,12 @@
   },
 
   "taskkill": {
-    "usage": "taskkill <process> [-y] [-s] [--kill-self]",
+    "usage": "taskkill <process> [-y] [-s]",
     "desc": "Kill any process on your device using their respective process name or PID (process identification number). Note that this will force-close the process, and any data that was unsaved in that process is lost.",
     "args": {
       "<process>": "The process name or process identification number that is to be terminated.",
       "[-s]": "Silence success messages. Only errors will be displayed.",
-      "[-y]": "Automatically accept the confirmation prompt when killing a process.",
-      "[--kill-self]": "Allow killing the {GLOBAL_NAME} process."
+      "[-y]": "Automatically accept the confirmation prompt when killing a process."
     }
   },
 

@@ -53,10 +53,19 @@ const PathUtil = require("./src/classes/PathUtil");
   Verbose.custom("Initializing arguments...");
   require("./src/functions/init/initArgs");
 
-  // CLI of BubbleOS
+  // Initialize elevation check
   Verbose.custom("Completing elevation check...");
   await require("./src/functions/init/checkElevation")();
 
+  // If the BubbleOS process is killed, exit gracefully
+  // Works during the CLI
+  process.once("SIGTERM", () => {
+    console.log();
+
+    exit();
+  });
+
+  // CLI of BubbleOS
   Verbose.custom("Starting command interpreter...");
   while (true) {
     try {

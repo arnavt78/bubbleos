@@ -10,6 +10,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
 - Added a list selection prompt to the `crash` command.
+- Added the ability to use double-quotes to enter a task name with spaces in `taskkill`.
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
 - Added the `pwd` command as an alias to `cwd`.
 - Internally moved all help messages to a JSON file.
@@ -21,12 +22,14 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Changed the `date` command to show the slash-format date in the format _{month}/{day}_ and no longer made it italicized.
 - Changed the formatting of the `time` command so that it will no longer be bolded.
 - Edited almost all help messages.
+- BubbleOS now gracefully terminates when receivng a `SIGTERM` code.
 - Fixed an old issue where commands had to be in all lowercase to be recognized.
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
 - Fixed an issue where the `ping` command would show the "timed out" error once the request was completed after a few seconds, causing BubbleOS to hang. This only occurred on some systems.
 - Fixed an issue where the `ping` command would hang BubbleOS if the status code was 200 or the server timed out. BubbleOS would also terminate if the status code was not 200.
 - Fixed an issue where the `ping` command would fail to locate the address if it began with _https://_ or _http://_.
+- Fixed an issue where the `taskkill` command would not output an error message if the process did not exist when specifying the process name rather than the PID.
 - Fixed an issue where the `ls` command would crash BubbleOS if it did not have permission to read the directory.
 - Fixed an issue where commands would not recognize the '~' character as the home directory in Linux and macOS.
 - Fixed an issue where "hard aliases" would show as not recognized in the `help` command, despite them working in the BubbleOS CLI.
@@ -41,6 +44,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Removed Features
 
 - Removed the `size` command, in favor of the `stat` command.
+- Removed the `--kill-self` argument for the `taskkill` command. BubbleOS now allows killing its process by default.
 - Removed the ability to use the up-arrow key to cycle through previous commands, however, this functionality was broken on Linux and macOS (and in some cases, in Windows). This may be reintroduced in a future version.
 - Removed the leniency of yes/no prompts, so that only _y_ or _yes_ are accepted. This may be reintroduced in a future version.
 - Removed an Easter egg :(
