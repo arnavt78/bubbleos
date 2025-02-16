@@ -253,8 +253,8 @@
     }
   },
 
-  "setman": {
-    "usage": "setman",
+  "setmgr": {
+    "usage": "setmgr",
     "desc": "Change the settings of {GLOBAL_NAME}.",
     "args": {}
   },

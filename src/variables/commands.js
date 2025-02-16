@@ -25,7 +25,7 @@ const ping = require("../commands/ping");
 const print = require("../commands/print");
 const readfile = require("../commands/readfile");
 const rename = require("../commands/rename");
-const setman = require("../commands/setman");
+const setmgr = require("../commands/setmgr");
 const stat = require("../commands/stat");
 const symlink = require("../commands/symlink");
 const sysinfo = require("../commands/sysinfo");
@@ -80,7 +80,7 @@ const COMMANDS = {
   echo: print,
   readfile,
   rename,
-  setman,
+  setmgr,
   stat,
   symlink,
   sysinfo,
@@ -123,7 +123,7 @@ const ALIASES = {
   print: [],
   readfile: ["cat", "more", "type", "rdfile", "read", "tail"],
   rename: ["mv", "ren"],
-  setman: ["settings", "syscfg", "sysconfig", "sysedit"],
+  setmgr: ["settings", "syscfg", "sysconfig", "sysedit"],
   stat: ["df", "fileinfo", "dirinfo", "pathinfo", "size"],
   symlink: ["symblnk", "ln", "link"],
   sysinfo: ["uname", "systeminfo", "userinfo", "whoami"],

@@ -6,7 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-- Added the `setman` command, which allows changing a variety of BubbleOS settings.
+- Added the `setmgr` command, which allows changing a variety of BubbleOS settings.
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
