@@ -253,6 +253,12 @@
     }
   },
 
+  "setman": {
+    "usage": "setman",
+    "desc": "Change the settings of {GLOBAL_NAME}.",
+    "args": {}
+  },
+
   "stat": {
     "usage": "stat <path>",
     "desc": "Show the location, size, created, modified, and accessed dates of a file or directory.",

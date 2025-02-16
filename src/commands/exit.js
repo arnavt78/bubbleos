@@ -31,7 +31,7 @@ const exit = (...args) => {
     // If the user requested to clear the screen after exiting
     if (args.includes("-c")) {
       process.stdout.write("\x1bc");
-      Verbose.custom("Cleared screen due to '-c' argument passed.");
+      Verbose.custom("Cleared screen.");
     }
 
     // Exit with exit code of '0' (success)

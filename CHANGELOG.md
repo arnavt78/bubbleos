@@ -6,6 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
+- Added the `setman` command, which allows changing a variety of BubbleOS settings.
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
@@ -13,7 +14,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added the ability to use double-quotes to enter a task name with spaces in `taskkill`.
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
 - Added the `pwd` command as an alias to `cwd`.
-- Internally moved all help messages to a JSON file.
+- Internally moved all help messages, tips, and crashes to JSON files.
 - Internally added the `PathUtil` class, containing file path operation utilities.
 
 ### Changed/Fixed Features

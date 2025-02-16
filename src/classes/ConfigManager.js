@@ -119,6 +119,12 @@ class ConfigManager {
     }
   }
 
+  /**
+   * Check if the path is the BubbleOS configuration file.
+   *
+   * @param {string} chkPath The path to check.
+   * @returns If the path is the BubbleOS configuration file.
+   */
   isConfig(chkPath) {
     return this.configPath === chkPath;
   }

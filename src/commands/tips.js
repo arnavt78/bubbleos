@@ -1,17 +1,12 @@
 const chalk = require("chalk");
 
+const ALL_TIPS = require("../data/tips.json");
+
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _fatalError = require("../functions/fatalError");
 
 const Verbose = require("../classes/Verbose");
-
-/**
- * All tips that can be chosen by BubbleOS.
- */
-const ALL_TIPS = [
-  `Hello! We're resetting tips; they'll come back in the next stable release of ${GLOBAL_NAME} (build 200)!`,
-];
 
 /**
  * Shuffles the array provided to have its values
@@ -56,7 +51,12 @@ const tips = (...args) => {
       const tip = availableTips.pop();
 
       Verbose.custom("Showing tip...");
-      console.log(chalk.hex("#FFA500")`${chalk.bold("TIP:")} ${tip}\n`);
+      console.log(
+        chalk.hex("#FFA500")`${chalk.bold("TIP:")} ${tip.replaceAll(
+          "{GLOBAL_NAME}",
+          GLOBAL_NAME
+        )}\n`
+      );
       return;
     }
   } catch (err) {

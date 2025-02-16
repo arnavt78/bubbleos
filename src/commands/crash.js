@@ -3,6 +3,8 @@ const { select } = require("@inquirer/prompts");
 const isElevated = require("is-elevated");
 const execa = require("execa");
 
+const CRASHES = require("../data/crashes.json");
+
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _promptForYN = require("../functions/promptForYN");
@@ -12,32 +14,6 @@ const exit = require("./exit");
 
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
-
-/**
- * A list of all the crashes that are possible.
- */
-const CRASHES = [
-  {
-    name: "Fatal Error (BubbleOS)",
-    value: 1,
-    description: "Crash BubbleOS with a fatal error.",
-  },
-  {
-    name: "Hang",
-    value: 2,
-    description: "Hang the terminal.",
-  },
-  {
-    name: "Memory Leak",
-    value: 3,
-    description: "Leak memory from the computer.",
-  },
-  {
-    name: "Blue Screen of Death (Windows)",
-    value: 4,
-    description: "Crash a Windows device with a BSOD.",
-  },
-];
 
 /**
  * Crash BubbleOS and the terminal in many ways.
@@ -172,7 +148,7 @@ const crash = async (...args) => {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
       exit();
-    } else if (err.message.toLowerCase.includes("exit code 1")) {
+    } else if (err.message.toLowerCase().includes("exit code 1")) {
       // If the BSOD failed to run. This is usually due to Windows
       // 'taskkill' not existing/being blocked by the system.
       Verbose.custom("Failed to crash Windows with a BSOD...");

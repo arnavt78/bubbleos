@@ -47,9 +47,3 @@ if (!config.createConfig())
   InfoMessages.error(
     `${GLOBAL_NAME} failed to create the configuration file. Some features will not work.`
   );
-
-// Remove this before the next stable build
-if (!_detectArgs("verbose"))
-  InfoMessages.info(
-    `It is highly recommended to run ${GLOBAL_NAME} with the --verbose flag to find bugs relating to it. Report bugs found with the verbose feature at https://github.com/arnavt78/bubbleos/issues/new.`
-  );

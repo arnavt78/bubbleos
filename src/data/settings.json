@@ -1,0 +1,38 @@
+{
+  "absoluteOrRelative": {
+    "displayName": "Absolute or Relative Path",
+    "description": "Choose whether to use an absolute or relative path for commands.",
+    "default": {
+      "displayName": "Absolute",
+      "value": "absolute"
+    },
+    "options": [
+      {
+        "displayName": "Absolute",
+        "value": "absolute"
+      },
+      {
+        "displayName": "Relative",
+        "value": "relative"
+      }
+    ]
+  },
+  "showVersionOnStart": {
+    "displayName": "Show Version on Startup",
+    "description": "Show the version of {GLOBAL_NAME} when it is started.",
+    "default": {
+      "displayName": "Yes",
+      "value": true
+    },
+    "options": [
+      {
+        "displayName": "Yes",
+        "value": true
+      },
+      {
+        "displayName": "No",
+        "value": false
+      }
+    ]
+  }
+}

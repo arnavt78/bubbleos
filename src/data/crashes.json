@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Fatal Error (BubbleOS)",
+    "value": 1,
+    "description": "Crash BubbleOS with a fatal error."
+  },
+  {
+    "name": "Hang",
+    "value": 2,
+    "description": "Hang the terminal."
+  },
+  {
+    "name": "Memory Leak",
+    "value": 3,
+    "description": "Leak memory from the computer."
+  },
+  {
+    "name": "Blue Screen of Death (Windows)",
+    "value": 4,
+    "description": "Crash a Windows device with a BSOD."
+  }
+]
