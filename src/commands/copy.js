@@ -10,6 +10,7 @@ const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * The size of the file/directory in bytes before showing a "this may take a while" message.
@@ -68,6 +69,9 @@ const copy = (src, dest, ...args) => {
     const srcChk = new Checks(src);
     const destChk = new Checks(dest);
 
+    const showSrc = new SettingManager().fullOrBase(src);
+    const showDest = new SettingManager().fullOrBase(dest);
+
     Verbose.initArgs();
     const silent = args?.includes("-s");
     const confirmCopy = !args.includes("-y");
@@ -82,7 +86,7 @@ const copy = (src, dest, ...args) => {
 
     if (!srcChk.doesExist()) {
       Verbose.chkExists(src);
-      Errors.doesNotExist("source", src);
+      Errors.doesNotExist("source", showSrc);
       return;
     } else if (srcChk.pathUNC()) {
       Errors.invalidUNCPath();
@@ -97,7 +101,7 @@ const copy = (src, dest, ...args) => {
       if (
         !_promptForYN(
           `The file/directory, ${chalk.bold(
-            dest
+            showDest
           )} exists and will be overwritten. Do you want to continue?`
         )
       ) {
@@ -137,23 +141,28 @@ const copy = (src, dest, ...args) => {
     }
 
     if (!silent)
-      InfoMessages.success(`Successfully copied to ${chalk.bold(src)} to ${chalk.bold(dest)}.`);
+      InfoMessages.success(
+        `Successfully copied to ${chalk.bold(showSrc)} to ${chalk.bold(showDest)}.`
+      );
     else console.log();
   } catch (err) {
+    const showSrc = new SettingManager().fullOrBase(src);
+    const showDest = new SettingManager().fullOrBase(dest);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("copy", src);
+      Errors.noPermissions("copy", showSrc);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file/directory", `${src} and/or ${dest}`);
+      Errors.inUse("file/directory", `${showSrc} and/or ${showDest}`);
     } else if (err.code === "EISDIR") {
       // If the user attempted to copy a file to a directory
       Verbose.chkType(dest, "file");
-      Errors.expectedFile(dest);
+      Errors.expectedFile(showDest);
     } else if (err.code === "ENOTDIR") {
       // If the user attempted to copy a directory to a file
       Verbose.chkType(dest, "directory");
-      Errors.expectedDir(dest);
+      Errors.expectedDir(showDest);
     } else if (err.code === "ERR_FS_CP_DIR_TO_NON_DIR") {
       // If the user attempted to copy a directory to a non-directory
 

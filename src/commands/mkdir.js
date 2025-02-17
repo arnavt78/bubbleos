@@ -10,6 +10,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Make a directory synchronously. This is meant
@@ -47,6 +48,8 @@ const mkdir = (dir, ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    const showDir = new SettingManager().fullOrBase(dir);
+
     Verbose.initArgs();
     const silent = args?.includes("-s");
 
@@ -68,14 +71,14 @@ const mkdir = (dir, ...args) => {
         try {
           Verbose.custom("Deleting the directory...");
           fs.rmSync(dir, { recursive: true, force: true });
-          InfoMessages.success(`Successfully deleted ${chalk.bold(dir)}.`);
+          InfoMessages.success(`Successfully deleted ${chalk.bold(showDir)}.`);
         } catch {
           if (err.code === "EPERM" || err.code === "EACCES") {
             Verbose.permError();
-            Errors.noPermissions("delete the directory", dir);
+            Errors.noPermissions("delete the directory", showDir);
           } else if (err.code === "EBUSY") {
             Verbose.inUseError();
-            Errors.inUse("directory", dir);
+            Errors.inUse("directory", showDir);
           }
 
           return;
@@ -99,23 +102,25 @@ const mkdir = (dir, ...args) => {
     fs.mkdirSync(dir, { recursive: true });
 
     // If the user didn't request for silence, show the success message, else, show a newline
-    if (!silent) InfoMessages.success(`Successfully made the directory ${chalk.bold(dir)}.`);
+    if (!silent) InfoMessages.success(`Successfully made the directory ${chalk.bold(showDir)}.`);
     else console.log();
   } catch (err) {
+    const showDir = new SettingManager().fullOrBase(dir);
+
     if (err.code === "ENOENT") {
       // In the case that the recursive option is disabled,
       // throw an error if a parent directory does not exist
       Verbose.chkExists(dir);
-      Errors.doesNotExist("directory", dir);
+      Errors.doesNotExist("directory", showDir);
     } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("create the directory", dir);
+      Errors.noPermissions("create the directory", showDir);
     } else if (err.code === "ENAMETOOLONG") {
       // The name is too long
       // This code only seems to appear on Linux and macOS
       // On Windows, the code is 'EINVAL'
       Verbose.custom("The directory name was detected to be too long.");
-      Errors.pathTooLong(dir);
+      Errors.pathTooLong(showDir);
     } else if (err.code === "EINVAL") {
       // Invalid characters; basically just goes for Windows
       // NTFS' file system character limitations
@@ -129,7 +134,7 @@ const mkdir = (dir, ...args) => {
         "directory name",
         "valid path characters",
         "characters such as '?' or ':' (Windows only)",
-        dir
+        showDir
       );
     } else {
       Verbose.fatalError();

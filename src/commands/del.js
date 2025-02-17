@@ -10,6 +10,7 @@ const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const ConfigManager = require("../classes/ConfigManager");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Delete a file/directory from BubbleOS. This is a CLI function.
@@ -44,6 +45,8 @@ const del = (path, ...args) => {
     Verbose.initChecker();
     const pathChk = new Checks(path);
 
+    const showPath = new SettingManager().fullOrBase(path);
+
     Verbose.initArgs();
     const silent = args?.includes("-s");
     const confirmDel = !args?.includes("-y");
@@ -56,21 +59,21 @@ const del = (path, ...args) => {
 
     if (!pathChk.doesExist()) {
       Verbose.chkExists();
-      Errors.doesNotExist("file/directory", path);
+      Errors.doesNotExist("file/directory", showPath);
       return;
     } else if (pathChk.pathUNC()) {
       Errors.invalidUNCPath();
       return;
     } else if (new ConfigManager().isConfig(path)) {
       // Prevents the user from deleting the configuration file
-      Errors.inUse("file", path);
+      Errors.inUse("file", showPath);
       return;
     }
 
     // Confirms user wants to delete path
     if (confirmDel) {
       Verbose.promptUser();
-      if (!_promptForYN(`Are you sure you want to permanently delete ${chalk.bold(path)}?`)) {
+      if (!_promptForYN(`Are you sure you want to permanently delete ${chalk.bold(showPath)}?`)) {
         Verbose.declinePrompt();
         console.log(chalk.yellow("Process aborted.\n"));
         return;
@@ -81,15 +84,17 @@ const del = (path, ...args) => {
     Verbose.custom(`Deleting file/directory '${path}'...`);
     fs.rmSync(path, { recursive: true, force: true });
 
-    if (!silent) InfoMessages.success(`Successfully deleted ${chalk.bold(path)}.`);
+    if (!silent) InfoMessages.success(`Successfully deleted ${chalk.bold(showPath)}.`);
     else console.log();
   } catch (err) {
+    const showPath = new SettingManager().fullOrBase(path);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("delete the file/directory", path);
+      Errors.noPermissions("delete the file/directory", showPath);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file/directory", path);
+      Errors.inUse("file/directory", showPath);
     } else {
       Verbose.fatalError();
       _fatalError(err);

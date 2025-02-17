@@ -153,6 +153,8 @@ class PathUtil {
     };
 
     if (options.parseQuotes) inputPath = PathUtil.parseQuotes(inputPath)[0];
+    if (typeof inputPath === "undefined") return inputPath;
+
     if (options.homeDir) inputPath = PathUtil.homeDir(inputPath);
     if (options.convertAbsolute) inputPath = PathUtil.convertAbsolute(inputPath);
     if (options.caseSensitive) inputPath = PathUtil.caseSensitive(inputPath);

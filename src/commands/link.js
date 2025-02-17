@@ -9,6 +9,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Creates a hard link on the system.
@@ -45,6 +46,9 @@ const link = (path, newPath, ...args) => {
     const pathChk = new Checks(path);
     const newPathChk = new Checks(newPath);
 
+    const showPath = new SettingManager().fullOrBase(path);
+    const showNewPath = new SettingManager().fullOrBase(newPath);
+
     if (pathChk.paramUndefined() || newPathChk.paramUndefined()) {
       Verbose.chkEmpty();
       Errors.enterParameter("a path/the paths", "link path newPath");
@@ -53,7 +57,7 @@ const link = (path, newPath, ...args) => {
 
     if (!pathChk.doesExist()) {
       Verbose.chkExists();
-      Errors.doesNotExist("file/directory", path);
+      Errors.doesNotExist("file/directory", showPath);
       return;
     } else if (pathChk.pathUNC()) {
       Verbose.chkUNC();
@@ -65,7 +69,7 @@ const link = (path, newPath, ...args) => {
       // Unlinks file
       if (confirm) {
         Verbose.promptUser();
-        if (!_promptForYN(`Are you sure you want to unlink ${chalk.bold(path)}?`)) {
+        if (!_promptForYN(`Are you sure you want to unlink ${chalk.bold(showPath)}?`)) {
           console.log(chalk.yellow("Process aborted.\n"));
           return;
         }
@@ -74,7 +78,7 @@ const link = (path, newPath, ...args) => {
       Verbose.custom("Unlinking file...");
       fs.unlinkSync(path);
 
-      if (!silent) InfoMessages.success(`Successfully unlinked ${chalk.bold(path)}.`);
+      if (!silent) InfoMessages.success(`Successfully unlinked ${chalk.bold(showPath)}.`);
       else console.log();
       return;
     }
@@ -84,12 +88,16 @@ const link = (path, newPath, ...args) => {
     fs.linkSync(path, newPath);
 
     if (!silent)
-      InfoMessages.success(`Successfully linked ${chalk.bold(newPath)} to ${chalk.bold(path)}.`);
+      InfoMessages.success(
+        `Successfully linked ${chalk.bold(showNewPath)} to ${chalk.bold(showPath)}.`
+      );
     else console.log();
   } catch (err) {
+    const showNewPath = new SettingManager().fullOrBase(newPath);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("make the link", newPath);
+      Errors.noPermissions("make the link", showNewPath);
     } else {
       Verbose.fatalError();
       _fatalError(err);

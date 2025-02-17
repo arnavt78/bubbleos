@@ -1,4 +1,5 @@
 const _detectArgs = require("../detectArgs");
+const _initConfig = require("./initConfig");
 
 const ConfigManager = require("../../classes/ConfigManager");
 const InfoMessages = require("../../classes/InfoMessages");
@@ -29,21 +30,8 @@ Verbose.custom("Completing fatal error file dump check...");
 if (_detectArgs("dump") && !_detectArgs("warnings"))
   InfoMessages.warning("The fatal error file dump feature has been disabled.");
 
-// Configuration file reset
-if (_detectArgs("reset")) {
-  Verbose.custom("Deleting configuration file...");
-  if (config.deleteConfig()) {
-    InfoMessages.success(`Successfully deleted the ${GLOBAL_NAME} configuration file.`);
-  } else {
-    InfoMessages.error(
-      `An unexpected error occurred while trying to delete the ${GLOBAL_NAME} configuration file.`
-    );
-  }
+// Configuration file reset/creation
+if (_detectArgs("reset") || typeof config.getConfig() === "undefined") {
+  Verbose.custom("Resetting/creating configuration file...");
+  _initConfig();
 }
-
-// Configuration file creation
-Verbose.custom("Creating configuration file...");
-if (!config.createConfig())
-  InfoMessages.error(
-    `${GLOBAL_NAME} failed to create the configuration file. Some features will not work.`
-  );

@@ -10,33 +10,33 @@ const {
   EXPIRY_DATE,
 } = require("../../variables/constants");
 
+const _initConfig = require("./initConfig");
+
 const Verbose = require("../../classes/Verbose");
+const SettingManager = require("../../classes/SettingManager");
 const ConfigManager = require("../../classes/ConfigManager");
 const InfoMessages = require("../../classes/InfoMessages");
 
 const config = new ConfigManager();
-const configData = config.getConfig();
+const showVersion = new SettingManager().showVersion();
 
-// Detection if configuration file is corrupt
-// TODO make this into a seperate function due to usage in 'history' command
-if (typeof configData === "undefined") {
-  // InfoMessages.error("Error when reading the configuration file. Resetting file...");
-
-  config.deleteConfig();
-  config.createConfig();
+if (typeof config.getConfig() === "undefined") {
+  Verbose.custom("Creating configuration file...");
+  _initConfig();
 }
 
-if (configData.settings?.showVersionOnStart?.current?.value) {
+const configData = config.getConfig();
+
+if (showVersion) {
   console.log(`${chalk.bold(`${GLOBAL_NAME}, v${VERSION} (build ${BUILD})`)}`);
 }
 
 // Only display if this is the first time BubbleOS is runing
-if (!configData.firstIntro) {
+if (!configData?.firstIntro) {
   console.log(`Made by ${AUTHOR}!`);
 }
 
-if (configData.settings?.showVersionOnStart?.current?.value || !configData.firstIntro)
-  console.log();
+if (showVersion || !configData?.firstIntro) console.log();
 
 Verbose.custom(`Checking if ${GLOBAL_NAME} is in beta...`);
 if (IN_BETA) {
@@ -67,14 +67,14 @@ if (IN_BETA) {
 }
 
 // Show information about commands
-if (!configData.firstIntro) {
+if (!configData?.firstIntro) {
   console.log(`For a list on some available commands, type ${chalk.italic("'help'")}.`);
   console.log(`For more information about a command, type ${chalk.italic("'help <command>'")}.\n`);
 
   console.log(`To exit the ${GLOBAL_NAME} shell, type ${chalk.italic("'exit'")}.\n`);
 }
 
-if (configData.lastCrashed) {
+if (configData?.lastCrashed) {
   InfoMessages.warning(
     `${GLOBAL_NAME} crashed the last time it was run. For more information, find the error information file in the directory you ran ${GLOBAL_NAME} in.`
   );

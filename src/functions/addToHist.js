@@ -1,3 +1,5 @@
+const _initConfig = require("./init/initConfig");
+
 const InfoMessages = require("../classes/InfoMessages");
 const ConfigManager = require("../classes/ConfigManager");
 const Verbose = require("../classes/Verbose");
@@ -30,8 +32,7 @@ const _addToHist = (command, addToConfig = true) => {
     );
 
     Verbose.custom("Resetting configuration file...");
-    config.deleteConfig();
-    config.createConfig();
+    _initConfig();
     return;
   }
 
@@ -52,4 +53,4 @@ const _addToHist = (command, addToConfig = true) => {
   config.addData({ history: historyConfig });
 };
 
-module.exports = _addToHist;
+module.exports = { _addToHist, NUMBER_TO_STORE };

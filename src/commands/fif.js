@@ -11,6 +11,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Escape all special characters in RegExp.
@@ -56,6 +57,8 @@ const fif = async (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     Verbose.initArgs();
     const numOccur = args.includes("-n");
     const placeOccur = args.includes("-p");
@@ -70,11 +73,11 @@ const fif = async (file, ...args) => {
 
     if (!fileChk.doesExist()) {
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
       return;
     } else if (fileChk.validateType()) {
       Verbose.chkType(file, "file");
-      Errors.expectedFile(file);
+      Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
       Errors.invalidUNCPath();
@@ -92,7 +95,7 @@ const fif = async (file, ...args) => {
     // Ask user for the phrase
     Verbose.custom("Prompting user for phrase to find...");
     const toFind = await input({
-      message: `Enter the phrase to find in ${chalk.italic(path.relative(process.cwd(), file))}:`,
+      message: `Enter the phrase to find in ${chalk.italic(path.basename(file))}:`,
       required: true,
       theme: {
         style: {

@@ -7,6 +7,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Count the number of words, lines, and characters
@@ -37,6 +38,8 @@ const wcount = (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     Verbose.initArgs();
     const lines = args?.includes("-l");
     const words = args?.includes("-w");
@@ -50,11 +53,11 @@ const wcount = (file, ...args) => {
       return;
     } else if (!fileChk.doesExist()) {
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
       return;
     } else if (fileChk.validateType()) {
       Verbose.chkType(file, "file");
-      Errors.expectedFile(file);
+      Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
       Verbose.chkUNC();
@@ -93,12 +96,14 @@ const wcount = (file, ...args) => {
 
     console.log();
   } catch (err) {
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("read the file", file);
+      Errors.noPermissions("read the file", showFile);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file", file);
+      Errors.inUse("file", showFile);
     } else {
       Verbose.fatalError();
       _fatalError(err);

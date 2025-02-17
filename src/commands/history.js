@@ -1,5 +1,7 @@
 const chalk = require("chalk");
 
+const _initConfig = require("../functions/init/initConfig");
+const { NUMBER_TO_STORE } = require("../functions/addToHist");
 const _fatalError = require("../functions/fatalError");
 
 const Errors = require("../classes/Errors");
@@ -51,16 +53,14 @@ const history = (numToDisplay, ...args) => {
         );
 
         Verbose.custom("Resetting configuration file...");
-        config.deleteConfig();
-        config.createConfig();
-
-        config.addData({ history: [] });
+        _initConfig();
         return;
       }
 
       Verbose.custom("Resetting 'history' key...");
       config.addData({ history: [] });
-      console.log(chalk.green("Cleared the history.\n"));
+
+      InfoMessages.success("Successfully cleared the history.");
       return;
     }
 
@@ -76,8 +76,7 @@ const history = (numToDisplay, ...args) => {
       );
 
       Verbose.custom("Resetting configuration file...");
-      config.deleteConfig();
-      config.createConfig();
+      _initConfig();
       return;
     }
 
@@ -102,6 +101,16 @@ const history = (numToDisplay, ...args) => {
     if (numToDisplay % 1 !== 0) {
       Verbose.custom("Detected invalid characters passed into history point...");
       Errors.invalidCharacters("history point", "numbers", "letters/symbols", numToDisplay);
+      return;
+    } else if (numToDisplay > NUMBER_TO_STORE || numToDisplay <= 0) {
+      Verbose.custom(
+        `History point ${numToDisplay} exceeds max storage number (${NUMBER_TO_STORE}).`
+      );
+      console.log(
+        chalk.yellow(
+          `The history point ${numToDisplay} exceeds range of history points able to be stored (1-${NUMBER_TO_STORE}).\n`
+        )
+      );
       return;
     } else if (typeof historyConfig[numToDisplay - 1] === "undefined") {
       Verbose.custom(

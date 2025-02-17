@@ -9,6 +9,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * A function to calculate and return the sizes of a file or directory.
@@ -80,13 +81,15 @@ const stat = (path, ...args) => {
     Verbose.initChecker();
     const pathChk = new Checks(path);
 
+    const showPath = new SettingManager().fullOrBase(path);
+
     if (pathChk.paramUndefined()) {
       Verbose.chkEmpty();
       Errors.enterParameter("a file/directory", "stat test.txt");
       return;
     } else if (!pathChk.doesExist()) {
       Verbose.chkExists();
-      Errors.doesNotExist("file/directory", path);
+      Errors.doesNotExist("file/directory", showPath);
       return;
     } else if (pathChk.pathUNC()) {
       Verbose.chkUNC();
@@ -111,12 +114,14 @@ const stat = (path, ...args) => {
 
     console.log();
   } catch (err) {
+    const showPath = new SettingManager().fullOrBase(path);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("get additional information of the file/directory", path);
+      Errors.noPermissions("get additional information of the file/directory", showPath);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file/directory", path);
+      Errors.inUse("file/directory", showPath);
     } else {
       Verbose.fatalError();
       _fatalError(err);

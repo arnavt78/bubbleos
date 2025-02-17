@@ -8,6 +8,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Execute a file from BubbleOS. This is meant to be used as a
@@ -38,6 +39,8 @@ const exec = (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     Verbose.initArgs();
     const silent = args?.includes("-s");
     const winHide = args?.includes("-h");
@@ -51,11 +54,11 @@ const exec = (file, ...args) => {
 
     if (!fileChk.doesExist()) {
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
       return;
     } else if (fileChk.validateType()) {
       Verbose.chkType(file, "file");
-      Errors.expectedFile(file);
+      Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
       Errors.invalidUNCPath();
@@ -69,20 +72,22 @@ const exec = (file, ...args) => {
     Verbose.custom(`Executing the file '${file}'...`);
     childProcess.exec(file, { cwd: process.cwd(), windowsHide: winHide, shell }, () => {});
 
-    if (!silent) InfoMessages.success(`Successfully executed ${chalk.bold(file)}.`);
+    if (!silent) InfoMessages.success(`Successfully executed ${chalk.bold(showFile)}.`);
     else console.log();
   } catch (err) {
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.code === "UNKNOWN") {
       // This for some reason, never occurs
       // TODO make it so that if a file has no way of running, make it show this error
       Verbose.custom("Cannot execute file due to no known way of launching.");
-      Errors.unknown("execute the file", file);
+      Errors.unknown("execute the file", showFile);
     } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("run the file", file);
+      Errors.noPermissions("run the file", showFile);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file", file);
+      Errors.inUse("file", showFile);
     } else {
       Verbose.fatalError();
       _fatalError(err);

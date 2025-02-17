@@ -9,6 +9,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Interpret a BubbleOS file. This function should only be
@@ -107,6 +108,8 @@ const bub = async (intCmds, file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     Verbose.initArgs();
     const displayCommand = args?.includes("-d");
     const allowExit = args?.includes("--allow-exit");
@@ -119,11 +122,11 @@ const bub = async (intCmds, file, ...args) => {
 
     if (!fileChk.doesExist()) {
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
       return;
     } else if (fileChk.validateType()) {
       Verbose.chkType(file, "file");
-      Errors.expectedFile(file);
+      Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
       Errors.invalidUNCPath();
@@ -142,7 +145,7 @@ const bub = async (intCmds, file, ...args) => {
       Verbose.custom(`File '${file}' was detected to not end in '.bub'.`);
       InfoMessages.error(
         `The file must end with '.bub'. Received: '${chalk.bold(
-          path.basename(file)
+          path.basename(showFile)
         )}'. Process aborted.`
       );
       return;
@@ -157,12 +160,14 @@ const bub = async (intCmds, file, ...args) => {
     Verbose.custom("Changing current working directory to path before file was executed...");
     process.chdir(PathUtil.caseSensitive(beforeCwd));
   } catch (err) {
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("read the file", file);
+      Errors.noPermissions("read the file", showFile);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file", file);
+      Errors.inUse("file", showFile);
     } else {
       Verbose.fatalError();
       _fatalError(err);

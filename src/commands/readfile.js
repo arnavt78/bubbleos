@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const chalk = require("chalk");
 
 const { GLOBAL_NAME } = require("../variables/constants");
@@ -11,6 +12,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * The maximum amount of characters before BubbleOS
@@ -56,6 +58,8 @@ const readfile = (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     Verbose.initArgs();
     const confirm = !args?.includes("-y");
     const ignoreMax = args?.includes("--ignore-max");
@@ -68,11 +72,11 @@ const readfile = (file, ...args) => {
 
     if (!fileChk.doesExist()) {
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
       return;
     } else if (fileChk.validateType()) {
       Verbose.chkType(file, "file");
-      Errors.expectedFile(file);
+      Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
       Verbose.chkUNC();
@@ -102,7 +106,7 @@ const readfile = (file, ...args) => {
       Verbose.promptUser();
       if (
         !_promptForYN(
-          `The file, ${chalk.bold(
+          `The file, ${path.basename(
             file
           )}, has over ${MAX_CHARS_CONFIRM} characters (${chars} characters). Do you wish to continue?`
         )
@@ -119,12 +123,14 @@ const readfile = (file, ...args) => {
     console.log(fs.readFileSync(file, { encoding: "utf-8", flag: "r" }));
     console.log();
   } catch (err) {
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("read the file", file);
+      Errors.noPermissions("read the file", showFile);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file", file);
+      Errors.inUse("file", showFile);
     } else {
       Verbose.fatalError();
       _fatalError(err);

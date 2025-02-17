@@ -10,6 +10,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Either make a symbolic link or check if a path
@@ -58,13 +59,16 @@ const symlink = (path, newPath, ...args) => {
     const pathChk = new Checks(path);
     const newPathChk = new Checks(newPath);
 
+    const showPath = new SettingManager().fullOrBase(path);
+    const showNewPath = new SettingManager().fullOrBase(newPath);
+
     if (pathChk.paramUndefined() || newPathChk.paramUndefined()) {
       Verbose.chkEmpty();
       Errors.enterParameter("a path/the paths", "symlink path symbol");
       return;
     } else if (!pathChk.doesExist()) {
       Verbose.chkExists(path);
-      Errors.doesNotExist("file/directory", path);
+      Errors.doesNotExist("file/directory", showPath);
       return;
     } else if (pathChk.pathUNC()) {
       Verbose.pathUNC();
@@ -77,11 +81,11 @@ const symlink = (path, newPath, ...args) => {
       Verbose.custom("Checking if path is a symbolic link...");
       if (fs.lstatSync(path).isSymbolicLink()) {
         Verbose.custom("Path is a symbolic link.");
-        console.log(chalk.green(`The path, ${chalk.bold(path)}, is a symbolic link.`));
+        console.log(chalk.green(`The path, ${chalk.bold(showPath)}, is a symbolic link.`));
         console.log(chalk.green.italic.dim(`(points to ${chalk.bold(fs.readlinkSync(path))})\n`));
       } else {
         Verbose.custom("Path is not a symbolic link.");
-        console.log(chalk.red(`The path, ${chalk.bold(path)}, is not a symbolic link.\n`));
+        console.log(chalk.red(`The path, ${chalk.bold(showPath)}, is not a symbolic link.\n`));
       }
 
       return;
@@ -92,19 +96,21 @@ const symlink = (path, newPath, ...args) => {
 
     if (!silent)
       InfoMessages.success(
-        `Successfully created the symbolic link ${chalk.bold(newPath)} that points to ${chalk.bold(
-          path
-        )}.`
+        `Successfully created the symbolic link ${chalk.bold(
+          showNewPath
+        )} that points to ${chalk.bold(showPath)}.`
       );
     else console.log();
   } catch (err) {
+    const showNewPath = new SettingManager().fullOrBase(newPath);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       // If there are no permissions to make the symbolic link
       // Note that on Windows (and maybe Linux/macOS), you need
       // to run it with elevated privileges to make the command work.
       Verbose.permError();
       InfoMessages.info(`Try running ${GLOBAL_NAME} with elevated privileges.`);
-      Errors.noPermissions("make the symbolic link", newPath);
+      Errors.noPermissions("make the symbolic link", showNewPath);
     } else {
       Verbose.fatalError();
       _fatalError(err);

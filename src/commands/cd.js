@@ -8,6 +8,7 @@ const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * The `cd` command, used to change into a directory.
@@ -27,6 +28,8 @@ const cd = (dir, ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    const showDir = new SettingManager().fullOrBase(dir);
+
     Verbose.initArgs();
     const silent = args?.includes("-s");
 
@@ -38,7 +41,7 @@ const cd = (dir, ...args) => {
 
     if (!dirChk.doesExist()) {
       Verbose.chkExists(dir);
-      Errors.doesNotExist("directory", dir);
+      Errors.doesNotExist("directory", showDir);
       return;
     } else if (dirChk.pathUNC()) {
       Errors.invalidUNCPath();
@@ -53,10 +56,12 @@ const cd = (dir, ...args) => {
       Verbose.custom("Path is a symbolic link; finding where it is pointing to...");
       const symlinkPath = fs.readlinkSync(dir);
 
+      const showSymlink = new SettingManager().fullOrBase(symlinkPath);
+
       // If the path it is pointing to is a file, throw an error
       if (!new Checks(symlinkPath).validateType()) {
         Verbose.custom("Symbolic link points to a file.");
-        Errors.expectedDir(dir);
+        Errors.expectedDir(showSymlink);
         return;
       }
 
@@ -69,7 +74,7 @@ const cd = (dir, ...args) => {
       process.chdir(symlinkPath);
 
       if (!silent)
-        InfoMessages.success(`Successfully changed the directory to ${chalk.bold(symlinkPath)}.`);
+        InfoMessages.success(`Successfully changed the directory to ${chalk.bold(showSymlink)}.`);
       else console.log();
     } else if (dirChk.validateType()) {
       // If not a symlink, change directory normally
@@ -81,17 +86,19 @@ const cd = (dir, ...args) => {
       process.chdir(dir);
 
       if (!silent)
-        InfoMessages.success(`Successfully changed the directory to ${chalk.bold(dir)}.`);
+        InfoMessages.success(`Successfully changed the directory to ${chalk.bold(showDir)}.`);
       else console.log();
     } else {
       Verbose.chkType(dir, "directory");
-      Errors.expectedDir(dir);
+      Errors.expectedDir(showDir);
       return;
     }
   } catch (err) {
+    const showDir = new SettingManager().fullOrBase(dir);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("change into", dir);
+      Errors.noPermissions("change into", showDir);
     } else if (err.code === "ENOENT") {
       // For some reason, there are rare cases where the checks think the directory exists,
       // but when trying to change into it, it throws an error.
@@ -100,7 +107,7 @@ const cd = (dir, ...args) => {
       // change into it, it throws an error.
 
       Verbose.custom("Directory does not exist.");
-      Errors.doesNotExist("directory", dir);
+      Errors.doesNotExist("directory", showDir);
     } else {
       Verbose.fatalError();
       _fatalError(err);

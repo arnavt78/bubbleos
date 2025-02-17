@@ -1,19 +1,19 @@
 {
-  "absoluteOrRelative": {
-    "displayName": "Absolute or Relative Path",
-    "description": "Choose whether to use an absolute or relative path for commands.",
+  "fullPathOrBase": {
+    "displayName": "Full Path or Basename",
+    "description": "Choose whether to display the full path or just the base file/directory name in commands.",
     "default": {
-      "displayName": "Absolute",
-      "value": "absolute"
+      "displayName": "Full Path",
+      "value": "full"
     },
     "options": [
       {
-        "displayName": "Absolute",
-        "value": "absolute"
+        "displayName": "Full Path",
+        "value": "full"
       },
       {
-        "displayName": "Relative",
-        "value": "relative"
+        "displayName": "Basename",
+        "value": "base"
       }
     ]
   },
@@ -31,6 +31,24 @@
       },
       {
         "displayName": "No",
+        "value": false
+      }
+    ]
+  },
+  "caseSensitiveCmd": {
+    "displayName": "Case-Sensitive Commands",
+    "description": "Make commands case-sensitive or case-insensitive.",
+    "default": {
+      "displayName": "Case-Sensitive",
+      "value": true
+    },
+    "options": [
+      {
+        "displayName": "Case-Sensitive",
+        "value": true
+      },
+      {
+        "displayName": "Case-Insensitive",
         "value": false
       }
     ]

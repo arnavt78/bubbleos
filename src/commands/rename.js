@@ -9,6 +9,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Renames a file for use in the BubbleOS shell.
@@ -41,6 +42,9 @@ const rename = (oldName, newName, ...args) => {
     const oldChk = new Checks(oldName);
     const newChk = new Checks(newName);
 
+    const showOldName = new SettingManager().fullOrBase(oldName);
+    const showNewName = new SettingManager().fullOrBase(newName);
+
     Verbose.initArgs();
     const confirm = !args?.includes("-y");
     const silent = args?.includes("-s");
@@ -58,7 +62,7 @@ const rename = (oldName, newName, ...args) => {
 
     if (!oldChk.doesExist()) {
       Verbose.chkExists(oldName);
-      Errors.doesNotExist("file", oldName);
+      Errors.doesNotExist("file", showOldName);
       return;
     } else if (oldChk.pathUNC() || newChk.pathUNC()) {
       Verbose.chkUNC();
@@ -71,7 +75,7 @@ const rename = (oldName, newName, ...args) => {
       if (
         !_promptForYN(
           `The file/directory, ${chalk.bold(
-            newName
+            showNewName
           )} exists and will be overwritten. Do you want to continue?`
         )
       ) {
@@ -86,22 +90,25 @@ const rename = (oldName, newName, ...args) => {
     // If the user did not want output, only show a newline, else, show the success message
     if (!silent)
       InfoMessages.success(
-        `Successfully renamed ${chalk.bold(oldName)} to ${chalk.bold(newName)}.`
+        `Successfully renamed ${chalk.bold(showOldName)} to ${chalk.bold(showNewName)}.`
       );
     else console.log();
   } catch (err) {
+    const showOldName = new SettingManager().fullOrBase(oldName);
+    const showNewName = new SettingManager().fullOrBase(newName);
+
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("rename the file/directory", `${oldName}/${newName}`);
+      Errors.noPermissions("rename the file/directory", `${showOldName}/${showNewName}`);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file/directory", `${oldName}/${newName}`);
+      Errors.inUse("file/directory", `${showOldName}/${showNewName}`);
     } else if (err.code === "ENAMETOOLONG") {
       // The name is too long
       // This code only seems to appear on Linux and macOS
       // On Windows, the code is 'EINVAL'
       Verbose.custom("The file name was detected to be too long.");
-      Errors.pathTooLong(newName);
+      Errors.pathTooLong(showNewName);
     } else if (err.code === "EINVAL") {
       // Invalid characters; basically just goes for Windows
       // NTFS' file system character limitations
@@ -113,7 +120,7 @@ const rename = (oldName, newName, ...args) => {
         "directory name",
         "valid path characters",
         "characters such as '?' or ':' (Windows only)",
-        newName
+        showNewName
       );
     } else {
       Verbose.fatalError();

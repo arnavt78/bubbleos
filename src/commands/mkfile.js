@@ -11,9 +11,12 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 const _fileContents = async (file, silent) => {
   try {
+    const showFile = new SettingManager().fullOrBase(file);
+
     console.log(
       `Add the content of the new file. Type ${chalk.italic(
         "'!SAVE'"
@@ -42,7 +45,7 @@ const _fileContents = async (file, silent) => {
         fs.writeFileSync(file, contents.join("\n"), "utf8");
 
         // If the user requested output, show a success message, else, show a newline
-        if (!silent) InfoMessages.success(`Successfully made the file ${chalk.bold(file)}.`);
+        if (!silent) InfoMessages.success(`Successfully made the file ${chalk.bold(showFile)}.`);
         else console.log();
         return;
       } else if (line.toUpperCase() === "!CANCEL") {
@@ -134,6 +137,8 @@ const mkfile = async (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     Verbose.initArgs();
     const silent = args?.includes("-s");
 
@@ -155,14 +160,14 @@ const mkfile = async (file, ...args) => {
         try {
           Verbose.custom("Deleting the file...");
           fs.rmSync(file, { recursive: true, force: true });
-          InfoMessages.success(`Successfully deleted ${chalk.bold(file)}.`);
+          InfoMessages.success(`Successfully deleted ${chalk.bold(showFile)}.`);
         } catch {
           if (err.code === "EPERM" || err.code === "EACCES") {
             Verbose.permError();
-            Errors.noPermissions("delete the file", file);
+            Errors.noPermissions("delete the file", showFile);
           } else if (err.code === "EBUSY") {
             Verbose.inUseError();
-            Errors.inUse("file", file);
+            Errors.inUse("file", showFile);
           }
 
           return;
@@ -181,19 +186,21 @@ const mkfile = async (file, ...args) => {
 
     await _fileContents(file, silent);
   } catch (err) {
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.code === "ENOENT") {
       // If the parent directory does not exist
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
     } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("make the file", file);
+      Errors.noPermissions("make the file", showFile);
     } else if (err.code === "ENAMETOOLONG") {
       // Name too long
       // This code only seems to appear on Linux and macOS
       // On Windows, the code is 'EINVAL'
       Verbose.custom("The file name was detected to be too long.");
-      Errors.pathTooLong(file);
+      Errors.pathTooLong(showFile);
     } else if (err.code === "EINVAL") {
       // Invalid characters; basically just goes for Windows
       // NTFS' file system character limitations
@@ -205,7 +212,7 @@ const mkfile = async (file, ...args) => {
         "directory name",
         "valid path characters",
         "characters such as '?' or ':' (Windows only)",
-        dir
+        showFile
       );
     } else {
       Verbose.fatalError();

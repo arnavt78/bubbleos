@@ -7,6 +7,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Log the directory contents.
@@ -108,13 +109,15 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    const showDir = new SettingManager().fullOrBase(dir);
+
     if (!dirChk.doesExist()) {
       Verbose.chkExists(dir);
-      Errors.doesNotExist("folder", dir);
+      Errors.doesNotExist("folder", showDir);
       return;
     } else if (!dirChk.validateType()) {
       Verbose.chkType(dir, "directory");
-      Errors.expectedDir(dir);
+      Errors.expectedDir(showDir);
       return;
     } else if (dirChk.pathUNC()) {
       Verbose.chkUNC();
@@ -162,7 +165,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
   } catch (err) {
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("read", dir);
+      Errors.noPermissions("read", showDir);
     } else if (err.code === "ENOENT") {
       // For some reason, there are rare cases where the checks think the directory exists,
       // but when trying to list the contents, it throws an error.
@@ -171,7 +174,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
       // list it, it throws an error.
 
       Verbose.custom("Directory does not exist.");
-      Errors.doesNotExist("directory", dir);
+      Errors.doesNotExist("directory", showDir);
     } else {
       Verbose.fatalError();
       _fatalError(err);

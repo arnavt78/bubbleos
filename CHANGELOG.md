@@ -8,6 +8,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 - Added the `setmgr` command, which allows changing a variety of BubbleOS settings.
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
+- Added the ability to show either the full path or just the file/directory name in success/error messages in commands (customizable using `setmgr`).
+- Added the ability to show or remove the version when starting BubbleOS (customizable using `setmgr`).
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
 - Added a list selection prompt to the `crash` command.
@@ -24,12 +26,13 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Changed the formatting of the `time` command so that it will no longer be bolded.
 - Edited almost all help messages.
 - BubbleOS now gracefully terminates when receivng a `SIGTERM` code.
-- Fixed an old issue where commands had to be in all lowercase to be recognized.
+- Fixed an old issue where commands had to be in all lowercase to be recognized (this can be changed with the `setmgr` command).
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
 - Fixed an issue where the `ping` command would show the "timed out" error once the request was completed after a few seconds, causing BubbleOS to hang. This only occurred on some systems.
 - Fixed an issue where the `ping` command would hang BubbleOS if the status code was 200 or the server timed out. BubbleOS would also terminate if the status code was not 200.
 - Fixed an issue where the `ping` command would fail to locate the address if it began with _https://_ or _http://_.
+- Fixed an issue where resetting the configuration file would cause the `history` command to throw a corrupted configuration file error.
 - Fixed an issue where the `taskkill` command would not output an error message if the process did not exist when specifying the process name rather than the PID.
 - Fixed an issue where the `ls` command would crash BubbleOS if it did not have permission to read the directory.
 - Fixed an issue where commands would not recognize the '~' character as the home directory in Linux and macOS.

@@ -25,30 +25,38 @@ const setman = async (...args) => {
 
     for (const key of Object.keys(settings)) {
       const setting = settings[key];
-      const current =
-        config.getConfig()?.settings?.[key]?.current.displayName ?? setting.default.displayName;
+
+      // Get the latest config each loop iteration
+      const currentConfig = config.getConfig() || { settings: {} };
+
+      // Get current value, defaulting to the setting's default
+      const current = currentConfig.settings?.[key]?.current?.value ?? setting.default.value;
 
       console.log(chalk.bold.blue(`=== ${setting.displayName} ===`));
       console.log(chalk.gray(setting.description.replaceAll("{GLOBAL_NAME}", GLOBAL_NAME)));
+
       console.log();
 
       console.log(chalk.green(`Default: ${setting.default.displayName}`));
-      console.log(chalk.yellow(`Current: ${current}`));
+      console.log(
+        chalk.yellow(`Current: ${currentConfig.settings?.[key]?.current?.displayName ?? "N/A"}`)
+      );
       console.log();
 
+      // Ask user for new value
       const newValue = await select({
         message: `Change the setting for "${setting.displayName}":`,
         choices: setting.options.map((opt) => ({
           name: opt.displayName,
           value: opt.value,
         })),
-        default: config.getConfig()?.settings?.[key]?.current.value ?? setting.default.value,
+        default: current,
       });
 
       if (newValue !== current) {
-        const cfgSuccess = config.addData({
+        const updatedConfig = {
           settings: {
-            ...currentConfig.settings, // Keep other settings unchanged
+            ...currentConfig.settings, // Preserve all previous settings
             [key]: {
               displayName: setting.displayName,
               current: {
@@ -57,9 +65,12 @@ const setman = async (...args) => {
               },
             },
           },
-        });
+        };
 
+        const cfgSuccess = config.addData(updatedConfig); // Save updated settings
         errorEncountered = errorEncountered ? true : !cfgSuccess;
+
+        Object.assign(currentConfig, updatedConfig);
       }
 
       process.stdout.write("\x1bc");

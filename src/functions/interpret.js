@@ -3,11 +3,12 @@ const chalk = require("chalk");
 const { COMMANDS, ALIASES } = require("../variables/commands");
 
 const _fatalError = require("./fatalError");
-const _addToHist = require("../functions/addToHist");
+const { _addToHist } = require("../functions/addToHist");
 
 const Errors = require("../classes/Errors");
 const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Split the commands passed into BubbleOS, and then remove the actual command name (the first word)
@@ -33,7 +34,9 @@ const _intCmds = async (command, storeInHistory = true) => {
     Verbose.custom("Checking if command entered is empty...");
     const isEmpty = command.length === 0;
     Verbose.custom("Checking entered command...");
-    const enteredCmd = command.split(" ")[0].toLowerCase();
+    let enteredCmd = command.split(" ")[0];
+
+    if (!new SettingManager().caseSensitiveCmd()) enteredCmd = enteredCmd.toLowerCase();
 
     // The command is currently unrecognized
     let recognized = false;

@@ -11,6 +11,7 @@ const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * All of the available hashes in the `crypto` module.
@@ -65,6 +66,8 @@ const hash = async (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (fileChk.paramUndefined()) {
       Verbose.chkEmpty();
       Errors.enterParameter("a file", "hash test.txt");
@@ -73,11 +76,11 @@ const hash = async (file, ...args) => {
 
     if (!fileChk.doesExist()) {
       Verbose.chkExists(file);
-      Errors.doesNotExist("file", file);
+      Errors.doesNotExist("file", showFile);
       return;
     } else if (fileChk.validateType()) {
       Verbose.chkType(file, "file");
-      Errors.expectedFile(file);
+      Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
       Verbose.chkUNC();
@@ -89,9 +92,9 @@ const hash = async (file, ...args) => {
     // If not hashes are provided, the default is to show all hashes
     const requested = (
       await input({
-        message: `Enter the file hashes to be shown (${chalk.italic(
-          "'all'"
-        )} for all hashes; insert space to add multiple):`,
+        message: `Enter the file hashes to be shown ('${chalk.italic(
+          "all"
+        )}') for all hashes; insert space to add multiple):`,
         theme: {
           style: {
             answer: (text) => chalk.reset(text),
@@ -127,16 +130,18 @@ const hash = async (file, ...args) => {
 
     console.log();
   } catch (err) {
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
       exit();
     } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
-      Errors.noPermissions("read the file", file);
+      Errors.noPermissions("read the file", showFile);
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
-      Errors.inUse("file", file);
+      Errors.inUse("file", showFile);
     } else {
       Verbose.fatalError();
       _fatalError(err);
