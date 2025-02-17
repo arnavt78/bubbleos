@@ -5,9 +5,11 @@ const { GLOBAL_NAME } = require("../../variables/constants");
 
 const _fatalError = require("../fatalError");
 
+const InfoMessages = require("../../classes/InfoMessages");
+
 const startupError = (message, doFatalError = false, fatalErrorMessage = "") => {
   try {
-    console.log(chalk.red(`${message}${doFatalError ? `\n${GLOBAL_NAME} will now crash.\n` : ""}`));
+    InfoMessages.error(`${message}${doFatalError ? `\n${GLOBAL_NAME} will now crash.` : ""}`);
     question(chalk.red("Press the Enter key to continue . . . "), { hideEchoBack: true, mask: "" });
 
     console.log();

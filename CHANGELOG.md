@@ -10,6 +10,9 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
 - Added the ability to show either the full path or just the file/directory name in success/error messages in commands (customizable using `setmgr`).
 - Added the ability to show or remove the version when starting BubbleOS (customizable using `setmgr`).
+- Added the ability to hide the prefix labels on success, info, warning and error messages (customizable using `setmgr`).
+- Added the ability to show a confirmation prompt before exiting BubbleOS (customizable using `setmgr`).
+- Added the ability for BubbleOS to reset the configuration file when needed if it detects an older version.
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
 - Added a list selection prompt to the `crash` command.

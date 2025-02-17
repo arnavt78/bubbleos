@@ -2,6 +2,8 @@ const chalk = require("chalk");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
+const SettingManager = require("./SettingManager");
+
 /**
  * A function to interpret an error and format
  * the error code and message.
@@ -10,7 +12,9 @@ const { GLOBAL_NAME } = require("../variables/constants");
  * @param {string} message The error message that should be in the error.
  */
 const _interpretError = (code, message) => {
-  console.log(chalk.red(`${chalk.bold(`[${code}]`)} ${message}\n`));
+  if (new SettingManager().checkSetting("infoMsgPrefix"))
+    console.log(chalk.red(`${chalk.bold(`[${code}]`)} ${message}\n`));
+  else console.log(chalk.red(`${message}\n`));
 };
 
 /**

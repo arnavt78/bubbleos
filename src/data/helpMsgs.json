@@ -4,7 +4,8 @@
     "desc": "Get information about {GLOBAL_NAME}, including the build, version, author, and links to various related websites.",
     "args": {
       "[-l]": "View the license of {GLOBAL_NAME}."
-    }
+    },
+    "hardAlias": false
   },
 
   "bub": {
@@ -14,7 +15,8 @@
       "<file>": "The file of which to execute commands in.",
       "[-d]": "Display the commands that {GLOBAL_NAME} is executing from the file.",
       "[--allow-exit]": "Allow {GLOBAL_NAME} to exit the shell when the 'exit' command is in a '.bub' file."
-    }
+    },
+    "hardAlias": false
   },
 
   "cd": {
@@ -23,18 +25,21 @@
     "args": {
       "<dir>": "The directory to change into. Both absolute and relative paths will work, as well as directory symbolic links.",
       "[-s]": "Silence success messages. Only errors will be displayed."
-    }
+    },
+    "hardAlias": false
   },
 
   "cls": {
     "usage": "cls",
     "desc": "Clears the terminal screen.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
   "clear": {
     "usage": "clear",
     "desc": "Clears the terminal screen.",
-    "args": {}
+    "args": {},
+    "hardAlias": true
   },
 
   "copy": {
@@ -47,30 +52,35 @@
       "[-y]": "If the destination exists, then automatically accept the confirmation to overwrite the file/directory.",
       "[-t]": "Only for copying directories. Keeps the original timestamps of the nested files/directories.",
       "[--rm-symlink]": "Only for copying directories. If a file/folder in the directory is a symbolic link, it will be replaced by the contents of the path it was pointing to."
-    }
+    },
+    "hardAlias": false
   },
 
   "crash": {
     "usage": "crash",
     "desc": "Crashes {GLOBAL_NAME} in multiple ways, including causing a fatal error, hanging the terminal session, causing a memory leak, and BSODing Windows.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
 
   "cwd": {
     "usage": "cwd",
     "desc": "Outputs the directory that {GLOBAL_NAME} is currently in.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
   "pwd": {
     "usage": "pwd",
     "desc": "Outputs the directory that {GLOBAL_NAME} is currently in.",
-    "args": {}
+    "args": {},
+    "hardAlias": true
   },
 
   "date": {
     "usage": "date",
     "desc": "Gets the current date from your system, and displays it in sentence and slash form.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
 
   "del": {
@@ -80,7 +90,8 @@
       "<path>": "The file/directory to delete.",
       "[-s]": "Silence success messages. Only errors will be displayed.",
       "[-y]": "Automatically accept the confirmation prompt."
-    }
+    },
+    "hardAlias": false
   },
 
   "dirtree": {
@@ -88,14 +99,16 @@
     "desc": "Shows files and folders inside of the directory specified, including nested files and folders, in a tree-like format.",
     "args": {
       "[<path>]": "Optionally specify a directory. By default, {GLOBAL_NAME} will use the current working directory."
-    }
+    },
+    "hardAlias": false
   },
   "tree": {
     "usage": "tree [<path>]",
     "desc": "Shows files and folders inside of the directory specified, including nested files and folders, in a tree-like format.",
     "args": {
       "[<path>]": "Optionally specify a directory. By default, {GLOBAL_NAME} will use the current working directory."
-    }
+    },
+    "hardAlias": true
   },
 
   "exec": {
@@ -106,7 +119,8 @@
       "[-s]": "Silence success messages. Only errors will be displayed.",
       "[-h]": "Hide the subprocess console window that would be created on Windows systems.",
       "[--sh]": "Run the executable inside a shell."
-    }
+    },
+    "hardAlias": false
   },
 
   "exit": {
@@ -114,7 +128,8 @@
     "desc": "Exits the {GLOBAL_NAME} shell.",
     "args": {
       "[-c]": "Clear the terminal once {GLOBAL_NAME} has exited."
-    }
+    },
+    "hardAlias": false
   },
 
   "fif": {
@@ -125,7 +140,8 @@
       "[-n]": "Show the number of occurrences.",
       "[-p]": "Show the character location/place of each starting character for each occurrence of the phrase. This is counted from the start of the file.",
       "[-v]": "Show the visual occurrences, which are the contents of the file with the phrase occurrences highlighted."
-    }
+    },
+    "hardAlias": false
   },
 
   "hash": {
@@ -133,7 +149,8 @@
     "desc": "Get hashes of a file that you specify in a prompt. {GLOBAL_NAME} supports the md5, sha1, sha224, sha256, sha384, sha512, sha3-224, sha3-256, sha3-384, sha3-512, shake128 and shake256 hashes.",
     "args": {
       "<file>": "The file to get the hashes of."
-    }
+    },
+    "hardAlias": false
   },
 
   "help": {
@@ -141,7 +158,8 @@
     "desc": "Get a list of all available {GLOBAL_NAME} commands, or more information about a specific command.",
     "args": {
       "[<command>]": "Get more information about a specific command."
-    }
+    },
+    "hardAlias": false
   },
 
   "history": {
@@ -149,13 +167,15 @@
     "desc": "Show the last fifty commands entered in {GLOBAL_NAME}. The history persists through sessions, as it is stored in the configuration file.",
     "args": {
       "[<place>]": "Optionally show the exact command at the history point specified."
-    }
+    },
+    "hardAlias": false
   },
 
   "ifnet": {
     "usage": "ifnet",
     "desc": "Get a list of all running network interfaces running on the device, and information about them.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
 
   "link": {
@@ -165,13 +185,15 @@
       "[-s]": "Silence success messages. Only errors will be displayed.",
       "[-u]": "Unlink a file. This will ultimately be a file, no matter if it is a link or not.",
       "[-y]": "Automatically confirm the confirmation prompt when unlinking a file."
-    }
+    },
+    "hardAlias": false
   },
 
   "lock": {
     "usage": "lock",
     "desc": "Lock the operating system by showing the lock screen.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
 
   "ls": {
@@ -180,7 +202,8 @@
     "args": {
       "[<dir>]": "Optionally specify a directory to view the contents of. By default, the current working directory is used.",
       "[-s]": "View directory contents in a shorter view in three rows."
-    }
+    },
+    "hardAlias": false
   },
   "dir": {
     "usage": "dir [<dir>] [-s]",
@@ -188,7 +211,8 @@
     "args": {
       "[<dir>]": "Optionally specify a directory to view the contents of. By default, the current working directory is used.",
       "[-s]": "View directory contents in a shorter view in three rows."
-    }
+    },
+    "hardAlias": true
   },
 
   "mkdir": {
@@ -197,7 +221,8 @@
     "args": {
       "<dir>": "The directory to create.",
       "[-s]": "Silence success messages. Only errors will be displayed."
-    }
+    },
+    "hardAlias": false
   },
 
   "mkfile": {
@@ -206,7 +231,8 @@
     "args": {
       "<file>": "The file to create.",
       "[-s]": "Silence success messages. Only errors will be displayed."
-    }
+    },
+    "hardAlias": false
   },
 
   "ping": {
@@ -214,7 +240,8 @@
     "desc": "Ping a website for a response, and output the response. This command only completes an HTTPS request (not an HTTP request).",
     "args": {
       "<hostname>": "The hostname to ping."
-    }
+    },
+    "hardAlias": false
   },
 
   "print": {
@@ -222,14 +249,16 @@
     "desc": "Print any text to the standard output.",
     "args": {
       "<text>": "The text to output."
-    }
+    },
+    "hardAlias": false
   },
   "echo": {
     "usage": "echo <text>",
     "desc": "Print any text to the standard output.",
     "args": {
       "<text>": "The text to output."
-    }
+    },
+    "hardAlias": true
   },
 
   "readfile": {
@@ -239,7 +268,8 @@
       "<file>": "The file to read. Only plain text files can be read to avoid terminal corruption.",
       "[-y]": "Automatically accept the warning prompt if there are more than 5000 characters in a file.",
       "[--ignore-max]": "Ignore the maximum limit of characters in a file that {GLOBAL_NAME} can read (100,000 characters). Use this flag at your own risk!"
-    }
+    },
+    "hardAlias": false
   },
 
   "rename": {
@@ -250,13 +280,15 @@
       "<new>": "The new file/directory name that it should be renamed to.",
       "[-y]": "Automatically accept the confirmation prompt if the new name already exists.",
       "[-s]": "Silence success messages. Only errors will be displayed."
-    }
+    },
+    "hardAlias": false
   },
 
   "setmgr": {
     "usage": "setmgr",
     "desc": "Change the settings of {GLOBAL_NAME}.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
 
   "stat": {
@@ -264,7 +296,8 @@
     "desc": "Show the location, size, created, modified, and accessed dates of a file or directory.",
     "args": {
       "<path>": "The file or directory to get the information of."
-    }
+    },
+    "hardAlias": false
   },
 
   "symlink": {
@@ -275,7 +308,8 @@
       "[<path>]": "This path is only needed if you are creating a symbolic link. This is the path to which the symbolic link will be created. It will automatically infer the type (in the case of Windows, either 'file' or 'directory', but never 'junction').",
       "[-c]": "Check if a path is a symbolic link or not.",
       "[-s]": "Silence success messages. Only errors will be displayed."
-    }
+    },
+    "hardAlias": false
   },
 
   "sysinfo": {
@@ -288,7 +322,8 @@
       "[-a]": "Display advanced system information.",
       "[-e]": "Display all local environment variables.",
       "[--all]": "Display all information."
-    }
+    },
+    "hardAlias": false
   },
 
   "taskkill": {
@@ -298,7 +333,8 @@
       "<process>": "The process name or process identification number that is to be terminated.",
       "[-s]": "Silence success messages. Only errors will be displayed.",
       "[-y]": "Automatically accept the confirmation prompt when killing a process."
-    }
+    },
+    "hardAlias": false
   },
 
   "tasklist": {
@@ -306,7 +342,8 @@
     "desc": "Show all processes running on the device and their respective PID. You can also optionally filter for processes.",
     "args": {
       "[<filter>]": "The process name to filter for."
-    }
+    },
+    "hardAlias": false
   },
 
   "time": {
@@ -314,13 +351,15 @@
     "desc": "Get the time from your local system in 12-hour or 24-hour time.",
     "args": {
       "[-24]": "Show the time in 24-hour time instead of 12-hour time."
-    }
+    },
+    "hardAlias": false
   },
 
   "tips": {
     "usage": "tips",
     "desc": "Show tips relating to the use of {GLOBAL_NAME}.",
-    "args": {}
+    "args": {},
+    "hardAlias": false
   },
 
   "wcount": {
@@ -331,6 +370,7 @@
       "[-l]": "Only display the number of lines in the file.",
       "[-w]": "Only display the number of words in the file.",
       "[-c]": "Only display the number of characters in the file."
-    }
+    },
+    "hardAlias": false
   }
 }

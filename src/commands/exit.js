@@ -1,8 +1,10 @@
 const { GLOBAL_NAME } = require("../variables/constants");
 
+const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
 
 const Verbose = require("../classes/Verbose");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Exit the BubbleOS shell with an exit code of
@@ -26,6 +28,14 @@ const Verbose = require("../classes/Verbose");
  */
 const exit = (...args) => {
   try {
+    if (new SettingManager().checkSetting("confirmExit")) {
+      if (!_promptForYN(`Are you sure you want to exit ${GLOBAL_NAME}?`)) {
+        Verbose.declinePrompt();
+        console.log();
+        return;
+      }
+    }
+
     console.log(`Exiting the ${GLOBAL_NAME} shell...\n`);
 
     // If the user requested to clear the screen after exiting

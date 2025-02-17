@@ -52,5 +52,41 @@
         "value": false
       }
     ]
+  },
+  "infoMsgPrefix": {
+    "displayName": "Show Message Prefix",
+    "description": "Show the prefix labels on success, error, warning, and information messages.",
+    "default": {
+      "displayName": "Yes",
+      "value": true
+    },
+    "options": [
+      {
+        "displayName": "Yes",
+        "value": true
+      },
+      {
+        "displayName": "No",
+        "value": false
+      }
+    ]
+  },
+  "confirmExit": {
+    "displayName": "Confirm Exiting {GLOBAL_NAME}",
+    "description": "Show a confirmation prompt before exiting {GLOBAL_NAME}.",
+    "default": {
+      "displayName": "No",
+      "value": false
+    },
+    "options": [
+      {
+        "displayName": "Yes",
+        "value": true
+      },
+      {
+        "displayName": "No",
+        "value": false
+      }
+    ]
   }
 }

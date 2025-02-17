@@ -45,10 +45,6 @@ class SettingManager {
   showVersion() {
     return this.checkSetting("showVersionOnStart") != false;
   }
-
-  caseSensitiveCmd() {
-    return this.checkSetting("caseSensitiveCmd");
-  }
 }
 
 module.exports = SettingManager;

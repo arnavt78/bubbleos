@@ -1,4 +1,5 @@
 const chalk = require("chalk");
+const { question } = require("readline-sync");
 
 const {
   GLOBAL_NAME,
@@ -21,8 +22,31 @@ const config = new ConfigManager();
 const showVersion = new SettingManager().showVersion();
 
 if (typeof config.getConfig() === "undefined") {
-  Verbose.custom("Creating configuration file...");
-  _initConfig();
+  if (!_initConfig()) {
+    InfoMessages.info(
+      `The ${GLOBAL_NAME} configuration file was either corrupted or deleted, and a new one has been created. A restart is required for the changes to take effect.`
+    );
+    question(chalk.blue("Press the Enter key to continue . . . "), {
+      hideEchoBack: true,
+      mask: "",
+    });
+
+    console.log();
+    process.exit(0);
+  } else {
+    InfoMessages.error(
+      `The ${GLOBAL_NAME} configuration file was either corrupted or deleted, and a new one was attempted to be created, but an error occurred when attempting to do so.\nTry manually deleting the configuration file, located at ${chalk.bold(
+        config.configPath
+      )}.`
+    );
+    question(chalk.red("Press the Enter key to continue . . . "), {
+      hideEchoBack: true,
+      mask: "",
+    });
+
+    console.log();
+    process.exit(0);
+  }
 }
 
 const configData = config.getConfig();

@@ -19,12 +19,12 @@ const setman = async (...args) => {
     console.log(chalk.bold.underline(`Change ${GLOBAL_NAME} Settings\n`));
 
     const config = new ConfigManager();
-    const currentConfig = config.getConfig() || { settings: {} };
-
     let errorEncountered = false;
 
     for (const key of Object.keys(settings)) {
       const setting = settings[key];
+      const displayName = setting.displayName.replaceAll("{GLOBAL_NAME}", GLOBAL_NAME);
+      const description = setting.description.replaceAll("{GLOBAL_NAME}", GLOBAL_NAME);
 
       // Get the latest config each loop iteration
       const currentConfig = config.getConfig() || { settings: {} };
@@ -32,8 +32,8 @@ const setman = async (...args) => {
       // Get current value, defaulting to the setting's default
       const current = currentConfig.settings?.[key]?.current?.value ?? setting.default.value;
 
-      console.log(chalk.bold.blue(`=== ${setting.displayName} ===`));
-      console.log(chalk.gray(setting.description.replaceAll("{GLOBAL_NAME}", GLOBAL_NAME)));
+      console.log(chalk.bold.blue(`=== ${displayName} ===`));
+      console.log(chalk.gray(description));
 
       console.log();
 
@@ -45,7 +45,7 @@ const setman = async (...args) => {
 
       // Ask user for new value
       const newValue = await select({
-        message: `Change the setting for "${setting.displayName}":`,
+        message: `Change the setting for "${displayName}":`,
         choices: setting.options.map((opt) => ({
           name: opt.displayName,
           value: opt.value,
@@ -58,7 +58,7 @@ const setman = async (...args) => {
           settings: {
             ...currentConfig.settings, // Preserve all previous settings
             [key]: {
-              displayName: setting.displayName,
+              displayName,
               current: {
                 displayName: setting.options.find((opt) => opt.value === newValue).displayName,
                 value: newValue,

@@ -1,5 +1,7 @@
 const chalk = require("chalk");
 
+const SettingManager = require("./SettingManager");
+
 /**
  * Class to display various messages, either a success, information, warning, or error (not fatal) message.
  *
@@ -11,19 +13,27 @@ class InfoMessages {
   constructor() {}
 
   static success(message) {
-    console.log(chalk.green(`${chalk.white.bgGreen(" SUCCESS: ")} ${message}\n`));
+    if (new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.green(`${chalk.white.bgGreen(" SUCCESS: ")} ${message}\n`));
+    else console.log(chalk.green(`${message}\n`));
   }
 
   static info(message) {
-    console.log(chalk.blue(`${chalk.white.bgBlue(" INFO: ")} ${message}\n`));
+    if (new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.blue(`${chalk.white.bgBlue(" INFO: ")} ${message}\n`));
+    else console.log(chalk.blue(`${message}\n`));
   }
 
   static warning(message) {
-    console.log(chalk.yellow(`${chalk.black.bgYellow(" WARNING: ")} ${message}\n`));
+    if (new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.yellow(`${chalk.black.bgYellow(" WARNING: ")} ${message}\n`));
+    else console.log(chalk.yellow(`${message}\n`));
   }
 
   static error(message) {
-    console.log(chalk.red(`${chalk.white.bgRed(" ERROR: ")} ${message}\n`));
+    if (new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.red(`${chalk.white.bgRed(" ERROR: ")} ${message}\n`));
+    else console.log(chalk.red(`${message}\n`));
   }
 }
 

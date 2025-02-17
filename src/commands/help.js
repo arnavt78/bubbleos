@@ -24,6 +24,9 @@ const _printHelp = (sorted, specific, cmd) => {
   cmd = cmd?.toLowerCase();
 
   if (specific) {
+    if (!cmd)
+      throw new TypeError("Argument 'cmd' must have a value if specific command data requested");
+
     // If the usage is not available, show 'N/A'
     Verbose.custom("Showing command and usage...");
     console.log(`${chalk.bold(cmd)}: ${chalk.italic(sorted[cmd].usage ?? "N/A")}`);
@@ -53,21 +56,28 @@ const _printHelp = (sorted, specific, cmd) => {
   } else {
     Verbose.custom("Showing all commands...");
     let finalStr = "";
+    let commandCount = 0; // Track number of commands added to handle newlines properly
 
-    // Loop through all of the keys of the help object (sorted)
     for (let i = 1; i < Object.keys(sorted).length + 1; i++) {
-      Verbose.custom(`Adding command '${Object.keys(sorted)[i - 1]}' to memory...`);
-      finalStr += Object.keys(sorted)[i - 1].padEnd(15);
+      const commandKey = Object.keys(sorted)[i - 1];
 
-      // If there have been three characters on the line, print a newline
-      if (i % 3 === 0) {
-        Verbose.custom("Adding a newline...");
-        finalStr += "\n";
+      if (sorted[commandKey].hardAlias === false) {
+        Verbose.custom(`Adding command '${commandKey}' to memory...`);
+        finalStr += commandKey.padEnd(15);
+        commandCount++;
+
+        // If there have been three commands on the line, print a newline
+        if (commandCount % 3 === 0) {
+          Verbose.custom("Adding a newline...");
+          finalStr += "\n";
+        }
       }
     }
 
-    // Show the final string
-    Verbose.custom("Showing all commands...");
+    if (commandCount > 0 && commandCount % 3 !== 0) {
+      finalStr += "\n";
+    }
+
     console.log(finalStr);
   }
 };
@@ -102,9 +112,7 @@ const help = (command, ...args) => {
 
       console.log(
         chalk.bold(
-          `\nTo get information about a specific command, run ${chalk.italic(
-            "'help <command>'"
-          )}.\n`
+          `To get information about a specific command, run ${chalk.italic("'help <command>'")}.\n`
         )
       );
     } else {

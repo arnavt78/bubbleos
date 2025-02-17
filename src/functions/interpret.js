@@ -36,7 +36,8 @@ const _intCmds = async (command, storeInHistory = true) => {
     Verbose.custom("Checking entered command...");
     let enteredCmd = command.split(" ")[0];
 
-    if (!new SettingManager().caseSensitiveCmd()) enteredCmd = enteredCmd.toLowerCase();
+    if (!new SettingManager().checkSetting("caseSensitiveCmd"))
+      enteredCmd = enteredCmd.toLowerCase();
 
     // The command is currently unrecognized
     let recognized = false;

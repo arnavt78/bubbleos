@@ -12,7 +12,7 @@ const SHORT_NAME = "Bubble" || GLOBAL_NAME;
 const AUTHOR = "Arnav Thorat";
 
 /**
- * The version of the shell.
+ * The version of the shell. Add `-beta` to the end if it is a beta version, but remove the suffix for release versions.
  *
  * Make sure this is a proper version number. Change this with the build (e.g. `78` will make the version `0.7.8`).
  */
@@ -24,6 +24,10 @@ const VERSION = "1.8.0-beta";
  */
 const BUILD = 180;
 
+/**
+ * If the configuration file needs to be reset if it is an older version when loaded in this version.
+ */
+const REQUIRE_CONFIG_RESET = true;
 /**
  * If the shell is in beta or not. `true` if it is in beta, else, `false`.
  */
@@ -47,7 +51,7 @@ const TIMEBOMB_ACTIVATED = true;
  * );
  * ```
  *
- * The expiry date is however many days the `TIMEBOMB_COUNT` variable says. This process is not automatic, so you must update this variable every time a new executable is compiled.
+ * The expiry date is 90 days after the executable is compiled. This process is not automatic, so you must update this variable every time a new executable is compiled.
  *
  * To see the date in **90** days, [click here](https://www.google.com/search?q=Date+90+days+from+today).
  */
@@ -59,6 +63,7 @@ module.exports = {
   AUTHOR,
   VERSION,
   BUILD,
+  REQUIRE_CONFIG_RESET,
   IN_BETA,
   TIMEBOMB_ACTIVATED,
   EXPIRY_DATE,
