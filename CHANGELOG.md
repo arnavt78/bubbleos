@@ -14,6 +14,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added the ability to show a confirmation prompt before exiting BubbleOS (customizable using `setmgr`).
 - Added the ability for BubbleOS to reset the configuration file when needed if it detects an older version.
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
+- Added the ability to change to the last directory using `cd -`.
 - Completely overhauled the BubbleOS command input prompt internally, allowing it to catch Ctrl+C keypresses on the prompt to exit the shell gracefully.
 - Added a list selection prompt to the `crash` command.
 - Added the ability to use double-quotes to enter a task name with spaces in `taskkill`.
