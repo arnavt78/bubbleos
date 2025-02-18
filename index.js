@@ -57,6 +57,10 @@ const PathUtil = require("./src/classes/PathUtil");
   Verbose.custom("Completing elevation check...");
   await require("./src/functions/init/checkElevation")();
 
+  // Initialize update checker
+  Verbose.custom("Initializing update checker...");
+  await require("./src/functions/init/updateChecker")();
+
   // If the BubbleOS process is killed, exit gracefully
   // Works during the CLI
   process.once("SIGTERM", exit);

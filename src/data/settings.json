@@ -88,5 +88,27 @@
         "value": false
       }
     ]
+  },
+  "updateChecker": {
+    "displayName": "Update Checker",
+    "description": "Choose what type of {GLOBAL_NAME} updates to get from the update checker.",
+    "default": {
+      "displayName": "Releases",
+      "value": "release"
+    },
+    "options": [
+      {
+        "displayName": "Releases",
+        "value": "release"
+      },
+      {
+        "displayName": "Pre-Releases",
+        "value": "prerelease"
+      },
+      {
+        "displayName": "None",
+        "value": "none"
+      }
+    ]
   }
 }

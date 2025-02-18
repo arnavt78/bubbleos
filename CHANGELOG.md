@@ -8,6 +8,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 - Added the `setmgr` command, which allows changing a variety of BubbleOS settings.
 - Added the `stat` command, which displays information about a file or directory, including the location, size, created, modified, and accessed dates.
+- Added an update checker, which checks for updates weekly when BubbleOS starts (customizable using `setmgr`).
 - Added the ability to show either the full path or just the file/directory name in success/error messages in commands (customizable using `setmgr`).
 - Added the ability to show or remove the version when starting BubbleOS (customizable using `setmgr`).
 - Added the ability to hide the prefix labels on success, info, warning and error messages (customizable using `setmgr`).
@@ -29,6 +30,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - The `fif` command will no longer accept blank responses.
 - Made the occurrence location numbers in the `fif` command no longer show up by default (use the `-p` argument to show them).
 - Changed the `date` command to show the slash-format date in the format _{month}/{day}_ and no longer made it italicized.
+- Changed the formatting of the date in the `date` command to add trailing zeros.
 - Changed the formatting of the `time` command so that it will no longer be bolded.
 - Edited almost all help messages, error messages, and verbose messages.
 - BubbleOS now gracefully terminates when receiving a `SIGTERM` or `SIGINT` code.
@@ -62,7 +64,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Removed the leniency of yes/no prompts, so that only _y_ or _yes_ are accepted. This may be reintroduced in a future version.
 - Removed an Easter egg :(
 - Removed the codes at the end of some error messages.
-- Removed four error messages (most were unused).
+- Removed four unused error messages.
 - Removed the CPU endianness from the `sysinfo` command.
 - Removed the BubbleOS PID from showing in the fatal error screen.
 - Removed the tip from showing in the `sysinfo` command at all.
