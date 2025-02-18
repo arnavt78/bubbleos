@@ -24,7 +24,7 @@
     "execa": "^5.1.1",
     "is-charging": "^2.0.0",
     "is-elevated": "^3.0.0",
-    "istextorbinary": "^9.5.0",
+    "istextorbinary": "^6.0.0",
     "lock-system": "^2.0.0",
     "os-name": "^4.0.1",
     "ps-list": "^5.0.1",
