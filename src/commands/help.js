@@ -84,19 +84,10 @@ const _printHelp = (sorted, specific, cmd) => {
 
 /**
  * The 'help' command, which provides detailed help
- * on how to use commands in the BubbleOS shell. This
- * command is only to be used in the BubbleOS CLI!
- *
- * Usage:
- *
- * ```js
- * // Arguments are also accepted!
- * help(); // Help on all commands
- * help("help"); // Help on a specific command
- * ```
+ * on how to use commands in the BubbleOS shell.
  *
  * @param {string} command Optionally get help on a specific command.
- * @param {...string} args Arguments to modify the behavior of `help`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const help = (command, ...args) => {
   try {
@@ -112,7 +103,7 @@ const help = (command, ...args) => {
 
       console.log(
         chalk.bold(
-          `To get information about a specific command, run ${chalk.italic("'help <command>'")}.\n`
+          `To get information about a specific command, run '${chalk.italic("help <command>")}'.\n`
         )
       );
     } else {

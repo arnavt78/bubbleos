@@ -18,7 +18,7 @@ const ConfigManager = require("../classes/ConfigManager");
  * session when BubbleOS is exited out of.
  *
  * @param {string} dir The directory to change into. Must be a valid directory.
- * @param {...string} args The arguments that can be passed to modify the behavior of the command.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const cd = (dir, ...args) => {
   try {
@@ -29,6 +29,7 @@ const cd = (dir, ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     Verbose.initArgs();
@@ -40,25 +41,31 @@ const cd = (dir, ...args) => {
       return;
     }
 
+    Verbose.initConfig();
     const config = new ConfigManager();
 
     if (dir.endsWith("-")) {
+      Verbose.custom("Detected '-', getting last entered path...");
       const lastDir = config.getConfig()?.cd?.lastDir;
 
       if (typeof lastDir === "undefined") {
+        Verbose.custom("Could not get last entered path.");
         InfoMessages.error("Could not get previous directory.");
         return;
       }
 
       // Retrieve the second-to-last directory, if available
+      Verbose.custom("Getting second-last entered path...");
       const secondLastDir = config.getConfig()?.cd?.secondLastDir;
 
       if (typeof secondLastDir === "undefined") {
+        Verbose.custom("Could not get second-last entered path.");
         InfoMessages.error("Could not get second last directory.");
         return;
       }
 
       // Change to the second last directory
+      Verbose.custom(`Changing directory to the specified destination '${secondLastDir}'...`);
       process.chdir(secondLastDir);
       if (!silent)
         InfoMessages.success(
@@ -80,6 +87,7 @@ const cd = (dir, ...args) => {
       Errors.doesNotExist("directory", showDir);
       return;
     } else if (dirChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     }
@@ -92,6 +100,7 @@ const cd = (dir, ...args) => {
       Verbose.custom("Path is a symbolic link; finding where it is pointing to...");
       const symlinkPath = fs.readlinkSync(dir);
 
+      Verbose.initShowPath();
       const showSymlink = new SettingManager().fullOrBase(symlinkPath);
 
       // If the path it is pointing to is a file, throw an error
@@ -103,9 +112,7 @@ const cd = (dir, ...args) => {
 
       // Change the directory to the symbolic link pointing path
       Verbose.custom(
-        `Changing directory to the specified destination '${chalk.italic(
-          symlinkPath
-        )}' (symbolic link)...`
+        `Changing directory to the specified destination '${symlinkPath}' (symbolic link)...`
       );
       process.chdir(symlinkPath);
 
@@ -115,9 +122,7 @@ const cd = (dir, ...args) => {
     } else if (dirChk.validateType()) {
       // If not a symlink, change directory normally
       Verbose.custom(
-        `Path is not a symbolic link, changing directory to the specified destination '${chalk.italic(
-          dir
-        )}'...`
+        `Path is not a symbolic link, changing directory to the specified destination '${dir}'...`
       );
       process.chdir(dir);
 
@@ -130,6 +135,7 @@ const cd = (dir, ...args) => {
       return;
     }
   } catch (err) {
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

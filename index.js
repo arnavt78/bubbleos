@@ -59,11 +59,8 @@ const PathUtil = require("./src/classes/PathUtil");
 
   // If the BubbleOS process is killed, exit gracefully
   // Works during the CLI
-  process.once("SIGTERM", () => {
-    console.log();
-
-    exit();
-  });
+  process.once("SIGTERM", exit);
+  process.once("SIGINT", exit);
 
   // CLI of BubbleOS
   Verbose.custom("Starting command interpreter...");

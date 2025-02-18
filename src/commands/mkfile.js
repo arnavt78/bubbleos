@@ -13,16 +13,23 @@ const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
 
+/**
+ * Get file contents from the user and create the file.
+ *
+ * @param {string} file The name of the file to create.
+ * @param {boolean} silent Whether or not success messages should be shown.
+ */
 const _fileContents = async (file, silent) => {
   try {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     console.log(
-      `Add the content of the new file. Type ${chalk.italic(
-        "'!SAVE'"
-      )} to save changes, ${chalk.italic("'!CANCEL'")} to discard, or ${chalk.italic(
-        "'!EDIT'"
-      )} to modify previous input:\n`
+      `Add the content of the new file. Type '${chalk.italic(
+        "!SAVE"
+      )}' to save changes, '${chalk.italic("!CANCEL")}' to discard, or '${chalk.italic(
+        "!EDIT"
+      )}' to modify previous input:\n`
     );
 
     // Collect new content line by line
@@ -107,7 +114,7 @@ const _fileContents = async (file, silent) => {
 };
 
 /**
- * Make a file synchronously using `fs.mkfileSync()`.
+ * Make a file.
  *
  * If a parent directory does not exist, this command
  * will not work.
@@ -124,7 +131,7 @@ const _fileContents = async (file, silent) => {
  * messages are shown.
  *
  * @param {string} file The file that should be created. Both absolute and relative paths are accepted.
- * @param {...string} args Arguments to change the behavior of `mkfile()`. Available arguments are listed above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const mkfile = async (file, ...args) => {
   try {
@@ -137,6 +144,7 @@ const mkfile = async (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
@@ -186,6 +194,7 @@ const mkfile = async (file, ...args) => {
 
     await _fileContents(file, silent);
   } catch (err) {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.code === "ENOENT") {

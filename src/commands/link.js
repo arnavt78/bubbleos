@@ -16,7 +16,7 @@ const SettingManager = require("../classes/SettingManager");
  *
  * @param {string} path The path to make the link point to.
  * @param {string} newPath The new path that points to the existing path.
- * @param {...string} args Arguments for the `link` command.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const link = (path, newPath, ...args) => {
   try {
@@ -46,6 +46,7 @@ const link = (path, newPath, ...args) => {
     const pathChk = new Checks(path);
     const newPathChk = new Checks(newPath);
 
+    Verbose.initShowPath();
     const showPath = new SettingManager().fullOrBase(path);
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
@@ -93,6 +94,7 @@ const link = (path, newPath, ...args) => {
       );
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

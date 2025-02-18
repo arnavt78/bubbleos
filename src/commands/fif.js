@@ -28,8 +28,7 @@ const SettingManager = require("../classes/SettingManager");
 const escapeRegExp = (str) => str.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /**
- * Find a word or phrase in a file. This is a CLI
- * tool to be used in the BubbleOS shell only.
+ * Find a word or phrase in a file.
  *
  * This function will find all occurrences in a file
  * and show them in multiple ways to the standard
@@ -46,7 +45,7 @@ const escapeRegExp = (str) => str.replaceAll(/[.*+?^${}()|[\]\\]/g, "\\$&");
  * _Note: If no arguments are passed that are either `-n`, `-p` or `-v`, it will show all of them._
  *
  * @param {string} file A path to the file to search in. Please note directories are not valid.
- * @param {...string} args All recognized arguments. All available arguments are listed above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const fif = async (file, ...args) => {
   try {
@@ -57,6 +56,7 @@ const fif = async (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
@@ -80,6 +80,7 @@ const fif = async (file, ...args) => {
       Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     } else if (!fileChk.validEncoding()) {
@@ -135,8 +136,8 @@ const fif = async (file, ...args) => {
       console.log(`Number of occurrences: ${chalk.italic(occurrences)}\n`);
     }
 
-    // Character occurrence location
-    if (placeOccur || all) {
+    // Character occurrence location (does not show up by default)
+    if (placeOccur) {
       console.log("Occurrence location since start of file:");
 
       // Matches each phrase in the content and spreads it into an array

@@ -13,16 +13,7 @@ const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
 
 /**
- * Delete a file/directory from BubbleOS. This is a CLI function.
- * Synchronously deletes a file/directory using the `fs.rmSync()`
- * function.
- *
- * This command used to be in two separate commands/functions -
- * `rmdir` (removes a directory; empty or not) and `rmfile`
- * (removes a file). This command combines the two and can
- * delete all files, directories, and empty directories (so
- * you do not need to use a separate command to delete an empty
- * directory).
+ * Delete a file/directory from BubbleOS.
  *
  * Available arguments:
  * - `-s`: Silently delete the path that the user requested. This
@@ -32,7 +23,7 @@ const SettingManager = require("../classes/SettingManager");
  * before deleting a file.
  *
  * @param {string} path The relative or absolute path to the file/directory to delete.
- * @param {...string} args The arguments to modify the behavior of the `del` command. See all available arguments above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const del = (path, ...args) => {
   try {
@@ -45,6 +36,7 @@ const del = (path, ...args) => {
     Verbose.initChecker();
     const pathChk = new Checks(path);
 
+    Verbose.initShowPath();
     const showPath = new SettingManager().fullOrBase(path);
 
     Verbose.initArgs();
@@ -62,10 +54,13 @@ const del = (path, ...args) => {
       Errors.doesNotExist("file/directory", showPath);
       return;
     } else if (pathChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     } else if (new ConfigManager().isConfig(path)) {
       // Prevents the user from deleting the configuration file
+      Verbose.initConfig();
+      Verbose.inUseError();
       Errors.inUse("file", showPath);
       return;
     }
@@ -87,6 +82,7 @@ const del = (path, ...args) => {
     if (!silent) InfoMessages.success(`Successfully deleted ${chalk.bold(showPath)}.`);
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showPath = new SettingManager().fullOrBase(path);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

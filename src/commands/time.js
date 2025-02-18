@@ -33,12 +33,10 @@ const _convertTime = (time) => {
  * Available arguments:
  * - `-24`: Show the time in 24-hour time.
  *
- * @param {...string} args Arguments to modify the behavior of `time`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const time = (...args) => {
   try {
-    // TODO fix bug in macOS/Linux where time will
-    // not show AM/PM in 12-hour time
     Verbose.initArgs();
     const isTwelveHours = !args.includes("-24");
 

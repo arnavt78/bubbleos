@@ -34,7 +34,7 @@ const SettingManager = require("../classes/SettingManager");
  *
  * @param {string} path The path that the symbolic link will point to (the target).
  * @param {string} newPath The symbolic link to create (the path). It can also be the `-c` argument.
- * @param {...string} args Arguments to modify the behavior of the `symlink` function.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.ink` function.
  */
 const symlink = (path, newPath, ...args) => {
   try {
@@ -59,6 +59,7 @@ const symlink = (path, newPath, ...args) => {
     const pathChk = new Checks(path);
     const newPathChk = new Checks(newPath);
 
+    Verbose.initShowPath();
     const showPath = new SettingManager().fullOrBase(path);
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
@@ -71,7 +72,7 @@ const symlink = (path, newPath, ...args) => {
       Errors.doesNotExist("file/directory", showPath);
       return;
     } else if (pathChk.pathUNC()) {
-      Verbose.pathUNC();
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     }
@@ -102,6 +103,7 @@ const symlink = (path, newPath, ...args) => {
       );
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

@@ -12,7 +12,7 @@ const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
 
 /**
- * Renames a file for use in the BubbleOS shell.
+ * Renames a file.
  *
  * Note that the old name and the new name cannot be
  * the same name. Also, if the new name already exists,
@@ -27,7 +27,7 @@ const SettingManager = require("../classes/SettingManager");
  *
  * @param {string} oldName The old name of the file.
  * @param {string} newName The new name of the file.
- * @param {...string} args Arguments to modify the behavior of `rename`. Available arguments are above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const rename = (oldName, newName, ...args) => {
   try {
@@ -42,6 +42,7 @@ const rename = (oldName, newName, ...args) => {
     const oldChk = new Checks(oldName);
     const newChk = new Checks(newName);
 
+    Verbose.initShowPath();
     const showOldName = new SettingManager().fullOrBase(oldName);
     const showNewName = new SettingManager().fullOrBase(newName);
 
@@ -56,6 +57,7 @@ const rename = (oldName, newName, ...args) => {
     }
 
     if (oldName === newName) {
+      Verbose.custom("Old name and new names were detected to be the same...");
       console.log(chalk.yellow("The old and new names cannot be the same.\nProcess aborted.\n"));
       return;
     }
@@ -94,6 +96,7 @@ const rename = (oldName, newName, ...args) => {
       );
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showOldName = new SettingManager().fullOrBase(oldName);
     const showNewName = new SettingManager().fullOrBase(newName);
 

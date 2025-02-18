@@ -4,6 +4,8 @@ const Verbose = require("../classes/Verbose");
 
 /**
  * Prints the current working directory of BubbleOS.
+ *
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const cwd = (...args) => {
   try {

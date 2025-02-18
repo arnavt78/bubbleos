@@ -1,3 +1,23 @@
 [
-  "Hello! We're resetting tips; they'll come back in the next stable release of {GLOBAL_NAME} (build 200)!"
+  "You can show either the full directory or just the file/directory name in commands by changing it using 'setmgr'!",
+  "You can remove the version on startup by changing it using 'setmgr'!",
+  "You can hide the version from showing on startup by changing it using 'setmgr'!",
+  "You can show a confirmation prompt before exiting {GLOBAL_NAME} by changing it using 'setmgr'!",
+  "You can make commands not case-sensitive by changing it using 'setmgr'!",
+  "You can use the '-h' flag on the {GLOBAL_NAME} executable to view all flags.",
+  "You can use the 'bub' command to make a batch-like file that contains {GLOBAL_NAME} commands.",
+  "You can do a 'cut' action by using the 'rename' command and specifying different paths.",
+  "On almost every command, you can run it with the '-s' flag to silence success messages.",
+  "On most commands that have a confirmation prompt, you can use the '-y' flag to automatically accept prompts.",
+  "The 'crash' command can crash BubbleOS, hang the terminal, cause a memory leak, and crash Windows with a BSOD!",
+  "You can change to the previous directory by using 'cd -'!",
+  "The 'size' command automatically shows the correct size of the file/directory.",
+  "The 'dirtree' command shows nested files and directories inside of a specified directory.",
+  "You can run executable files using the 'exec' command, even if they are not executable!",
+  "There are aliases of commands, such as 'dir' for 'ls', 'echo' for 'print', 'pwd' for 'cwd', 'tree' for 'dirtree', and 'clear' for 'cls'!",
+  "You can enter process names to kill in 'taskkill', as well as PIDs.",
+  "Use the 'lock' command to lock your computer!",
+  "You should run 'symlink' as an administrator for it to run successfully.",
+  "The 'tasklist' command will show all running processes and their PID.",
+  "Removed Herobrine."
 ]

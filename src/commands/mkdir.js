@@ -13,15 +13,7 @@ const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
 
 /**
- * Make a directory synchronously. This is meant
- * to be used in the BubbleOS CLI shell, and not
- * during normal coding operations.
- *
- * This command uses the `recursive` option, which
- * means that in the case of a parent directory
- * not being defined, BubbleOS will automatically
- * create it. The function being used to create the
- * directories is `fs.mkdirSync()`.
+ * Make a directory.
  *
  * Note that there is a small hiccup in the error
  * codes, where if the path/file names are too long,
@@ -35,7 +27,7 @@ const SettingManager = require("../classes/SettingManager");
  * messages are shown.
  *
  * @param {string} dir The directory/directories that should be created. Both absolute and relative directories are accepted.
- * @param {...string} args Arguments to change the behavior of `mkdir()`. Available arguments are listed above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const mkdir = (dir, ...args) => {
   try {
@@ -48,6 +40,7 @@ const mkdir = (dir, ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     Verbose.initArgs();
@@ -105,6 +98,7 @@ const mkdir = (dir, ...args) => {
     if (!silent) InfoMessages.success(`Successfully made the directory ${chalk.bold(showDir)}.`);
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     if (err.code === "ENOENT") {

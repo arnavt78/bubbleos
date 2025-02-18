@@ -30,13 +30,14 @@ const _formatHist = (index, histCmd) => {
  * stored in the configuration file.
  *
  * @param {number | string} numToDisplay Optional. The number point in history to display by itself. If it is not provided, it will show all commands in history.
- * @param {...string} args Arguments to modify the behavior of `history`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const history = (numToDisplay, ...args) => {
   try {
     Verbose.initArgs();
     const clear = args.includes("-c") || numToDisplay === "-c";
 
+    Verbose.initConfig();
     const config = new ConfigManager();
 
     // Clear history if "-c" is passed

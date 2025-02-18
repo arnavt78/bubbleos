@@ -11,9 +11,8 @@ const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
 
 /**
- * Kill a process on the device from the BubbleOS
- * CLI shell, using the provided PID (process
- * identification number) or process name.
+ * Kill a process on the device using either the PID
+ * or process name.
  *
  * Available arguments:
  * - `-y`: Automatically accept the confirmation
@@ -22,7 +21,7 @@ const PathUtil = require("../classes/PathUtil");
  * error messages and the confirmation prompt.
  *
  * @param {string | number} processName The PID or process name to kill.
- * @param {...string} args Arguments to change the behavior of `taskkill` (listed above).
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const taskkill = async (processName, ...args) => {
   try {

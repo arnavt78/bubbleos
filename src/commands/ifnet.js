@@ -42,7 +42,7 @@ const _makeValueFriendly = (value) => (typeof value === "boolean" ? (value ? "Ye
 /**
  * Get network information from the local machine.
  *
- * @param {...string} args Arguments to modify the behavior of `ifnet`, however, none are yet available.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const ifnet = (...args) => {
   try {

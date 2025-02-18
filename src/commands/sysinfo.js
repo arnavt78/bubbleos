@@ -10,7 +10,6 @@ const _convertSize = require("../functions/convSize");
 const _friendlyOS = require("../functions/friendlyOS");
 const _fatalError = require("../functions/fatalError");
 
-const ConfigManager = require("../classes/ConfigManager");
 const Verbose = require("../classes/Verbose");
 
 /**
@@ -85,7 +84,10 @@ const _determineColor = async (
 };
 
 /**
- * Fixes issue where BubbleOS reports Windows 11 systems as Windows 10 ([#7](https://github.com/arnavt78/bubbleos/issues/7)).
+ * Fixes issue where BubbleOS reports Windows 11 systems as Windows 10 ([#7](https://github.com/arnavt78/bubbleos/issues/7)),
+ * because Microsoft apparently can't do it...
+ *
+ * Windows builds from 21370 and onwards are reported as Windows 11.
  *
  * @param {string} currentOSName The current name of the OS.
  * @returns The name of the OS.
@@ -96,8 +98,7 @@ const _fixVersion = (currentOSName) =>
     : currentOSName;
 
 /**
- * Get system information about the computer from
- * the BubbleOS CLI shell.
+ * Get system information about the computer.
  *
  * Get lots of information about the local computer
  * in this command. You can also filter it using
@@ -111,7 +112,7 @@ const _fixVersion = (currentOSName) =>
  * - `-e`: Display environment variables.
  * - `--all`: Display all system information that is available.
  *
- * @param {...string} args Arguments to modify the behavior of `sysinfo`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const sysinfo = async (...args) => {
   try {
@@ -241,7 +242,6 @@ const sysinfo = async (...args) => {
     if (all || advancedInfo) {
       Verbose.custom("Showing advanced information...");
       console.log(`${chalk.bold.underline("Advanced Information")}`);
-
       console.log(`NULL device: ${chalk.bold(os.devNull)}`);
 
       // On some operating systems, this value will throw an error if run
@@ -266,20 +266,6 @@ const sysinfo = async (...args) => {
       }
 
       console.log();
-    }
-
-    const config = new ConfigManager();
-
-    if (defaultDisplay && !config.getConfig().sysinfoTip) {
-      Verbose.custom("Showing system information tip...");
-      console.log(
-        chalk.yellow.italic(
-          `Tip: To get more system information, run ${chalk.italic("'sysinfo --all'")}.\n`
-        )
-      );
-
-      Verbose.custom("Adding tip shown to configuration file...");
-      config.addData({ sysinfoTip: true });
     }
   } catch (err) {
     Verbose.fatalError();

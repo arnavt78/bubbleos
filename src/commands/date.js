@@ -5,11 +5,11 @@ const _fatalError = require("../functions/fatalError");
 const Verbose = require("../classes/Verbose");
 
 /**
- * All of the days of the week.
+ * All of the days of the week in order.
  */
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 /**
- * All of the months of the year.
+ * All of the months of the year in order.
  */
 const MONTHS = [
   "January",
@@ -27,11 +27,11 @@ const MONTHS = [
 ];
 
 /**
- * Show the current date from the local system to
- * display in BubbleOS using the `date` command.
+ * Show the current date from the local system to display in BubbleOS using the `date` command.
  *
- * This command will output to the _stdout_ the
- * 'friendly' date, as well as the 'slash' date.
+ * This command will output the 'friendly' date, as well as the 'slash' date.
+ *
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const date = (...args) => {
   try {

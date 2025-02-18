@@ -33,12 +33,12 @@ let availableTips = _shuffleArray([...ALL_TIPS]);
 /**
  * Show some tips and fun facts about BubbleOS.
  *
- * @param {...string} args Arguments to modify the behavior of `tips`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const tips = (...args) => {
   try {
-    Verbose.custom(`Tips in 'ALL_TIPS': ${ALL_TIPS.length}`);
-    Verbose.custom(`Tips in 'availableTips': ${availableTips.length}`);
+    Verbose.custom(`Number of all tips: ${ALL_TIPS.length}`);
+    Verbose.custom(`Number of available tips: ${availableTips.length}`);
 
     // Resets tips if there are no more
     if (availableTips.length === 0) {

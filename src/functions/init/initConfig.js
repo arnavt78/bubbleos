@@ -4,6 +4,11 @@ const { BUILD } = require("../../variables/constants");
 
 const ConfigManager = require("../../classes/ConfigManager");
 
+/**
+ * Initialize the BubbleOS configuration for a reset.
+ *
+ * @returns `true` if an error was encountered, else, `false`.
+ */
 const _initConfig = () => {
   const config = new ConfigManager();
   let errorEncountered = false;

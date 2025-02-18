@@ -82,20 +82,18 @@ const _logDirContents = (contents, options = { short: false, max: undefined }) =
 };
 
 /**
- * List the contents of a directory. For use in the
- * BubbleOS CLI shell only!
+ * List the contents of a directory.
  *
  * There is a known bug where the contents, if viewed
  * in short view, will look a bit 'off' if a file or
  * directory in the directory has a lot of characters.
- * This will be fixed in the next released version. (yeah right)
  *
  * Available arguments:
  * - `-s`: View the contents in a shorter view
  * (rows/columns).
  *
  * @param {string} dir Optional: the directory to view the contents in. By default, it uses the current working directory.
- * @param {...string} args Arguments to change the behavior of `ls`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const ls = (dir = `"${process.cwd()}"`, ...args) => {
   try {
@@ -109,6 +107,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     if (!dirChk.doesExist()) {

@@ -8,6 +8,13 @@ const _fatalError = require("../functions/fatalError");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 
+/**
+ * Lock the operating system that BubbleOS is running on.
+ *
+ * This requires `xdg-screensaver` to be installed on some Linux systems.
+ *
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
+ */
 const lock = (...args) => {
   try {
     // Locks the system, not just BubbleOS
@@ -21,7 +28,10 @@ const lock = (...args) => {
       InfoMessages.error(
         "Locking the OS failed due to it being run on an unsupported operating system."
       );
-    } else if (err.message.toLowerCase().includes("no applicable command found")) {
+    } else if (
+      err.message.toLowerCase().includes("no applicable command found") ||
+      err.message.toLowerCase().includes("command failed")
+    ) {
       Verbose.custom("No command was found to lock the system on Linux.");
       InfoMessages.error("Locking the OS failed. Please install xdg-screensaver and try again.");
     } else {

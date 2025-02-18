@@ -27,8 +27,7 @@ const MAX_CHARS_CONFIRM = 5000;
 const MAX_CHARS_READ = 100_000;
 
 /**
- * Read a file in the BubbleOS CLI shell synchronously.
- * This has a character limit, that can be bypassed.
+ * Read a file in BubbleOS.
  *
  * BubbleOS has a limit on the number of characters
  * it can read (defined in `MAX_CHARS_READ`) and a
@@ -45,7 +44,7 @@ const MAX_CHARS_READ = 100_000;
  * `MAX_CHARS_READ`.
  *
  * @param {string} file The file that should be read. Both absolute and relative paths are accepted.
- * @param {...string} args The arguments to modify the behavior of `readfile`. Available arguments are above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const readfile = (file, ...args) => {
   try {
@@ -58,6 +57,7 @@ const readfile = (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
@@ -89,6 +89,7 @@ const readfile = (file, ...args) => {
     }
 
     // Get contents and number of characters
+    Verbose.custom(`Reading file: ${file}...`);
     const contents = fs.readFileSync(file, { encoding: "utf-8", flag: "r" });
     const chars = contents.length;
 
@@ -119,10 +120,9 @@ const readfile = (file, ...args) => {
     }
 
     // Log the file
-    Verbose.custom("Reading file...");
-    console.log(fs.readFileSync(file, { encoding: "utf-8", flag: "r" }));
-    console.log();
+    console.log(contents + "\n");
   } catch (err) {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

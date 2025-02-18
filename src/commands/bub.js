@@ -22,14 +22,14 @@ const SettingManager = require("../classes/SettingManager");
  *
  * @param {Function} intCmds The `intCmds` function that needs to be passed as BubbleOS cannot read it properly (as explained above).
  * @param {string} file The path the points to the `.bub` file. It should be a `.bub` file, but others are accepted, as there is no such check for this in the function.
- * @param {{ displayCommand: boolean, allowExit: boolean }} options Optional. Defines options that can modify the behaviour of this function. The available keys are listed above.
+ * @param {{ displayCommand: boolean, allowExit: boolean }} options Optional. Defines options that can modify the behavior of this function. The available keys are listed above.
  */
 const _interpretFile = async (
   intCmds,
   file,
   options = { displayCommand: false, allowExit: false }
 ) => {
-  // Seperate the file into lines to allow executing each command line-by-line
+  // Separate the file into lines to allow executing each command line-by-line
   Verbose.custom("Reading file and separating into lines...");
   const lines = fs.readFileSync(file, { encoding: "utf-8", flag: "r" }).split("\n");
 
@@ -95,7 +95,7 @@ const _interpretFile = async (
  *
  * @param {Function} intCmds The `intCmds()` function.
  * @param {string} file The path to the BubbleOS file that is going to be executed.
- * @param {...string} args The arguments, of which the available ones are listed above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const bub = async (intCmds, file, ...args) => {
   try {
@@ -108,6 +108,7 @@ const bub = async (intCmds, file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
@@ -129,6 +130,7 @@ const bub = async (intCmds, file, ...args) => {
       Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     } else if (!fileChk.validEncoding()) {
@@ -160,6 +162,7 @@ const bub = async (intCmds, file, ...args) => {
     Verbose.custom("Changing current working directory to path before file was executed...");
     process.chdir(PathUtil.caseSensitive(beforeCwd));
   } catch (err) {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

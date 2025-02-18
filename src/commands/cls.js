@@ -4,6 +4,8 @@ const Verbose = require("../classes/Verbose");
 
 /**
  * Clears the entire standard output.
+ *
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const cls = (...args) => {
   try {

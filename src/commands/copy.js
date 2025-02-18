@@ -19,9 +19,7 @@ const SIZE_TO_SHOW_DIALOG = 262_144_000;
 
 /**
  * Synchronously copy a directory from the source (`src`)
- * to the destination (`dest`). This is a BubbleOS command
- * function for the command `copy` (which used to be
- * `copydir` and `copyfile` before it was combined).
+ * to the destination (`dest`).
  *
  * There is a bug in this command where it can throw an error
  * when copying a file to another file, and that file already exists.
@@ -50,7 +48,7 @@ const SIZE_TO_SHOW_DIALOG = 262_144_000;
  *
  * @param {string} src The source file/directory that should be copied.
  * @param {string} dest The destination that the source should be copied to.
- * @param {...string} args Arguments to modify the behavior of `copy()`. The available arguments are listed above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const copy = (src, dest, ...args) => {
   try {
@@ -69,6 +67,7 @@ const copy = (src, dest, ...args) => {
     const srcChk = new Checks(src);
     const destChk = new Checks(dest);
 
+    Verbose.initShowPath();
     const showSrc = new SettingManager().fullOrBase(src);
     const showDest = new SettingManager().fullOrBase(dest);
 
@@ -89,6 +88,7 @@ const copy = (src, dest, ...args) => {
       Errors.doesNotExist("source", showSrc);
       return;
     } else if (srcChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     }
@@ -146,6 +146,7 @@ const copy = (src, dest, ...args) => {
       );
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showSrc = new SettingManager().fullOrBase(src);
     const showDest = new SettingManager().fullOrBase(dest);
 

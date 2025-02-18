@@ -5,7 +5,7 @@ const { GLOBAL_NAME } = require("../../variables/constants");
 const Verbose = require("../../classes/Verbose");
 
 const _startupArgs = () => {
-  console.log(chalk.bold.underline(`${GLOBAL_NAME} Startup Arguments List\n`));
+  console.log(chalk.bold.underline(`${GLOBAL_NAME} Startup Arguments List`));
 
   const argInfo = {
     "-h": `Displays this help menu for arguments used in launching ${GLOBAL_NAME}.`,

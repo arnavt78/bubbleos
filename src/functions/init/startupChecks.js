@@ -7,6 +7,9 @@ const _fatalError = require("../fatalError");
 
 const Verbose = require("../../classes/Verbose");
 
+/**
+ * Checks if BubbleOS is running on x64 architecture or Windows 10 and above.
+ */
 const startupChecks = () => {
   try {
     Verbose.custom("Checking if system is not x64 or ARM64 architecture...");

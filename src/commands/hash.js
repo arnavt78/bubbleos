@@ -53,7 +53,7 @@ const _logHash = (hashAlgo, contents) => {
  * There are no arguments for this command, other than the required file.
  *
  * @param {string} file The file to check the hash for.
- * @param {...string} args All recognized arguments. All available arguments are listed above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const hash = async (file, ...args) => {
   try {
@@ -66,6 +66,7 @@ const hash = async (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (fileChk.paramUndefined()) {
@@ -90,11 +91,12 @@ const hash = async (file, ...args) => {
 
     // Ask user for hashes
     // If not hashes are provided, the default is to show all hashes
+    Verbose.custom("Requesting user for hashes...");
     const requested = (
       await input({
         message: `Enter the file hashes to be shown ('${chalk.italic(
           "all"
-        )}') for all hashes; insert space to add multiple):`,
+        )}') for all hashes; separate values with a space):`,
         theme: {
           style: {
             answer: (text) => chalk.reset(text),
@@ -130,6 +132,7 @@ const hash = async (file, ...args) => {
 
     console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.name === "ExitPromptError") {

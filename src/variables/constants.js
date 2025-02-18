@@ -46,7 +46,7 @@ const TIMEBOMB_ACTIVATED = true;
  * ```js
  * const EXPIRY_DATE = new Date(
  *   2023, // <-- The full year (4 digits)
- *   5,    // <-- The month (e.g. '0' will be Janurary; '11' will be December)
+ *   5,    // <-- The month (e.g. '0' will be January; '11' will be December)
  *   4     // <-- The date (1-31, depending on the month)
  * );
  * ```

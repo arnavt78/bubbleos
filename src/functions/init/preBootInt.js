@@ -2,6 +2,9 @@ const _intCmds = require("../interpret");
 
 const Verbose = require("../../classes/Verbose");
 
+/**
+ * The pre-boot interpreter of BubbleOS.
+ */
 const _preBootInterpreter = async () => {
   Verbose.custom("Getting arguments passed into executable...");
   const args = process.argv.slice(2);

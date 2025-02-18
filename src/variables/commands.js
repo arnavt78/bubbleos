@@ -125,7 +125,7 @@ const ALIASES = {
   rename: ["mv", "ren"],
   setmgr: ["settings", "syscfg", "sysconfig", "sysedit"],
   stat: ["df", "fileinfo", "dirinfo", "pathinfo", "size"],
-  symlink: ["symblnk", "ln", "link"],
+  symlink: ["symblnk"],
   sysinfo: ["uname", "systeminfo", "userinfo", "whoami"],
   taskkill: ["kill"],
   tasklist: ["ps", "top", "htop"],

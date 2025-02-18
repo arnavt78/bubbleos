@@ -10,6 +10,9 @@ const _fatalError = require("../fatalError");
 
 const Verbose = require("../../classes/Verbose");
 
+/**
+ * Checks if the timebomb has been activated.
+ */
 const _timebomb = () => {
   try {
     // Only if BubbleOS is in beta and the timebomb is activated will BubbleOS check the date

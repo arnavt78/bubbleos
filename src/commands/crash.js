@@ -18,10 +18,9 @@ const Verbose = require("../classes/Verbose");
 /**
  * Crash BubbleOS and the terminal in many ways.
  *
- * If no `index` was passed, BubbleOS will request the user to select
- * a crashing method from a list of elements. These are the following
- * current ways that a user can crash BubbleOS, their terminal, or even
- * their computer:
+ * BubbleOS will request the user to select a crashing method from a list
+ * of elements. These are the following current ways that a user can crash
+ * BubbleOS, their terminal, or even their computer:
  * - _Fatal error_: Crash BubbleOS with a fatal error. File dumping is
  * enabled.
  * - _Hang_: Hangs the terminal completely in some scenarios, making it
@@ -34,7 +33,7 @@ const Verbose = require("../classes/Verbose");
  * - _Blue Screen of Death_: Causes a BSOD on Windows. This is a very dangerous command.
  *
  * @param {number | string} index Optional. Uses this as the index for the crashing method. Defaults to `NaN`.
- * @param {...string} args Arguments to change the behavior of the `crash` command. Unused right now.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const crash = async (...args) => {
   try {
@@ -42,6 +41,7 @@ const crash = async (...args) => {
       "Using this command can cause issues such as loss of data, high CPU/RAM usage, and more. Save all data before continuing."
     );
 
+    Verbose.custom("Prompting user to select crashing method...");
     const index = await select({
       message: "Select a crashing method:",
       choices: CRASHES,
@@ -151,7 +151,9 @@ const crash = async (...args) => {
     } else if (err.message.toLowerCase().includes("exit code 1")) {
       // If the BSOD failed to run. This is usually due to Windows
       // 'taskkill' not existing/being blocked by the system.
-      Verbose.custom("Failed to crash Windows with a BSOD...");
+      Verbose.custom(
+        "Failed to crash Windows with a BSOD (usually due to 'taskkill' not existing or being blocked)..."
+      );
       InfoMessages.error(`${GLOBAL_NAME} failed to crash Windows with a BSOD.`);
     } else {
       // If an unknown exception occurred, or the user selected

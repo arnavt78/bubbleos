@@ -12,6 +12,14 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 
+/**
+ * Make a connection with a specified address.
+ *
+ * @param {string} host The host to connect to.
+ * @param {string} path The path of the host. Defaults to empty.
+ * @param {number} maxRedirects Max redirects before the command fails. Defaults to 5.
+ * @returns A Promise of the request.
+ */
 const _makeConnection = async (host, path = "", maxRedirects = 5) => {
   const options = {
     host,
@@ -30,6 +38,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
     Verbose.custom("Creating new request...");
     const req = https.request(options, (res) => {
       // Prevents the timed out error from appearing once the request is completed
+      Verbose.custom("Destroying any previous requests...");
       req.setTimeout(0);
       req.destroy();
 
@@ -65,9 +74,9 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
         Verbose.custom("The server is responding with status code 200.");
         console.log(
           chalk.green(
-            `The server, ${chalk.bold.italic(
-              formattedURL
-            )}, is responding with status code 200 (OK)!\n`
+            `The server, ${chalk.bold.italic(formattedURL)}, is responding with status code 200 (${
+              HTTP_CODES_AND_MESSAGES[res.statusCode] ?? "N/A"
+            }!\n`
           )
         );
         resolve();
@@ -96,6 +105,13 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
   });
 };
 
+/**
+ * Pings a specified address and returns the status
+ * code and message that was given by the server.
+ *
+ * @param {string} host The host address to ping.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
+ */
 const ping = async (host, ...args) => {
   try {
     if (new Checks(host).paramUndefined()) {
@@ -181,6 +197,9 @@ const ping = async (host, ...args) => {
       InfoMessages.error(
         `Self-signed certificate. ${GLOBAL_NAME} does not support pinging servers with self-signed certificates for security reasons, such as the man-in-the-middle attack.`
       );
+    } else if (err.code === "ERR_INVALID_URL") {
+      Verbose.custom("Invalid URL.");
+      InfoMessages.error("Invalid URL.");
     } else {
       Verbose.fatalError();
       _fatalError(err);

@@ -14,7 +14,7 @@ const SettingManager = require("../classes/SettingManager");
  * Internal helper function to generate the tree for `dirtree`.
  *
  * @param {string} currentDir Directory to begin the tree in.
- * @param {string} prefix It is prefered to leave this to the default value.
+ * @param {string} prefix It is preferred to leave this to the default value.
  */
 const _generateTree = (currentDir, prefix = "") => {
   let items;
@@ -65,7 +65,7 @@ const _generateTree = (currentDir, prefix = "") => {
  * The command is visually identical to the Windows `tree` command.
  *
  * @param {string} dir The directory to start the tree in.
- * @param {...string} args Arguments to change the behavior of `dirtree`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const dirtree = (dir = process.cwd(), ...args) => {
   try {
@@ -76,6 +76,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
     Verbose.initChecker();
     const dirChk = new Checks(dir);
 
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     if (!dirChk.doesExist()) {
@@ -87,6 +88,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
       Errors.expectedDir(showDir);
       return;
     } else if (dirChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     }
@@ -97,6 +99,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
     Verbose.custom("Starting tree generation...");
     _generateTree(dir);
   } catch (err) {
+    Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
     if (err.code === "ENOENT") {
@@ -107,7 +110,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
       // change into it, it throws an error.
 
       Verbose.custom("Directory does not exist.");
-      Errors.doesNotExist("directory", dir);
+      Errors.doesNotExist("directory", showDir);
     } else {
       Verbose.fatalError();
       _fatalError(err);

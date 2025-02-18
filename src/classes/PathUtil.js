@@ -13,7 +13,7 @@ const os = require("os");
  */
 class PathUtil {
   /**
-   * Replaces tildas (`~`) with the home directory on Linux/macOS.
+   * Replaces tildes (`~`) with the home directory on Linux/macOS.
    *
    * @param {string} inputPath The path to convert.
    * @returns The converted path.
@@ -131,7 +131,7 @@ class PathUtil {
    * **If using `parseQuotes`, pass an array of strings into `inputPath`, otherwise, provide a string.**
    *
    * Contains the following options:
-   * - `homeDir`: Replace tildas (`~`) with the home directory on Linux/macOS.
+   * - `homeDir`: Replace tildes (`~`) with the home directory on Linux/macOS.
    * - `caseSensitive`: Retrieves the actual case-sensitive path on Windows by traversing path segments.
    * - `convertAbsolute`: Convert a path to an absolute path, unless the path is already an absolute path.
    * - `parseQuotes`: Parse double-quote paths and arguments to allow the user to specify spaces when needed.

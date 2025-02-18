@@ -55,7 +55,7 @@ if (showVersion) {
   console.log(`${chalk.bold(`${GLOBAL_NAME}, v${VERSION} (build ${BUILD})`)}`);
 }
 
-// Only display if this is the first time BubbleOS is runing
+// Only display if this is the first time BubbleOS is running
 if (!configData?.firstIntro) {
   console.log(`Made by ${AUTHOR}!`);
 }
@@ -92,10 +92,10 @@ if (IN_BETA) {
 
 // Show information about commands
 if (!configData?.firstIntro) {
-  console.log(`For a list on some available commands, type ${chalk.italic("'help'")}.`);
-  console.log(`For more information about a command, type ${chalk.italic("'help <command>'")}.\n`);
+  console.log(`For a list on some available commands, type '${chalk.italic("help")}'.`);
+  console.log(`For more information about a command, type '${chalk.italic("help <command>")}'.\n`);
 
-  console.log(`To exit the ${GLOBAL_NAME} shell, type ${chalk.italic("'exit'")}.\n`);
+  console.log(`To exit the ${GLOBAL_NAME} shell, type '${chalk.italic("exit")}'.\n`);
 }
 
 if (configData?.lastCrashed) {

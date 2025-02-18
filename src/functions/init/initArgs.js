@@ -15,7 +15,7 @@ const {
   REQUIRE_CONFIG_RESET,
 } = require("../../variables/constants");
 
-Verbose.custom("Creating configuration manager...");
+Verbose.initConfig();
 const config = new ConfigManager();
 
 // Introduction

@@ -9,11 +9,10 @@ const PathUtil = require("../classes/PathUtil");
 
 /**
  * Shows all the processes running on the system, or
- * a specific process. Useful for finding PIDs to kill
- * using `taskkill`.
+ * a specific process.
  *
  * @param {string} filter The filter for what process(es) to show.
- * @param {...string} args Arguments to modify the behavior of `tasklist`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const tasklist = async (filter, ...args) => {
   try {

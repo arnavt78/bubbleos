@@ -25,7 +25,7 @@ const SettingManager = require("../classes/SettingManager");
  * - `-c`: Only shows the number of characters in a file.
  *
  * @param {string} file The file to count the words in.
- * @param {...string} args Arguments to modify the behavior of `wcount`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const wcount = (file, ...args) => {
   try {
@@ -38,6 +38,7 @@ const wcount = (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
@@ -96,6 +97,7 @@ const wcount = (file, ...args) => {
 
     console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

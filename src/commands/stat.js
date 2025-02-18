@@ -68,7 +68,7 @@ const _getDate = (date) => {
  * - Accessed
  *
  * @param {string} path The file/directory to get information on.
- * @param {...string} args The arguments to change the behavior of `stat`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const stat = (path, ...args) => {
   try {
@@ -81,6 +81,7 @@ const stat = (path, ...args) => {
     Verbose.initChecker();
     const pathChk = new Checks(path);
 
+    Verbose.initShowPath();
     const showPath = new SettingManager().fullOrBase(path);
 
     if (pathChk.paramUndefined()) {
@@ -97,8 +98,10 @@ const stat = (path, ...args) => {
       return;
     }
 
+    Verbose.custom("Outputting location of path...");
     console.log(`Location: ${chalk.bold(path)}`);
 
+    Verbose.custom("Calculating size...");
     const size = _calcSize(path, pathChk);
     const sizeLabel = Object.keys(size)[0];
 
@@ -106,6 +109,7 @@ const stat = (path, ...args) => {
     const sizeColor = sizeValue === 0 ? chalk.yellow : chalk.green;
     console.log("Size: " + chalk.bold(sizeColor(`${sizeValue} ${sizeLabel}\n`)));
 
+    Verbose.custom("Obtaining and calculating created, modified and accessed date of path...");
     const stats = fs.statSync(path);
 
     console.log("Created: " + chalk.bold(`${_getDate(stats.birthtime)}`));
@@ -114,6 +118,7 @@ const stat = (path, ...args) => {
 
     console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showPath = new SettingManager().fullOrBase(path);
 
     if (err.code === "EPERM" || err.code === "EACCES") {

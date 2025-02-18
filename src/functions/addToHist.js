@@ -22,6 +22,7 @@ const NUMBER_TO_STORE = 50;
 const _addToHist = (command, addToConfig = true) => {
   if (!addToConfig) return;
 
+  Verbose.initConfig();
   const config = new ConfigManager();
 
   // Fetch the history from the config

@@ -11,8 +11,7 @@ const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
 
 /**
- * Execute a file from BubbleOS. This is meant to be used as a
- * CLI tool for the BubbleOS shell.
+ * Execute a file from BubbleOS.
  *
  * Please note that even though any extension is accepted, and
  * that BubbleOS will not validate extensions, there are chances
@@ -27,8 +26,7 @@ const SettingManager = require("../classes/SettingManager");
  * inside of a shell.
  *
  * @param {string} file The filename to execute. Both absolute and relative paths are accepted.
- * @param {...string} args The arguments to change the behavior of `exec`. Available arguments are listed above.
- * @returns
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const exec = (file, ...args) => {
   try {
@@ -39,6 +37,7 @@ const exec = (file, ...args) => {
     Verbose.initChecker();
     const fileChk = new Checks(file);
 
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
@@ -61,6 +60,7 @@ const exec = (file, ...args) => {
       Errors.expectedFile(showFile);
       return;
     } else if (fileChk.pathUNC()) {
+      Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
     }
@@ -75,6 +75,7 @@ const exec = (file, ...args) => {
     if (!silent) InfoMessages.success(`Successfully executed ${chalk.bold(showFile)}.`);
     else console.log();
   } catch (err) {
+    Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.code === "UNKNOWN") {

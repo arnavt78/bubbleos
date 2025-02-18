@@ -69,14 +69,14 @@ class Errors {
    *
    * **Error code:** `2`
    *
-   * **Message:** You must enter `type`, for example, like so: **_'`example`'_**
+   * **Message:** You must enter `type`. For example: **_'`example`'_**
    *
    * @param {string} type The type of data the user should enter. For example: _a directory_, or, _the files_.
    * @param {string} example An example of what the user should enter.
    */
   static enterParameter(type, example) {
     const CODE = 2;
-    const MESSAGE = `You must enter ${type}, for example, like so: ${chalk.bold(example)}.`;
+    const MESSAGE = `You must enter ${type}. For example: ${chalk.bold(example)}.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -240,13 +240,13 @@ class Errors {
    *
    * **Error code:** `10`
    *
-   * **Message:** The path (**_'`path`'_**) is too long. Please choose a shorter path.
+   * **Message:** The path, **_'`path`'_**, is too long. Please choose a shorter path.
    *
    * @param {string} path The path that the user entered.
    */
   static pathTooLong(path) {
     const CODE = 10;
-    const MESSAGE = `The path (${chalk.bold(path)}) is too long. Please choose a shorter path.`;
+    const MESSAGE = `The path, ${chalk.bold(path)}, is too long. Please choose a shorter path.`;
 
     _interpretError(CODE, MESSAGE);
   }
@@ -260,7 +260,7 @@ class Errors {
    *
    * **Error code:** `11`
    *
-   * **Message:** UNC paths are currently unsupported by _%GLOBAL_NAME%_.
+   * **Message:** UNC paths are currently unsupported by _{GLOBAL_NAME}_.
    */
   static invalidUNCPath() {
     const CODE = 11;
@@ -278,7 +278,7 @@ class Errors {
    *
    * **Error code:** `12`
    *
-   * **Message:** _%GLOBAL_NAME%_ does not know how to `toDo` **_'`variable`'_**.
+   * **Message:** _{GLOBAL_NAME}_ does not know how to `toDo` **_'`variable`'_**.
    *
    * @param {string} toDo The action that was unknown.
    * @param {string} variable The variable that the user entered.

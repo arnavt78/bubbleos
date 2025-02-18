@@ -8,8 +8,7 @@ const SettingManager = require("../classes/SettingManager");
 
 /**
  * Exit the BubbleOS shell with an exit code of
- * `0` (success). This is a CLI tool for use with
- * the BubbleOS shell only.
+ * `0` (success).
  *
  * This command is also used when the user presses
  * Ctrl+C to exit the shell (but only when on the
@@ -24,11 +23,12 @@ const SettingManager = require("../classes/SettingManager");
  * BubbleOS has completed shutting down completely
  * (similar to `cls()`).
  *
- * @param {...string} args Arguments to modify the behavior of the `exit()` function. See available ones above.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const exit = (...args) => {
   try {
     if (new SettingManager().checkSetting("confirmExit")) {
+      Verbose.promptUser();
       if (!_promptForYN(`Are you sure you want to exit ${GLOBAL_NAME}?`)) {
         Verbose.declinePrompt();
         console.log();

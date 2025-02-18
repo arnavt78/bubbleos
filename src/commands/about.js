@@ -9,7 +9,7 @@ const Verbose = require("../classes/Verbose");
 /**
  * The `about` command. Displays information about BubbleOS.
  *
- * @param {...string} args A list of arguments that can be used to modify the behavior of `about`.
+ * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
 const about = (...args) => {
   try {
@@ -30,13 +30,13 @@ const about = (...args) => {
     console.log(chalk.bold(`${aboutName}, v${VERSION} (build ${BUILD})`));
     console.log(`Made by ${AUTHOR}!\n`);
 
-    // MIT Liecense (variable year)
+    // MIT License (variable year)
     if (license) {
       Verbose.custom("Displaying license...");
       console.log(
         chalk.dim(`    MIT License
 
-    Copyright (c) ${new Date().getFullYear()} ${aboutName}
+    Copyright (c) 2022-${new Date().getFullYear()} ${aboutName}
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal

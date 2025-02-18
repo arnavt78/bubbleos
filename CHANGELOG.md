@@ -12,6 +12,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added the ability to show or remove the version when starting BubbleOS (customizable using `setmgr`).
 - Added the ability to hide the prefix labels on success, info, warning and error messages (customizable using `setmgr`).
 - Added the ability to show a confirmation prompt before exiting BubbleOS (customizable using `setmgr`).
+- Added new tips for the `tips` command to display.
 - Added the ability for BubbleOS to reset the configuration file when needed if it detects an older version.
 - Added CPU information to the `sysinfo` command, which shows the name and speed of CPUs in the system.
 - Added the ability to change to the last directory using `cd -`.
@@ -21,16 +22,18 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Added better error handling to the `ping` command, to reduce the chance of encountering a fatal error.
 - Added the `pwd` command as an alias to `cwd`.
 - Internally moved all help messages, tips, and crashes to JSON files.
-- Internally added the `PathUtil` class, containing file path operation utilities.
+- Internally added multiple classes and function files.
 
 ### Changed/Fixed Features
 
 - The `fif` command will no longer accept blank responses.
+- Made the occurrence location numbers in the `fif` command no longer show up by default (use the `-p` argument to show them).
 - Changed the `date` command to show the slash-format date in the format _{month}/{day}_ and no longer made it italicized.
 - Changed the formatting of the `time` command so that it will no longer be bolded.
-- Edited almost all help messages.
-- BubbleOS now gracefully terminates when receivng a `SIGTERM` code.
+- Edited almost all help messages, error messages, and verbose messages.
+- BubbleOS now gracefully terminates when receiving a `SIGTERM` or `SIGINT` code.
 - Fixed an old issue where commands had to be in all lowercase to be recognized (this can be changed with the `setmgr` command).
+- Fixed an issue where running `lock` on some Linux systems would cause BubbleOS to crash ([#11](https://github.com/arnavt78/bubbleos/issues/11)).
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
 - Fixed an issue where the `ping` command would show the "timed out" error once the request was completed after a few seconds, causing BubbleOS to hang. This only occurred on some systems.
@@ -46,8 +49,10 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where the `crash` command would crash BubbleOS with a fatal error when crashing Windows with a BSOD if the Windows `taskkill` command didn't exist or was blocked by the system.
 - Fixed an inconsistency in the `ls` command where the error message would not show the full directory path.
 - Fixed an issue where the `ifnet` command had no verbose messages.
+- Fixed multiple spelling errors.
+- The license now displays as 2022-_'current year'_.
 - Internally moved the `cwd` command to a separate file and fixed an issue where it had no verbose messages.
-- Internally moved the "add to history" helper function to a dedicated file.
+- Internally added, edited and removed comments.
 
 ### Removed Features
 
@@ -60,6 +65,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Removed four error messages (most were unused).
 - Removed the CPU endianness from the `sysinfo` command.
 - Removed the BubbleOS PID from showing in the fatal error screen.
+- Removed the tip from showing in the `sysinfo` command at all.
 - Internally removed the `helpMessages.js` file, in favor of the `helpMsgs.json` file.
 - Internally removed the `caseSensitivePath`, `convertAbsolute`, and `parseDoubleQuotes` functions in favor of the `PathUtil` class.
 
