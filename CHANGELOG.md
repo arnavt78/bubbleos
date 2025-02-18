@@ -2,7 +2,7 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 180 to 1?? (v1.8.0-beta to v1.?.?-beta)
+## Build 180 to 198 (v1.8.0-beta to v1.9.8-beta)
 
 ### Added Features
 
@@ -30,7 +30,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - The `fif` command will no longer accept blank responses.
 - Made the occurrence location numbers in the `fif` command no longer show up by default (use the `-p` argument to show them).
 - Changed the `date` command to show the slash-format date in the format _{month}/{day}_ and no longer made it italicized.
-- Changed the formatting of the date in the `date` command to add trailing zeros.
+- Changed the formatting of the date in the `date` command and the intro for the timebomb to add trailing zeros.
 - Changed the formatting of the `time` command so that it will no longer be bolded.
 - Edited almost all help messages, error messages, and verbose messages.
 - BubbleOS now gracefully terminates when receiving a `SIGTERM` or `SIGINT` code.
