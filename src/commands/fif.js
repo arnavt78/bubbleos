@@ -4,8 +4,7 @@ const chalk = require("chalk");
 const { input } = require("@inquirer/prompts");
 
 const _fatalError = require("../functions/fatalError");
-
-const exit = require("./exit");
+const _exit = require("../functions/exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -168,7 +167,7 @@ const fif = async (file, ...args) => {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      exit();
+      _exit(false, false);
     } else {
       Verbose.fatalError();
       _fatalError(err);

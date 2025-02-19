@@ -32,9 +32,6 @@ const cd = (dir, ...args) => {
     Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
 
-    Verbose.initArgs();
-    const silent = args?.includes("-s");
-
     if (dirChk.paramUndefined()) {
       Verbose.chkEmpty();
       Errors.enterParameter("a directory", "cd test");
@@ -126,7 +123,7 @@ const cd = (dir, ...args) => {
       );
       process.chdir(dir);
 
-      if (!silent)
+      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
         InfoMessages.success(`Successfully changed the directory to ${chalk.bold(showDir)}.`);
       else console.log();
     } else {

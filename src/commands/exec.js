@@ -18,8 +18,6 @@ const SettingManager = require("../classes/SettingManager");
  * when a file cannot run, even when the success message is shown.
  *
  * Available arguments:
- * - `-s`: Silently execute a file. This will silence all outputs
- * to the standard output, except for error messages.
  * - `-h`: Hide the subprocess console window that would normally
  * be created on Windows systems.
  * - `--sh`: If this argument is passed, the executable will run
@@ -41,7 +39,6 @@ const exec = (file, ...args) => {
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
-    const silent = args?.includes("-s");
     const winHide = args?.includes("-h");
     const shell = args?.includes("--sh");
 
@@ -72,7 +69,8 @@ const exec = (file, ...args) => {
     Verbose.custom(`Executing the file '${file}'...`);
     childProcess.exec(file, { cwd: process.cwd(), windowsHide: winHide, shell }, () => {});
 
-    if (!silent) InfoMessages.success(`Successfully executed ${chalk.bold(showFile)}.`);
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+      InfoMessages.success(`Successfully executed ${chalk.bold(showFile)}.`);
     else console.log();
   } catch (err) {
     Verbose.initShowPath();

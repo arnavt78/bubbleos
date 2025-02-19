@@ -22,7 +22,6 @@ const link = (path, newPath, ...args) => {
   try {
     Verbose.initArgs();
     const unlink = args.includes("-u") || newPath === "-u";
-    const silent = args.includes("-s") || newPath === "-s";
     const confirm = !(args?.includes("-y") || newPath === "-y");
 
     if (!unlink) {
@@ -79,7 +78,8 @@ const link = (path, newPath, ...args) => {
       Verbose.custom("Unlinking file...");
       fs.unlinkSync(path);
 
-      if (!silent) InfoMessages.success(`Successfully unlinked ${chalk.bold(showPath)}.`);
+      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+        InfoMessages.success(`Successfully unlinked ${chalk.bold(showPath)}.`);
       else console.log();
       return;
     }
@@ -88,7 +88,7 @@ const link = (path, newPath, ...args) => {
     Verbose.custom("Linking file...");
     fs.linkSync(path, newPath);
 
-    if (!silent)
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
       InfoMessages.success(
         `Successfully linked ${chalk.bold(showNewPath)} to ${chalk.bold(showPath)}.`
       );

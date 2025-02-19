@@ -17,8 +17,6 @@ const PathUtil = require("../classes/PathUtil");
  * Available arguments:
  * - `-y`: Automatically accept the confirmation
  * prompt.
- * - `-s`: Silence all success messages, excluding
- * error messages and the confirmation prompt.
  *
  * @param {string | number} processName The PID or process name to kill.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
@@ -30,7 +28,6 @@ const taskkill = async (processName, ...args) => {
 
     Verbose.initArgs();
     const confirm = !args?.includes("-y");
-    const silent = args?.includes("-s");
 
     Verbose.parseQuotes();
     processName = PathUtil.parseQuotes([processName, ...args])[0];
@@ -55,7 +52,7 @@ const taskkill = async (processName, ...args) => {
       process.kill(Number(processName));
 
       // If the user did not request output, show a newline, else, show the success message
-      if (!silent)
+      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
         InfoMessages.success(`Successfully killed the process ${chalk.bold(processName)}.`);
       else console.log();
     } else {
@@ -75,7 +72,7 @@ const taskkill = async (processName, ...args) => {
             process.kill(Number(result.pid));
 
             // If the user did not request output, show a newline, else, show the success message
-            if (!silent)
+            if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
               InfoMessages.success(`Successfully killed the process ${chalk.bold(processName)}.`);
             else console.log();
           } catch (err) {

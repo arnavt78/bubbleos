@@ -35,8 +35,6 @@ const SIZE_TO_SHOW_DIALOG = 262_144_000;
  * that often.
  *
  * Available arguments:
- * - `-s`: Silently copy the source to the destination and silence all success
- * messages to the standard output. Only errors can be logged.
  * - `-y`: Copy the file/directory to the destination even if it already exists
  * and is in danger of being overwritten.
  * - `-t`: **Only for directory copying!** Keeps the timestamps of all files and
@@ -72,7 +70,6 @@ const copy = (src, dest, ...args) => {
     const showDest = new SettingManager().fullOrBase(dest);
 
     Verbose.initArgs();
-    const silent = args?.includes("-s");
     const confirmCopy = !args.includes("-y");
     const keepTimes = args?.includes("-t");
     const rmSymlinkReference = args?.includes("--rm-symlink");
@@ -140,7 +137,7 @@ const copy = (src, dest, ...args) => {
       fs.copyFileSync(src, dest);
     }
 
-    if (!silent)
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
       InfoMessages.success(
         `Successfully copied to ${chalk.bold(showSrc)} to ${chalk.bold(showDest)}.`
       );

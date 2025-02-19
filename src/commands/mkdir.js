@@ -21,11 +21,6 @@ const SettingManager = require("../classes/SettingManager");
  * as `ENAMETOOLONG`, but Windows will show it as
  * `EINVAL`.
  *
- * Available arguments:
- * - `-s`: Silence all outputs to the standard output,
- * which includes the success message. Only error
- * messages are shown.
- *
  * @param {string} dir The directory/directories that should be created. Both absolute and relative directories are accepted.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
@@ -42,9 +37,6 @@ const mkdir = (dir, ...args) => {
 
     Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
-
-    Verbose.initArgs();
-    const silent = args?.includes("-s");
 
     if (dirChk.paramUndefined()) {
       Verbose.chkEmpty();
@@ -95,7 +87,8 @@ const mkdir = (dir, ...args) => {
     fs.mkdirSync(dir, { recursive: true });
 
     // If the user didn't request for silence, show the success message, else, show a newline
-    if (!silent) InfoMessages.success(`Successfully made the directory ${chalk.bold(showDir)}.`);
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+      InfoMessages.success(`Successfully made the directory ${chalk.bold(showDir)}.`);
     else console.log();
   } catch (err) {
     Verbose.initShowPath();

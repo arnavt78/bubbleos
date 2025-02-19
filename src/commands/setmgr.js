@@ -6,12 +6,12 @@ const { GLOBAL_NAME } = require("../variables/constants");
 const settings = require("../data/settings.json");
 
 const _fatalError = require("../functions/fatalError");
-
-const exit = require("./exit");
+const _exit = require("../functions/exit");
 
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const ConfigManager = require("../classes/ConfigManager");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Change the settings of BubbleOS.
@@ -95,13 +95,19 @@ const setmgr = async (...args) => {
     }
 
     Verbose.custom("Exiting setting environment...");
-    if (errorEncountered) InfoMessages.error("An error occurred while saving the settings.");
-    else InfoMessages.success("Settings saved successfully.");
+    if (errorEncountered) {
+      InfoMessages.error("An error occurred while saving the settings.");
+      return;
+    }
+
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+      InfoMessages.success("Settings saved successfully.");
+    else console.log();
   } catch (err) {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      exit();
+      _exit(false, false);
     } else {
       Verbose.fatalError();
       _fatalError(err);

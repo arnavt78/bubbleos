@@ -1,10 +1,7 @@
-const { GLOBAL_NAME } = require("../variables/constants");
-
-const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
+const _exit = require("../functions/exit");
 
 const Verbose = require("../classes/Verbose");
-const SettingManager = require("../classes/SettingManager");
 
 /**
  * Exit the BubbleOS shell with an exit code of
@@ -27,26 +24,7 @@ const SettingManager = require("../classes/SettingManager");
  */
 const exit = (...args) => {
   try {
-    if (new SettingManager().checkSetting("confirmExit")) {
-      Verbose.promptUser();
-      if (!_promptForYN(`Are you sure you want to exit ${GLOBAL_NAME}?`)) {
-        Verbose.declinePrompt();
-        console.log();
-        return;
-      }
-    }
-
-    console.log(`Exiting the ${GLOBAL_NAME} shell...\n`);
-
-    // If the user requested to clear the screen after exiting
-    if (args.includes("-c")) {
-      process.stdout.write("\x1bc");
-      Verbose.custom("Cleared screen.");
-    }
-
-    // Exit with exit code of '0' (success)
-    Verbose.exitProcess();
-    process.exit(0);
+    _exit(true, args.includes("-c"));
   } catch (err) {
     Verbose.fatalError();
     _fatalError(err);

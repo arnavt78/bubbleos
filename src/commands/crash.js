@@ -9,8 +9,7 @@ const { GLOBAL_NAME } = require("../variables/constants");
 
 const _promptForYN = require("../functions/promptForYN");
 const _fatalError = require("../functions/fatalError");
-
-const exit = require("./exit");
+const _exit = require("../functions/exit");
 
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
@@ -147,7 +146,7 @@ const crash = async (...args) => {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      exit();
+      _exit(false, false);
     } else if (err.message.toLowerCase().includes("exit code 1")) {
       // If the BSOD failed to run. This is usually due to Windows
       // 'taskkill' not existing/being blocked by the system.

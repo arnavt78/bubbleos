@@ -4,8 +4,7 @@ const crypto = require("crypto");
 const { input } = require("@inquirer/prompts");
 
 const _fatalError = require("../functions/fatalError");
-
-const exit = require("./exit");
+const _exit = require("../functions/exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -138,7 +137,7 @@ const hash = async (file, ...args) => {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      exit();
+      _exit(false, false);
     } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("read the file", showFile);

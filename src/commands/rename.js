@@ -22,8 +22,6 @@ const SettingManager = require("../classes/SettingManager");
  * Available arguments:
  * - `-y`: Automatically accept the overwriting prompt if the
  * new file already exists.
- * - `-s`: Silently rename the directory (don't output the
- * confirmation prompt). Error messages will still be shown.
  *
  * @param {string} oldName The old name of the file.
  * @param {string} newName The new name of the file.
@@ -48,7 +46,6 @@ const rename = (oldName, newName, ...args) => {
 
     Verbose.initArgs();
     const confirm = !args?.includes("-y");
-    const silent = args?.includes("-s");
 
     if (oldChk.paramUndefined() || newChk.paramUndefined()) {
       Verbose.chkEmpty();
@@ -90,7 +87,7 @@ const rename = (oldName, newName, ...args) => {
     fs.renameSync(oldName, newName);
 
     // If the user did not want output, only show a newline, else, show the success message
-    if (!silent)
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
       InfoMessages.success(
         `Successfully renamed ${chalk.bold(showOldName)} to ${chalk.bold(showNewName)}.`
       );

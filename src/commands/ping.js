@@ -24,7 +24,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
   const options = {
     host,
     path,
-    timeout: 15000,
+    timeout: 10000,
     method: "HEAD", // HEAD request to only fetch headers
     rejectUnauthorized: true,
   };

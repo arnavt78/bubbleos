@@ -5,6 +5,7 @@ const { input } = require("@inquirer/prompts");
 
 const _fatalError = require("../functions/fatalError");
 const _promptForYN = require("../functions/promptForYN");
+const _exit = require("../functions/exit");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -19,7 +20,7 @@ const SettingManager = require("../classes/SettingManager");
  * @param {string} file The name of the file to create.
  * @param {boolean} silent Whether or not success messages should be shown.
  */
-const _fileContents = async (file, silent) => {
+const _fileContents = async (file) => {
   try {
     Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
@@ -52,7 +53,8 @@ const _fileContents = async (file, silent) => {
         fs.writeFileSync(file, contents.join("\n"), "utf8");
 
         // If the user requested output, show a success message, else, show a newline
-        if (!silent) InfoMessages.success(`Successfully made the file ${chalk.bold(showFile)}.`);
+        if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+          InfoMessages.success(`Successfully made the file ${chalk.bold(showFile)}.`);
         else console.log();
         return;
       } else if (line.toUpperCase() === "!CANCEL") {
@@ -105,7 +107,7 @@ const _fileContents = async (file, silent) => {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      exit();
+      _exit(false, false);
     } else {
       Verbose.fatalError();
       _fatalError(err);
@@ -125,11 +127,6 @@ const _fileContents = async (file, silent) => {
  * as `ENAMETOOLONG`, but Windows will show it as
  * `EINVAL`.
  *
- * Available arguments:
- * - `-s`: Silence all outputs to the standard output,
- * which includes the success message. Only error
- * messages are shown.
- *
  * @param {string} file The file that should be created. Both absolute and relative paths are accepted.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
@@ -146,9 +143,6 @@ const mkfile = async (file, ...args) => {
 
     Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
-
-    Verbose.initArgs();
-    const silent = args?.includes("-s");
 
     if (fileChk.paramUndefined()) {
       Verbose.chkEmpty();
@@ -192,7 +186,7 @@ const mkfile = async (file, ...args) => {
       return;
     }
 
-    await _fileContents(file, silent);
+    await _fileContents(file);
   } catch (err) {
     Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);

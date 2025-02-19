@@ -5,6 +5,7 @@ const { GLOBAL_NAME } = require("../variables/constants");
 const _friendlyOS = require("../functions/friendlyOS");
 const _fatalError = require("../functions/fatalError");
 
+const SettingManager = require("../classes/SettingManager");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 
@@ -21,7 +22,9 @@ const lock = (...args) => {
     Verbose.custom("Locking the system...");
     lockSystem();
 
-    InfoMessages.success(`${GLOBAL_NAME} has successfully locked ${_friendlyOS()}!`);
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+      InfoMessages.success(`${GLOBAL_NAME} has successfully locked ${_friendlyOS()}!`);
+    else console.log();
   } catch (err) {
     if (err.message.toLowerCase().includes("unsupported os")) {
       Verbose.custom(`The operating system does not support locking by ${GLOBAL_NAME}.`);

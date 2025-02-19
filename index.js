@@ -7,8 +7,7 @@ const { GLOBAL_NAME, SHORT_NAME, VERSION, BUILD } = require("./src/variables/con
 
 const _intCmds = require("./src/functions/interpret");
 const _detectArgs = require("./src/functions/detectArgs");
-
-const exit = require("./src/commands/exit");
+const _exit = require("./src/functions/exit");
 
 const Verbose = require("./src/classes/Verbose");
 const PathUtil = require("./src/classes/PathUtil");
@@ -63,8 +62,7 @@ const PathUtil = require("./src/classes/PathUtil");
 
   // If the BubbleOS process is killed, exit gracefully
   // Works during the CLI
-  process.once("SIGTERM", exit);
-  process.once("SIGINT", exit);
+  process.once("SIGTERM", _exit);
 
   // CLI of BubbleOS
   Verbose.custom("Starting command interpreter...");
@@ -87,7 +85,7 @@ const PathUtil = require("./src/classes/PathUtil");
         // If the user presses Ctrl+C, exit BubbleOS gracefully
         // Note this does not catch if a command is executing
         Verbose.custom("Detected Ctrl+C, exiting...");
-        exit();
+        _exit(false, false);
       }
     }
   }

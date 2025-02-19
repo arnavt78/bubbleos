@@ -28,9 +28,6 @@ const SettingManager = require("../classes/SettingManager");
  *
  * Available arguments:
  * `-c`: Check if a path is a symbolic link.
- * `-s`: Only if you would like to create a symbolic
- * link. Silences all success messages, except for
- * error messages.
  *
  * @param {string} path The path that the symbolic link will point to (the target).
  * @param {string} newPath The symbolic link to create (the path). It can also be the `-c` argument.
@@ -95,7 +92,7 @@ const symlink = (path, newPath, ...args) => {
     Verbose.custom("Creating a symbolic link...");
     fs.symlinkSync(path, newPath);
 
-    if (!silent)
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
       InfoMessages.success(
         `Successfully created the symbolic link ${chalk.bold(
           showNewPath

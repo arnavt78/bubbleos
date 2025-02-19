@@ -16,9 +16,6 @@ const SettingManager = require("../classes/SettingManager");
  * Delete a file/directory from BubbleOS.
  *
  * Available arguments:
- * - `-s`: Silently delete the path that the user requested. This
- * means that the success message will not be shown, but error
- * messages will still be outputted.
  * - `-y`: Automatically accepts the confirmation prompt
  * before deleting a file.
  *
@@ -40,7 +37,6 @@ const del = (path, ...args) => {
     const showPath = new SettingManager().fullOrBase(path);
 
     Verbose.initArgs();
-    const silent = args?.includes("-s");
     const confirmDel = !args?.includes("-y");
 
     if (pathChk.paramUndefined()) {
@@ -79,7 +75,8 @@ const del = (path, ...args) => {
     Verbose.custom(`Deleting file/directory '${path}'...`);
     fs.rmSync(path, { recursive: true, force: true });
 
-    if (!silent) InfoMessages.success(`Successfully deleted ${chalk.bold(showPath)}.`);
+    if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
+      InfoMessages.success(`Successfully deleted ${chalk.bold(showPath)}.`);
     else console.log();
   } catch (err) {
     Verbose.initShowPath();
