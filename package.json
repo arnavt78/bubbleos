@@ -20,6 +20,7 @@
     "@inquirer/prompts": "^7.3.2",
     "battery-level": "^3.0.0",
     "boxen": "^5.1.2",
+    "cfonts": "^3.3.0",
     "chalk": "^4.1.2",
     "execa": "^5.1.1",
     "is-charging": "^2.0.0",

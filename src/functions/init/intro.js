@@ -12,6 +12,8 @@ const {
 } = require("../../variables/constants");
 
 const _initConfig = require("./initConfig");
+const _welcomeMsg = require("./welcomeMsg");
+const _startupError = require("./startupError");
 
 const Verbose = require("../../classes/Verbose");
 const SettingManager = require("../../classes/SettingManager");
@@ -23,29 +25,11 @@ const showVersion = new SettingManager().showVersion();
 
 if (typeof config.getConfig() === "undefined") {
   if (!_initConfig()) {
-    InfoMessages.info(
-      `The ${GLOBAL_NAME} configuration file was either corrupted or deleted, and a new one has been created. A restart is required for the changes to take effect.`
-    );
-    question(chalk.blue("Press the Enter key to continue . . . "), {
-      hideEchoBack: true,
-      mask: "",
-    });
-
-    console.log();
-    process.exit(0);
+    _welcomeMsg();
   } else {
-    InfoMessages.error(
-      `The ${GLOBAL_NAME} configuration file was either corrupted or deleted, and a new one was attempted to be created, but an error occurred when attempting to do so.\nTry manually deleting the configuration file, located at ${chalk.bold(
-        config.configPath
-      )}.`
+    _startupError(
+      `The ${GLOBAL_NAME} configuration file was attempted to be created, but an error occurred when attempting to do so. ${GLOBAL_NAME} cannot continue without this file.`
     );
-    question(chalk.red("Press the Enter key to continue . . . "), {
-      hideEchoBack: true,
-      mask: "",
-    });
-
-    console.log();
-    process.exit(0);
   }
 }
 

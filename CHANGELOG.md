@@ -6,6 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
+- Added a welcome message that appears when launching BubbleOS for the first time.
 - Added the ability to silence most success messages (customizable using `setmgr`).
 
 ### Changed/Fixed Features
