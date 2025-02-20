@@ -147,6 +147,9 @@ const cd = (dir, ...args) => {
 
       Verbose.custom("Directory does not exist.");
       Errors.doesNotExist("directory", showDir);
+    } else if (err.code === "UNKNOWN") {
+      Verbose.unknownError();
+      Errors.unknown();
     } else {
       Verbose.fatalError();
       _fatalError(err);

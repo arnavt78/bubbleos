@@ -217,6 +217,9 @@ const mkfile = async (file, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         showFile
       );
+    } else if (err.code === "UNKNOWN") {
+      Verbose.unknownError();
+      Errors.unknown();
     } else {
       Verbose.fatalError();
       _fatalError(err);

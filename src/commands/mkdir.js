@@ -123,6 +123,9 @@ const mkdir = (dir, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         showDir
       );
+    } else if (err.code === "UNKNOWN") {
+      Verbose.unknownError();
+      Errors.unknown();
     } else {
       Verbose.fatalError();
       _fatalError(err);

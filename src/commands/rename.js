@@ -122,6 +122,9 @@ const rename = (oldName, newName, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         showNewName
       );
+    } else if (err.code === "UNKNOWN") {
+      Verbose.unknownError();
+      Errors.unknown();
     } else {
       Verbose.fatalError();
       _fatalError(err);

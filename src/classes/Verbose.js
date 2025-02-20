@@ -176,6 +176,13 @@ class Verbose {
   }
 
   /**
+   * Verbose message describing an unknown error.
+   */
+  static unknownError() {
+    this.custom("An unknown error occurred.");
+  }
+
+  /**
    * Verbose message describing the exit of BubbleOS.
    *
    * @param {number} code The code BubbleOS was exited with. Must be `0` or `1`, defaults to `0`.

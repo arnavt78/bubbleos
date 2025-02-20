@@ -171,6 +171,9 @@ const bub = async (intCmds, file, ...args) => {
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file", showFile);
+    } else if (err.code === "UNKNOWN") {
+      Verbose.unknownError();
+      Errors.unknown();
     } else {
       Verbose.fatalError();
       _fatalError(err);

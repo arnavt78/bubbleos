@@ -4,7 +4,7 @@ const { question } = require("readline-sync");
 const _welcomeMsg = require("./init/welcomeMsg");
 const _initConfig = require("./init/initConfig");
 
-const { GLOBAL_NAME } = require("../variables/constants");
+const { GLOBAL_NAME, REQUIRE_CONFIG_RESET, BUILD } = require("../variables/constants");
 
 const requiredSettings = require("../data/settings.json");
 
@@ -78,22 +78,58 @@ const _verifyConfig = (showFirstTimeMsg) => {
     _resetAndError();
   }
 
+  if (
+    typeof configData?.build !== "undefined" &&
+    BUILD > configData?.build &&
+    REQUIRE_CONFIG_RESET
+  ) {
+    if (!_initConfig()) {
+      InfoMessages.info(
+        `The configuration file was detected to be outdated, and has been reset. A restart is required for the changes to fully take effect.`
+      );
+      question(chalk.blue("Press the Enter key to continue . . . "), {
+        hideEchoBack: true,
+        mask: "",
+      });
+
+      console.log();
+      process.exit(0);
+    } else {
+      InfoMessages.error(
+        "The configuration file was detected to be outdated, and was attempted to be reset, but an error occurred while attempting to do so."
+      );
+      question(chalk.red("Press the Enter key to continue . . . "), {
+        hideEchoBack: true,
+        mask: "",
+      });
+
+      console.log();
+      process.exit(1);
+    }
+  } else if (
+    typeof configData?.build !== "undefined" &&
+    BUILD > configData?.build &&
+    !REQUIRE_CONFIG_RESET
+  ) {
+    config.addData({ build: BUILD });
+  }
+
   const settings = configData?.settings;
   if (!settings) _resetAndError();
 
-  for (const [key, value] of Object.entries(requiredSettings)) {
+  for (const [key] of Object.entries(requiredSettings)) {
     if (
       !settings[key] ||
-      typeof settings[key].displayName === "undefined" ||
-      typeof settings[key].current === "undefined" ||
-      typeof settings[key].current.displayName === "undefined" ||
-      typeof settings[key].current.value === "undefined"
+      typeof settings?.[key]?.displayName === "undefined" ||
+      typeof settings?.[key]?.current === "undefined" ||
+      typeof settings?.[key]?.current?.displayName === "undefined" ||
+      typeof settings?.[key]?.current?.value === "undefined"
     ) {
       _resetAndError();
     }
   }
 
-  if (!configData.history || !configData.build || !configData.nextUpdateCheck) _resetAndError();
+  if (!configData?.history || !configData?.build || !configData?.nextUpdateCheck) _resetAndError();
 };
 
 module.exports = _verifyConfig;

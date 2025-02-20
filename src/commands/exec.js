@@ -77,10 +77,8 @@ const exec = (file, ...args) => {
     const showFile = new SettingManager().fullOrBase(file);
 
     if (err.code === "UNKNOWN") {
-      // This for some reason, never occurs
-      // TODO make it so that if a file has no way of running, make it show this error
-      Verbose.custom("Cannot execute file due to no known way of launching.");
-      Errors.unknown("execute the file", showFile);
+      Verbose.unknownError();
+      Errors.unknown();
     } else if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("run the file", showFile);

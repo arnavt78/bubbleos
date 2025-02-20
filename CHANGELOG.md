@@ -2,6 +2,21 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 199 to 200 (v1.9.9-beta to v2.0.0)
+
+### Added Features
+
+_No added features._
+
+### Changed/Fixed Features
+
+- Fixed an issue where loading an older version of the BubbleOS configuration file would cause a corruption error.
+- Fixed an issue where a file operation would rarely crash BubbleOS with an `UNKNOWN` error code.
+
+### Removed Features
+
+_No removed features._
+
 ## Build 198 to 199 (v1.9.8-beta to v1.9.9-beta)
 
 ### Added Features

@@ -168,6 +168,9 @@ const fif = async (file, ...args) => {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
       _exit(false, false);
+    } else if (err.code === "UNKNOWN") {
+      Verbose.unknownError();
+      Errors.unknown();
     } else {
       Verbose.fatalError();
       _fatalError(err);

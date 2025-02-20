@@ -272,20 +272,17 @@ class Errors {
   /**
    * Information about the error message:
    *
-   * **Name:** _Unknown action_
+   * **Name:** _Unknown error_
    *
-   * **Parameters:** `toDo`, `variable`
+   * **Parameters:** _(none)_
    *
    * **Error code:** `12`
    *
-   * **Message:** _{GLOBAL_NAME}_ does not know how to `toDo` **_'`variable`'_**.
-   *
-   * @param {string} toDo The action that was unknown.
-   * @param {string} variable The variable that the user entered.
+   * **Message:** _{GLOBAL_NAME}_ encountered an unknown error.
    */
-  static unknown(toDo, variable) {
+  static unknown() {
     const CODE = 12;
-    const MESSAGE = `${GLOBAL_NAME} does not know how to ${toDo} ${chalk.bold(variable)}.`;
+    const MESSAGE = `${GLOBAL_NAME} encountered an unknown error.`;
 
     _interpretError(CODE, MESSAGE);
   }
