@@ -128,6 +128,19 @@ class ConfigManager {
   isConfig(chkPath) {
     return this.configPath === chkPath;
   }
+
+  /**
+   * Gets the raw configuration as a string, without it being parsed into an object.
+   *
+   * @returns The string of the configuration file, or `undefined` if an error occurred.
+   */
+  getRawConfig() {
+    try {
+      return fs.readFileSync(this.configPath, { flag: "r", encoding: "utf8" });
+    } catch {
+      return undefined;
+    }
+  }
 }
 
 module.exports = ConfigManager;

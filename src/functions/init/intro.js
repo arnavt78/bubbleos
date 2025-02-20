@@ -1,5 +1,4 @@
 const chalk = require("chalk");
-const { question } = require("readline-sync");
 
 const {
   GLOBAL_NAME,
@@ -11,9 +10,7 @@ const {
   EXPIRY_DATE,
 } = require("../../variables/constants");
 
-const _initConfig = require("./initConfig");
-const _welcomeMsg = require("./welcomeMsg");
-const _startupError = require("./startupError");
+const _verifyConfig = require("../verifyConfig");
 
 const Verbose = require("../../classes/Verbose");
 const SettingManager = require("../../classes/SettingManager");
@@ -21,18 +18,11 @@ const ConfigManager = require("../../classes/ConfigManager");
 const InfoMessages = require("../../classes/InfoMessages");
 
 const config = new ConfigManager();
+
+Verbose.custom("Verifying integrity of configuration file...");
+_verifyConfig();
+
 const showVersion = new SettingManager().showVersion();
-
-if (typeof config.getConfig() === "undefined") {
-  if (!_initConfig()) {
-    _welcomeMsg();
-  } else {
-    _startupError(
-      `The ${GLOBAL_NAME} configuration file was attempted to be created, but an error occurred when attempting to do so. ${GLOBAL_NAME} cannot continue without this file.`
-    );
-  }
-}
-
 const configData = config.getConfig();
 
 if (showVersion) {

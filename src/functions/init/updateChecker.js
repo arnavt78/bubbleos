@@ -110,7 +110,7 @@ const _updateChecker = () => {
             const build = Number(releaseInfo.name.split(" ").at(-1));
 
             // If current build is newer than fetched build, ignore
-            if (BUILD > build) {
+            if (1 > build) {
               Verbose.custom(
                 "Build information fetched detected to be older than current build, exiting..."
               );

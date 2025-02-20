@@ -12,6 +12,9 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Changed/Fixed Features
 
 - Changed the timeout in the `ping` command from 15 seconds to 10 seconds.
+- Made the startup corrupted configuration file error message not appear when the configuration file does not exist.
+- Made it less likely for BubbleOS to allow starting up with a corrupted configuration file without resetting it.
+- BubbleOS now checks if the configuration file is corrupted after every command execution (there is no lag from this however).
 - Fixed an issue where pressing Ctrl+C while having exit prompts enabled would cause BubbleOS to freeze if "no" was entered.
 - Fixed an issue where pressing Ctrl+C while on the prompt in `mkfile` would crash BubbleOS.
 - Fixed an issue where pressing Ctrl+C while a command was executing would not exit BubbleOS, and freeze the shell instead.

@@ -3,6 +3,7 @@ const chalk = require("chalk");
 const { COMMANDS, ALIASES } = require("../variables/commands");
 
 const _fatalError = require("./fatalError");
+const _verifyConfig = require("./verifyConfig");
 const { _addToHist } = require("../functions/addToHist");
 
 const Errors = require("../classes/Errors");
@@ -79,6 +80,9 @@ const _intCmds = async (command, storeInHistory = true) => {
         }
       }
     }
+
+    Verbose.custom("Verifying configuration file integrity...");
+    _verifyConfig();
 
     // TODO I don't like 'history -c' being hardcoded for some reason
     if (!isEmpty && storeInHistory && command !== "history -c") {
