@@ -44,17 +44,7 @@ const history = (numToDisplay, ...args) => {
     if (clear) {
       Verbose.custom("Clearing history...");
       if (typeof config.getConfig() === "undefined") {
-        // TODO fix an issue where resetting history will cause next 'history'
-        // command to throw an error when reading config file.
-        // If it is not fixable, remove the error message from displaying, and make it
-        // automatically reset the configuration file and then function as normal
-        // instead of returning.
-        InfoMessages.error(
-          "Error when reading history from the configuration file. Resetting file..."
-        );
-
-        Verbose.custom("Resetting configuration file...");
-        _initConfig();
+        InfoMessages.error("Error when reading history from the configuration file.");
         return;
       }
 
@@ -70,14 +60,7 @@ const history = (numToDisplay, ...args) => {
 
     // Fetch history from the config file
     if (typeof historyConfig === "undefined") {
-      // If I wasn't stupid I would've put this in a function
-      // but seriously who can be bothered ¯\_(ツ)_/¯
-      InfoMessages.error(
-        "Error when reading history from the configuration file. Resetting file..."
-      );
-
-      Verbose.custom("Resetting configuration file...");
-      _initConfig();
+      InfoMessages.error("Error when reading history from the configuration file.");
       return;
     }
 

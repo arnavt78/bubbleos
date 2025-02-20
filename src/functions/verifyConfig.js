@@ -18,7 +18,7 @@ const Verbose = require("../classes/Verbose");
 const _resetAndError = () => {
   if (!_initConfig()) {
     InfoMessages.error(
-      "The configuration file was detected to be corrupted, and has been reset. A restart is required for the changes to take effect."
+      "The configuration file was detected to be corrupted, and has been reset. A restart is required for the changes to fully take effect."
     );
     question(chalk.red("Press the Enter key to continue . . . "), { hideEchoBack: true, mask: "" });
 
@@ -39,17 +39,31 @@ const _resetAndError = () => {
  * Verify the integrity of the configuration file. The checks should be edited alongside
  * the `initConfig` function, as that function contains integral values for BubbleOS to function
  * correctly.
+ *
+ * @param {boolean} showFirstTimeMsg Whether to show the first time message or not, if the configuration file was deleted.
  */
-const _verifyConfig = () => {
+const _verifyConfig = (showFirstTimeMsg) => {
   const config = new ConfigManager();
   const configData = config.getConfig();
 
   if (!config.configChk.doesExist()) {
     if (!_initConfig()) {
-      Verbose.custom("Configuration file was created successfully, showing welcome message...");
-      _welcomeMsg();
+      if (showFirstTimeMsg) {
+        Verbose.custom("Configuration file was created successfully, showing welcome message...");
+        _welcomeMsg();
+        return;
+      }
 
-      return;
+      InfoMessages.info(
+        "The configuration file was detected to be removed, and was recreated. A restart is required for the changes to fully take effect."
+      );
+      question(chalk.blue("Press the Enter key to continue . . . "), {
+        hideEchoBack: true,
+        mask: "",
+      });
+
+      console.log();
+      process.exit(0);
     } else {
       Verbose.custom("Configuration file was attempted to be created, but an error occurred...");
       _startupError(

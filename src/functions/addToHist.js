@@ -1,5 +1,3 @@
-const _initConfig = require("./init/initConfig");
-
 const InfoMessages = require("../classes/InfoMessages");
 const ConfigManager = require("../classes/ConfigManager");
 const Verbose = require("../classes/Verbose");
@@ -28,12 +26,7 @@ const _addToHist = (command, addToConfig = true) => {
   // Fetch the history from the config
   Verbose.custom("Checking if configuration exists...");
   if (typeof config.getConfig() === "undefined") {
-    InfoMessages.error(
-      "Error when saving command to history in the configuration file. Resetting file..."
-    );
-
-    Verbose.custom("Resetting configuration file...");
-    _initConfig();
+    InfoMessages.error("Error when saving command to history in the configuration file.");
     return;
   }
 

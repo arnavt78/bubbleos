@@ -2,7 +2,7 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 198 to 200 (v1.9.8-beta to v2.0.0)
+## Build 198 to 199 (v1.9.8-beta to v1.9.9-beta)
 
 ### Added Features
 
@@ -14,14 +14,15 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Changed the timeout in the `ping` command from 15 seconds to 10 seconds.
 - Made the startup corrupted configuration file error message not appear when the configuration file does not exist.
 - Made it less likely for BubbleOS to allow starting up with a corrupted configuration file without resetting it.
-- BubbleOS now checks if the configuration file is corrupted after every command execution (there is no lag from this however).
+- BubbleOS now checks if the configuration file is corrupted after a command executes.
 - Fixed an issue where pressing Ctrl+C while having exit prompts enabled would cause BubbleOS to freeze if "no" was entered.
-- Fixed an issue where pressing Ctrl+C while on the prompt in `mkfile` would crash BubbleOS.
 - Fixed an issue where pressing Ctrl+C while a command was executing would not exit BubbleOS, and freeze the shell instead.
+- Fixed an issue where pressing Ctrl+C while on the prompt in `mkfile` would crash BubbleOS.
 
 ### Removed Features
 
 - Removed the silence (usually `-s`) flags from most commands in favor of the setting in `setmgr`.
+- The `history` command will no longer attempt to reset the configuration file upon an error occurring.
 
 ## Build 180 to 198 (v1.8.0-beta to v1.9.8-beta)
 

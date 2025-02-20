@@ -20,7 +20,7 @@ const InfoMessages = require("../../classes/InfoMessages");
 const config = new ConfigManager();
 
 Verbose.custom("Verifying integrity of configuration file...");
-_verifyConfig();
+_verifyConfig(true);
 
 const showVersion = new SettingManager().showVersion();
 const configData = config.getConfig();

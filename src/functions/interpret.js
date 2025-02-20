@@ -82,7 +82,7 @@ const _intCmds = async (command, storeInHistory = true) => {
     }
 
     Verbose.custom("Verifying configuration file integrity...");
-    _verifyConfig();
+    _verifyConfig(false);
 
     // TODO I don't like 'history -c' being hardcoded for some reason
     if (!isEmpty && storeInHistory && command !== "history -c") {

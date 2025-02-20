@@ -5,7 +5,7 @@ const GLOBAL_NAME = "BubbleOS";
 /**
  * The shorter version of `GLOBAL_NAME`.
  */
-const SHORT_NAME = "Bubble" || GLOBAL_NAME;
+const SHORT_NAME = "Bubble";
 /**
  * The name of the author who developed the shell.
  */
@@ -16,13 +16,13 @@ const AUTHOR = "Arnav Thorat";
  *
  * Make sure this is a proper version number. Change this with the build (e.g. `78` will make the version `0.7.8`).
  */
-const VERSION = "1.9.8-beta";
+const VERSION = "1.9.9-beta";
 /**
  * The build of the shell.
  *
  * Make sure this is a proper build number. Change this with the version (e.g. `0.7.8` will make the build `78`).
  */
-const BUILD = 198;
+const BUILD = 199;
 
 /**
  * If the configuration file needs to be reset if it is an older version when loaded in this version.
@@ -55,7 +55,7 @@ const TIMEBOMB_ACTIVATED = true;
  *
  * To see the date in **90** days, [click here](https://www.google.com/search?q=Date+90+days+from+today).
  */
-const EXPIRY_DATE = new Date(2025, 4, 19);
+const EXPIRY_DATE = new Date(2025, 4, 21);
 
 module.exports = {
   GLOBAL_NAME,

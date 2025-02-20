@@ -43,7 +43,7 @@ if (_detectArgs("reset") || typeof config.getConfig() === "undefined") {
   Verbose.custom("Resetting/creating configuration file...");
   if (!_initConfig()) {
     InfoMessages.info(
-      "The configuration file was successfully reset. A restart is required for the changes to take effect."
+      "The configuration file was successfully reset. A restart is required for the changes to fully take effect."
     );
     question(chalk.blue("Press the Enter key to continue . . . "), {
       hideEchoBack: true,
@@ -63,7 +63,7 @@ if (
 ) {
   if (!_initConfig()) {
     InfoMessages.info(
-      `An older version of the ${GLOBAL_NAME} configuration file was detected, and has been reset to the newest version. A restart is required for the changes to take effect.`
+      `An older version of the ${GLOBAL_NAME} configuration file was detected, and has been reset to the newest version. A restart is required for the changes to fully take effect.`
     );
     question(chalk.blue("Press the Enter key to continue . . . "), {
       hideEchoBack: true,
