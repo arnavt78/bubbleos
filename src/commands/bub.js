@@ -112,8 +112,8 @@ const bub = async (intCmds, file, ...args) => {
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
-    const displayCommand = args?.includes("-d");
-    const allowExit = args?.includes("--allow-exit");
+    const displayCommand = args.includes("-d");
+    const allowExit = args.includes("--allow-exit");
 
     if (fileChk.paramUndefined()) {
       Verbose.chkEmpty();

@@ -10,7 +10,6 @@
   "On almost every command, you can run it with the '-s' flag to silence success messages.",
   "On most commands that have a confirmation prompt, you can use the '-y' flag to automatically accept prompts.",
   "The 'crash' command can crash BubbleOS, hang the terminal, cause a memory leak, and crash Windows with a BSOD!",
-  "You can change to the previous directory by using 'cd -'!",
   "The 'size' command automatically shows the correct size of the file/directory.",
   "The 'dirtree' command shows nested files and directories inside of a specified directory.",
   "You can run executable files using the 'exec' command, even if they are not executable!",
@@ -19,5 +18,5 @@
   "Use the 'lock' command to lock your computer!",
   "You should run 'symlink' as an administrator for it to run successfully.",
   "The 'tasklist' command will show all running processes and their PID.",
-  "Removed Herobrine."
+  "Never dig straight down!"
 ]

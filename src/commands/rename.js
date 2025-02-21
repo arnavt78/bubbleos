@@ -45,7 +45,7 @@ const rename = (oldName, newName, ...args) => {
     const showNewName = new SettingManager().fullOrBase(newName);
 
     Verbose.initArgs();
-    const confirm = !args?.includes("-y");
+    const confirm = !args.includes("-y");
 
     if (oldChk.paramUndefined() || newChk.paramUndefined()) {
       Verbose.chkEmpty();

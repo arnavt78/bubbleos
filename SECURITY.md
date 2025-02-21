@@ -6,8 +6,10 @@ The versions below are currently supported. This file is actively updated.
 
 | Version    | Supported          |
 | ---------- | ------------------ |
+| 2.0.0      | :white_check_mark: |
+| 2.0.0-rcx  | :x:                |
 | 1.x.x-beta | :x:                |
-| 1.0.0      | :white_check_mark: |
+| 1.0.0      | :x:                |
 | < 0.x.x    | :x:                |
 
 ## Reporting a Vulnerability

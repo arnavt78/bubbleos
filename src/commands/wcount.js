@@ -42,9 +42,9 @@ const wcount = (file, ...args) => {
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
-    const lines = args?.includes("-l");
-    const words = args?.includes("-w");
-    const chars = args?.includes("-c");
+    const lines = args.includes("-l");
+    const words = args.includes("-w");
+    const chars = args.includes("-c");
 
     const all = !lines && !words && !chars;
 

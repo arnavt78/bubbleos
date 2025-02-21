@@ -37,7 +37,7 @@ const del = (path, ...args) => {
     const showPath = new SettingManager().fullOrBase(path);
 
     Verbose.initArgs();
-    const confirmDel = !args?.includes("-y");
+    const confirmDel = !args.includes("-y");
 
     if (pathChk.paramUndefined()) {
       Verbose.chkEmpty();

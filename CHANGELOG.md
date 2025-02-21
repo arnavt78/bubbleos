@@ -2,16 +2,17 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 199 to 200 (v1.9.9-beta to v2.0.0)
+## Build 199 to 200 RC1 (v1.9.9-beta to v2.0.0-rc1)
 
 ### Added Features
 
 - Added alphabetized sorting to the settings in the `setmgr` command.
+- Added compatibility to BubbleOS for release candidates.
 
 ### Changed/Fixed Features
 
 - Fixed an issue where loading an older version of the BubbleOS configuration file would cause a corruption error.
-- Fixed an issue where running `cd -` or `copy` would crash BubbleOS.
+- Fixed an issue where running `cd` (in some cases) or `copy` would crash BubbleOS.
 - Fixed an issue where the _process aborted_ message would not appear after declining the `exit` confirmation prompt.
 - Fixed an issue where the message prefix label would not appear on the timeout error message in the `ping` command.
 - Fixed an issue where a file operation would rarely crash BubbleOS with an `UNKNOWN` error code.
@@ -19,7 +20,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Removed Features
 
-_No removed features._
+- Removed the ability to run `cd -` to enter the last directory. This may be reintroduced in a future version.
 
 ## Build 198 to 199 (v1.9.8-beta to v1.9.9-beta)
 

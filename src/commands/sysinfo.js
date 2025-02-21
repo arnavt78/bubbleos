@@ -117,13 +117,13 @@ const _fixVersion = (currentOSName) =>
 const sysinfo = async (...args) => {
   try {
     Verbose.initArgs();
-    const computerInfo = args?.includes("-c");
-    const userInfo = args?.includes("-u");
-    const sysResource = args?.includes("-s");
-    const advancedInfo = args?.includes("-a");
-    const envVars = args?.includes("-e");
+    const computerInfo = args.includes("-c");
+    const userInfo = args.includes("-u");
+    const sysResource = args.includes("-s");
+    const advancedInfo = args.includes("-a");
+    const envVars = args.includes("-e");
 
-    const all = args?.includes("--all");
+    const all = args.includes("--all");
 
     // In case no arguments were passed to modify what was shown, show that
     const defaultDisplay =

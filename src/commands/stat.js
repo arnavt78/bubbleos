@@ -128,14 +128,14 @@ const stat = (path, ...args) => {
       Verbose.inUseError();
       Errors.inUse("file/directory", showPath);
     } else if (err.code === "ENOENT") {
-      // For some reason, there are rare cases where the checks think the directory exists,
-      // but when trying to change into it, it throws an error.
+      // For some reason, there are rare cases where the checks think the path exists,
+      // but when trying to check stats, it throws an error.
       // This usually happens when using the BubbleOS executable, where a folder called
       // "C:\snapshot" is visible on Windows (through 'ls' in BubbleOS), but when trying to
-      // change into it, it throws an error.
+      // get stats, it throws an error.
 
-      Verbose.custom("Directory does not exist.");
-      Errors.doesNotExist("directory", showPath);
+      Verbose.custom("Path does not exist.");
+      Errors.doesNotExist("file/directory", showPath);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

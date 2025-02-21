@@ -1,6 +1,6 @@
 const settings = require("../../data/settings.json");
 
-const { BUILD } = require("../../variables/constants");
+const { BUILD, RELEASE_CANDIDATE } = require("../../variables/constants");
 
 const ConfigManager = require("../../classes/ConfigManager");
 
@@ -45,6 +45,7 @@ const _initConfig = () => {
       ),
       history: [],
       build: BUILD,
+      releaseCandidate: RELEASE_CANDIDATE,
       nextUpdateCheck: _getLastSundayAtMidnight(),
     }),
   ];

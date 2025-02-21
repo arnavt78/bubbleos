@@ -73,7 +73,7 @@ const _updateChecker = () => {
       return Promise.resolve();
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       https
         .get(url, options, (res) => {
           let data = "";
@@ -107,7 +107,11 @@ const _updateChecker = () => {
               name: release?.name,
               published: release?.published_at,
             };
-            const build = Number(releaseInfo.name.split(" ").at(-1));
+
+            // Allows getting the build from text such as:
+            // "Build 200" or "Build 200 RC1"
+            const match = releaseInfo.name.match(/Build (\d+)/);
+            const build = match ? Number(match[1]) : null;
 
             // If current build is newer than fetched build, ignore
             if (BUILD > build) {

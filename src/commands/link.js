@@ -22,7 +22,7 @@ const link = (path, newPath, ...args) => {
   try {
     Verbose.initArgs();
     const unlink = args.includes("-u") || newPath === "-u";
-    const confirm = !(args?.includes("-y") || newPath === "-y");
+    const confirm = !(args.includes("-y") || newPath === "-y");
 
     if (!unlink) {
       // Parse input and normalize paths when 'unlink' is false

@@ -39,8 +39,8 @@ const exec = (file, ...args) => {
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
-    const winHide = args?.includes("-h");
-    const shell = args?.includes("--sh");
+    const winHide = args.includes("-h");
+    const shell = args.includes("--sh");
 
     if (fileChk.paramUndefined()) {
       Verbose.chkEmpty();

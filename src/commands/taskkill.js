@@ -27,7 +27,7 @@ const taskkill = async (processName, ...args) => {
     const processChk = new Checks(processName);
 
     Verbose.initArgs();
-    const confirm = !args?.includes("-y");
+    const confirm = !args.includes("-y");
 
     Verbose.parseQuotes();
     processName = PathUtil.parseQuotes([processName, ...args])[0];

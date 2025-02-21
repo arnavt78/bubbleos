@@ -1,6 +1,12 @@
 const chalk = require("chalk");
 
-const { GLOBAL_NAME, AUTHOR, VERSION, BUILD } = require("../variables/constants");
+const {
+  GLOBAL_NAME,
+  AUTHOR,
+  VERSION,
+  BUILD,
+  RELEASE_CANDIDATE,
+} = require("../variables/constants");
 
 const _fatalError = require("../functions/fatalError");
 
@@ -14,8 +20,8 @@ const Verbose = require("../classes/Verbose");
 const about = (...args) => {
   try {
     Verbose.initArgs();
-    const license = args?.includes("-l");
-    const binary = args?.includes("--ilovetech");
+    const license = args.includes("-l");
+    const binary = args.includes("--ilovetech");
 
     // For the Easter egg :)
     let aboutName = binary
@@ -27,7 +33,13 @@ const about = (...args) => {
     console.log(chalk.underline.bold.red(`About ${aboutName}\n`));
 
     // Information about build and author
-    console.log(chalk.bold(`${aboutName}, v${VERSION} (build ${BUILD})`));
+    console.log(
+      chalk.bold(
+        `${aboutName}, v${VERSION} (Build ${BUILD}${
+          RELEASE_CANDIDATE ? ` Release Candidate ${RELEASE_CANDIDATE}` : ""
+        })`
+      )
+    );
     console.log(`Made by ${AUTHOR}!\n`);
 
     // MIT License (variable year)

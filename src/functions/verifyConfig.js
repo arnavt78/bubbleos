@@ -4,7 +4,12 @@ const { question } = require("readline-sync");
 const _welcomeMsg = require("./init/welcomeMsg");
 const _initConfig = require("./init/initConfig");
 
-const { GLOBAL_NAME, REQUIRE_CONFIG_RESET, BUILD } = require("../variables/constants");
+const {
+  GLOBAL_NAME,
+  REQUIRE_CONFIG_RESET,
+  BUILD,
+  RELEASE_CANDIDATE,
+} = require("../variables/constants");
 
 const requiredSettings = require("../data/settings.json");
 
@@ -80,7 +85,8 @@ const _verifyConfig = (showFirstTimeMsg) => {
 
   if (
     typeof configData?.build !== "undefined" &&
-    BUILD > configData?.build &&
+    (BUILD > configData?.build ||
+      (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate)) &&
     REQUIRE_CONFIG_RESET
   ) {
     if (!_initConfig()) {
@@ -108,8 +114,9 @@ const _verifyConfig = (showFirstTimeMsg) => {
     }
   } else if (
     typeof configData?.build !== "undefined" &&
-    BUILD > configData?.build &&
-    !REQUIRE_CONFIG_RESET
+    (BUILD > configData?.build ||
+      (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate)) &&
+    REQUIRE_CONFIG_RESET
   ) {
     config.addData({ build: BUILD });
   }

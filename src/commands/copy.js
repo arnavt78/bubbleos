@@ -71,8 +71,8 @@ const copy = (src, dest, ...args) => {
 
     Verbose.initArgs();
     const confirmCopy = !args.includes("-y");
-    const keepTimes = args?.includes("-t");
-    const rmSymlinkReference = args?.includes("--rm-symlink");
+    const keepTimes = args.includes("-t");
+    const rmSymlinkReference = args.includes("--rm-symlink");
 
     if (srcChk.paramUndefined() || destChk.paramUndefined()) {
       Verbose.chkEmpty();

@@ -61,8 +61,8 @@ const readfile = (file, ...args) => {
     const showFile = new SettingManager().fullOrBase(file);
 
     Verbose.initArgs();
-    const confirm = !args?.includes("-y");
-    const ignoreMax = args?.includes("--ignore-max");
+    const confirm = !args.includes("-y");
+    const ignoreMax = args.includes("--ignore-max");
 
     if (fileChk.paramUndefined()) {
       Verbose.chkEmpty();

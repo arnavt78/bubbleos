@@ -5,9 +5,11 @@ const {
   AUTHOR,
   VERSION,
   BUILD,
+  RELEASE_CANDIDATE,
   IN_BETA,
   TIMEBOMB_ACTIVATED,
   EXPIRY_DATE,
+  EXPIRY_DAYS,
 } = require("../../variables/constants");
 
 const _verifyConfig = require("../verifyConfig");
@@ -26,7 +28,13 @@ const showVersion = new SettingManager().showVersion();
 const configData = config.getConfig();
 
 if (showVersion) {
-  console.log(`${chalk.bold(`${GLOBAL_NAME}, v${VERSION} (build ${BUILD})`)}`);
+  console.log(
+    chalk.bold(
+      `${GLOBAL_NAME}, v${VERSION} (Build ${BUILD}${
+        RELEASE_CANDIDATE ? ` Release Candidate ${RELEASE_CANDIDATE}` : ""
+      })`
+    )
+  );
 }
 
 // Only display if this is the first time BubbleOS is running
@@ -46,7 +54,7 @@ if (IN_BETA) {
       chalk.dim(
         `${chalk.bold(
           "WARNING!"
-        )} This beta software has a timebomb of +90 days (since compile date).\nIt will expire on ${String(
+        )} This beta software has a timebomb of +${EXPIRY_DAYS} days (since compile date).\nIt will expire on ${String(
           EXPIRY_DATE.getMonth() + 1
         ).padStart(2, "0")}/${String(EXPIRY_DATE.getDate()).padStart(
           2,

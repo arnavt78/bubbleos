@@ -9,7 +9,6 @@ const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
 const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
-const ConfigManager = require("../classes/ConfigManager");
 
 /**
  * The `cd` command, used to change into a directory.
@@ -37,47 +36,6 @@ const cd = (dir, ...args) => {
       Errors.enterParameter("a directory", "cd test");
       return;
     }
-
-    Verbose.initConfig();
-    const config = new ConfigManager();
-
-    if (dir.endsWith("-")) {
-      Verbose.custom("Detected '-', getting last entered path...");
-      const lastDir = config.getConfig()?.cd?.lastDir;
-
-      if (typeof lastDir === "undefined") {
-        Verbose.custom("Could not get last entered path.");
-        InfoMessages.error("Could not get previous directory.");
-        return;
-      }
-
-      // Retrieve the second-to-last directory, if available
-      Verbose.custom("Getting second-last entered path...");
-      const secondLastDir = config.getConfig()?.cd?.secondLastDir;
-
-      if (typeof secondLastDir === "undefined") {
-        Verbose.custom("Could not get second-last entered path.");
-        InfoMessages.error("Could not get second last directory.");
-        return;
-      }
-
-      // Change to the second last directory
-      Verbose.custom(`Changing directory to the specified destination '${secondLastDir}'...`);
-      process.chdir(secondLastDir);
-      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
-        InfoMessages.success(
-          `Successfully changed the directory to ${chalk.bold(
-            new SettingManager().fullOrBase(secondLastDir)
-          )}.`
-        );
-      else console.log();
-      return;
-    }
-
-    // Update the config to save the current and previous directories
-    const currentDir = dir;
-    const previousDir = config.getConfig()?.cd?.lastDir || currentDir;
-    config.addData({ cd: { lastDir: currentDir, secondLastDir: previousDir } });
 
     if (!dirChk.doesExist()) {
       Verbose.chkExists(dir);

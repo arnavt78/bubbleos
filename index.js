@@ -3,7 +3,13 @@
 const chalk = require("chalk");
 const { input } = require("@inquirer/prompts");
 
-const { GLOBAL_NAME, SHORT_NAME, VERSION, BUILD } = require("./src/variables/constants");
+const {
+  GLOBAL_NAME,
+  SHORT_NAME,
+  VERSION,
+  BUILD,
+  RELEASE_CANDIDATE,
+} = require("./src/variables/constants");
 
 const _intCmds = require("./src/functions/interpret");
 const _detectArgs = require("./src/functions/detectArgs");
@@ -38,7 +44,11 @@ const PathUtil = require("./src/classes/PathUtil");
   Verbose.custom("Detecting version argument...");
   if (_detectArgs("version")) {
     Verbose.custom("Showing version information...");
-    console.log(`${GLOBAL_NAME}, v${VERSION} (build ${BUILD})\n`);
+    console.log(
+      `${GLOBAL_NAME}, v${VERSION} (Build ${BUILD}${
+        RELEASE_CANDIDATE ? ` Release Candidate ${RELEASE_CANDIDATE}` : ""
+      })\n`
+    );
 
     Verbose.exitProcess();
     process.exit(0);
