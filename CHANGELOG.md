@@ -2,6 +2,20 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 200 RC1 to 200 RC2 (v2.0.0-rc1 to v2.0.0-rc2)
+
+### Added Features
+
+_No added features._
+
+### Changed/Fixed Features
+
+- Fixed an issue where the configuration file version checker would fail to detect an upgrade in some cases.
+
+### Removed Features
+
+_No removed features._
+
 ## Build 199 to 200 RC1 (v1.9.9-beta to v2.0.0-rc1)
 
 ### Added Features

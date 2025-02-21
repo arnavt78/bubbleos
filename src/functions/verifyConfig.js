@@ -83,12 +83,25 @@ const _verifyConfig = (showFirstTimeMsg) => {
     _resetAndError();
   }
 
-  if (
+  // Check if the configuration file is outdated.
+  //
+  // If the build number is greater than the current build number, or the release candidate
+  // is greater than the current release candidate, then the configuration file is outdated.
+  // Also, if the release candidate is 0 and the build number is greater than the current build number,
+  // then the configuration file is outdated, and if the build number is the same but the release
+  // candidate went from a positive integer to 0, then the configuration file is outdated.
+  const isOutdated =
     typeof configData?.build !== "undefined" &&
-    (BUILD > configData?.build ||
+    ((BUILD === configData?.build && RELEASE_CANDIDATE < configData?.releaseCandidate) ||
+      (RELEASE_CANDIDATE === 0 && BUILD > configData?.build) ||
+      (BUILD === configData?.build &&
+        configData?.releaseCandidate > 0 &&
+        RELEASE_CANDIDATE === 0) ||
+      BUILD > configData?.build ||
       (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate)) &&
-    REQUIRE_CONFIG_RESET
-  ) {
+    REQUIRE_CONFIG_RESET;
+
+  if (isOutdated) {
     if (!_initConfig()) {
       InfoMessages.info(
         `The configuration file was detected to be outdated, and has been reset. A restart is required for the changes to fully take effect.`
@@ -112,12 +125,7 @@ const _verifyConfig = (showFirstTimeMsg) => {
       console.log();
       process.exit(1);
     }
-  } else if (
-    typeof configData?.build !== "undefined" &&
-    (BUILD > configData?.build ||
-      (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate)) &&
-    REQUIRE_CONFIG_RESET
-  ) {
+  } else if (isOutdated) {
     config.addData({ build: BUILD });
   }
 
