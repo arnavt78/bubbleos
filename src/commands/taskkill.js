@@ -38,10 +38,27 @@ const taskkill = async (processName, ...args) => {
       return;
     }
 
+    Verbose.custom("Checking for running processes...");
+    const processes = await psList();
+
+    const processExists = processes.some((obj) => obj.pid === Number(processName));
+    if (!processExists) {
+      Verbose.custom(`The process with PID '${processName}' was detected to not exist.`);
+      Errors.doesNotExist("process", processName);
+      return;
+    }
+
+    const processObj = processes.find((obj) => obj.pid === Number(processName));
+    const processNameFromPid = processObj ? processObj.name : null;
+
     // If the user did not use the '-y' flag
     if (confirm) {
       Verbose.promptUser();
-      if (!_promptForYN(`Are you sure you want to kill the process ${chalk.bold(processName)}?`)) {
+      if (
+        !_promptForYN(
+          `Are you sure you want to kill the process ${chalk.bold(processNameFromPid)}?`
+        )
+      ) {
         console.log(chalk.yellow("Process aborted.\n"));
         return;
       }
@@ -53,10 +70,9 @@ const taskkill = async (processName, ...args) => {
 
       // If the user did not request output, show a newline, else, show the success message
       if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
-        InfoMessages.success(`Successfully killed the process ${chalk.bold(processName)}.`);
+        InfoMessages.success(`Successfully killed the process ${chalk.bold(processNameFromPid)}.`);
       else console.log();
     } else {
-      const processes = await psList();
       const result = processes.find((obj) => obj.name === processName);
 
       if (!result) {
