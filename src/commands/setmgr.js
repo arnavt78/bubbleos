@@ -34,7 +34,7 @@ const setmgr = async (...args) => {
     const config = new ConfigManager();
     let errorEncountered = false;
 
-    for (const key of Object.keys(settings)) {
+    for (const key of Object.keys(settings).sort()) {
       Verbose.custom("Getting setting information...");
       const setting = settings[key];
       const displayName = setting.displayName.replaceAll("{GLOBAL_NAME}", GLOBAL_NAME);

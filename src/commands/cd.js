@@ -64,7 +64,7 @@ const cd = (dir, ...args) => {
       // Change to the second last directory
       Verbose.custom(`Changing directory to the specified destination '${secondLastDir}'...`);
       process.chdir(secondLastDir);
-      if (!silent)
+      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
         InfoMessages.success(
           `Successfully changed the directory to ${chalk.bold(
             new SettingManager().fullOrBase(secondLastDir)
@@ -113,7 +113,7 @@ const cd = (dir, ...args) => {
       );
       process.chdir(symlinkPath);
 
-      if (!silent)
+      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
         InfoMessages.success(`Successfully changed the directory to ${chalk.bold(showSymlink)}.`);
       else console.log();
     } else if (dirChk.validateType()) {

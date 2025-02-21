@@ -97,7 +97,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
 
     req.on("timeout", () => {
       Verbose.custom("The server timed out.");
-      console.log(chalk.red(`The server, ${chalk.bold.italic(formattedURL)}, has timed out.\n`));
+      InfoMessages.error(`The server, ${chalk.bold.italic(formattedURL)}, has timed out.`);
       resolve();
     });
 

@@ -6,12 +6,16 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-_No added features._
+- Added alphabetized sorting to the settings in the `setmgr` command.
 
 ### Changed/Fixed Features
 
 - Fixed an issue where loading an older version of the BubbleOS configuration file would cause a corruption error.
+- Fixed an issue where running `cd -` or `copy` would crash BubbleOS.
+- Fixed an issue where the _process aborted_ message would not appear after declining the `exit` confirmation prompt.
+- Fixed an issue where the message prefix label would not appear on the timeout error message in the `ping` command.
 - Fixed an issue where a file operation would rarely crash BubbleOS with an `UNKNOWN` error code.
+- Fixed an issue where the `stat` command would sometimes crash when getting information of a path.
 
 ### Removed Features
 

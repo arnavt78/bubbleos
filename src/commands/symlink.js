@@ -38,7 +38,6 @@ const symlink = (path, newPath, ...args) => {
     // Initialize the 'check' argument as it defines whether or not to convert the new path to absolute
     Verbose.initArgs();
     const check = args.includes("-c") || newPath === "-c";
-    const silent = args.includes("-s");
 
     // Replace spaces and then convert to an absolute path
     // Only if 'check' is false, convert the new path

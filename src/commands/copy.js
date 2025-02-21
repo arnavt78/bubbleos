@@ -117,7 +117,10 @@ const copy = (src, dest, ...args) => {
 
       // If size of directory is over 250MB, show "may take a while" message
       Verbose.custom("Getting size of directory...");
-      if (!silent && _getSize(src, "directory") >= SIZE_TO_SHOW_DIALOG)
+      if (
+        !new SettingManager().checkSetting("silenceSuccessMsgs") &&
+        _getSize(src, "directory") >= SIZE_TO_SHOW_DIALOG
+      )
         console.log(chalk.italic.blueBright("Please wait; this may take a while..."));
 
       // TODO if needed, see if there are more options
@@ -130,7 +133,10 @@ const copy = (src, dest, ...args) => {
     } else {
       // If size of directory is over 250MB, show "may take a while" message
       Verbose.custom("Getting size of file...");
-      if (!silent && _getSize(src, "file") >= SIZE_TO_SHOW_DIALOG)
+      if (
+        !new SettingManager().checkSetting("silenceSuccessMsgs") &&
+        _getSize(src, "file") >= SIZE_TO_SHOW_DIALOG
+      )
         console.log(chalk.italic.blueBright("Please wait; this may take a while..."));
 
       Verbose.custom("Copying file...");
