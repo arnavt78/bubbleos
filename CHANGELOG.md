@@ -6,7 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-_No added features._
+- Added safeguards against renaming the BubbleOS configuration file using `rename`, to prevent BubbleOS from thinking the file was deleted.
 
 ### Changed/Fixed Features
 

@@ -9,6 +9,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const ConfigManager = require("../classes/ConfigManager");
 const SettingManager = require("../classes/SettingManager");
 
 /**
@@ -61,11 +62,17 @@ const rename = (oldName, newName, ...args) => {
 
     if (!oldChk.doesExist()) {
       Verbose.chkExists(oldName);
-      Errors.doesNotExist("file", showOldName);
+      Errors.doesNotExist("file/directory", showOldName);
       return;
     } else if (oldChk.pathUNC() || newChk.pathUNC()) {
       Verbose.chkUNC();
       Errors.invalidUNCPath();
+      return;
+    } else if (new ConfigManager().isConfig(oldName)) {
+      // Prevents the user from deleting the configuration file
+      Verbose.initConfig();
+      Verbose.inUseError();
+      Errors.inUse("file", showOldName);
       return;
     }
 
