@@ -1,10 +1,10 @@
 # BubbleOS
 
-BubbleOS is a shell for your current operating system!
+**⚠️ This file is a work-in-progress for the next stable release and can be inaccurate. Information is subject to changes!**
 
-Please note that this is not an operating system, but a shell.
+BubbleOS is a useful and colorful shell for your operating system, with several features to make your computer use easier!
 
-The latest stable version of BubbleOS is **[build 100](https://github.com/arnavt78/bubbleos/releases/tag/v1.0.0)**.
+The latest stable version of BubbleOS is **[build 200](https://github.com/arnavt78/bubbleos/releases/tag/v2.0.0)**.
 
 ## Table of Contents
 
@@ -23,13 +23,15 @@ The latest stable version of BubbleOS is **[build 100](https://github.com/arnavt
 
 ## Installation
 
-There is no installer, but just a portable executable. You can also download the `zip` file and add the `index.js` to your `PATH`.
+There is no installer, but just a portable executable. You can also download the `zip` file (more instructions below).
 
 ### Executable
 
 For the portable executable, go the the [Releases](https://github.com/arnavt78/bubbleos/releases) page and download the file for your respective operating system (Windows, macOS, Linux).
 
-Running the executable should open it in a terminal-like window. You can also run this through command prompt (Windows), or the terminal (Mac/Linux), or other command prompt-like apps (e.g. PowerShell).
+Running the executable should open it in a terminal window. You can also run this through command prompt (Windows), or the terminal (Mac/Linux), or other command prompt-like apps (e.g. PowerShell).
+
+Note that for Linux and macOS, you may need to run `chmod +x <file>` on the executable.
 
 ### `PATH` Installer
 
@@ -41,18 +43,35 @@ If you want to add `bubble` to your path, first install the executable from the 
 
 ##### Windows
 
-In Windows, follow the steps below.
+In Windows, follow the steps below:
 
 1.  Move the Bubble executable to a place where you won't delete it (e.g. `C:\Windows`).
 2.  Press <kbd>Windows</kbd> + <kbd>R</kbd>, and type `sysdm.cpl`. Press <kbd>Enter</kbd>.
 3.  Go to the _Advanced_ tab, and then click _Environment Variables_.
 4.  If you want to add it for your user only, click _New_ under user variables, else, click _New_ under system variables.
 5.  Click _New_ and add the path to the Bubble executable.
-6.  Close all of the windows by clicking _Ok_. It should work now anywhere in the command prompt now!
+6.  Close all of the windows by clicking _Ok_. It should work now anywhere in the command prompt!
 
 ##### macOS/Linux
 
-Unfortunately, there are no steps for this. Please search online for help. Sorry for the inconvenience.
+In macOS/Linux, follow the steps below:
+
+1. Add the BubbleOS executable to the PATH.
+   For Bash (`~/.bashrc` or `~/.bash_profile`):
+
+```sh
+echo 'export PATH="/path/to/bubble_directory:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+For Zsh (`~/.zshrc`):
+
+```sh
+echo 'export PATH="/path/to/bubble_directory:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+2. Restart the shell.
 
 #### Windows 8 and Below
 
@@ -105,34 +124,40 @@ If you have downloaded the executable, just run the file like usual. If you have
 
 ## Commands
 
-There are many commands in BubbleOS to help make your journey smooth. These are the available commands (to get help on a specific one, install BubbleOS and run `help <yourcommand>`.
+There are many commands in BubbleOS to help make your journey smooth. It also comes with a ton of other features! These are the available commands (to get help on a specific one, install BubbleOS and run `help <command>`.
 
 - `about`
 - `bub`
 - `cd`
-- `cls`
+- `cls` (also `clear`)
 - `copy`
 - `crash`
-- `cwd`
+- `cwd` (also `pwd`)
 - `date`
 - `del`
+- `dirtree` (also `tree`)
 - `exec`
 - `exit`
 - `fif`
+- `hash`
 - `help`
 - `history`
 - `ifnet`
-- `ls`
+- `link`
+- `lock`
+- `ls` (also `dir`)
 - `mkdir`
 - `mkfile`
-- `print`
+- `ping`
+- `print` (also `echo`)
 - `readfile`
 - `rename`
-- `size`
+- `setmgr`
+- `stat`
 - `symlink`
 - `sysinfo`
 - `taskkill`
+- `tasklist`
 - `time`
 - `tips`
-- `userinfo`
 - `wcount`

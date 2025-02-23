@@ -98,10 +98,9 @@ const _verifyConfig = (showFirstTimeMsg) => {
         configData?.releaseCandidate > 0 &&
         RELEASE_CANDIDATE === 0) ||
       BUILD > configData?.build ||
-      (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate)) &&
-    REQUIRE_CONFIG_RESET;
+      (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate));
 
-  if (isOutdated) {
+  if (isOutdated && REQUIRE_CONFIG_RESET) {
     if (!_initConfig()) {
       InfoMessages.info(
         `The configuration file was detected to be outdated, and has been reset. A restart is required for the changes to fully take effect.`
@@ -125,8 +124,9 @@ const _verifyConfig = (showFirstTimeMsg) => {
       console.log();
       process.exit(1);
     }
-  } else if (isOutdated) {
+  } else if (isOutdated && !REQUIRE_CONFIG_RESET) {
     config.addData({ build: BUILD });
+    config.addData({ releaseCandidate: RELEASE_CANDIDATE });
   }
 
   const settings = configData?.settings;
