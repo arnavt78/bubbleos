@@ -109,16 +109,15 @@ class PathUtil {
   static parseQuotes = (arr) => {
     try {
       const str = arr?.join(" ");
-      const matches = str?.match(/"([^"]*)"(?:[^"]*"([^"]*)")?/);
-
       if (str?.trim() === "" || typeof str === "undefined") return [];
 
-      if (matches && matches.length === 3) {
-        const quotesText = matches.filter(Boolean);
-        quotesText.shift();
-
-        return quotesText;
-      } else return str?.split(" ");
+      // Match both quoted and non-quoted strings
+      const matches = str.match(/"([^"]*)"|(\S+)/g);
+      if (matches) {
+        return matches.map((match) => match.replace(/"/g, ""));
+      } else {
+        return str.split(" ");
+      }
     } catch (err) {
       // If an error occurred, throw an error
       throw new Error(err);

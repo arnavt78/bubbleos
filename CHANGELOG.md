@@ -10,6 +10,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Changed/Fixed Features
 
+- The `rename` command now keeps the directory in its original location when renaming it. Previously, if the new name didn’t include a directory, the command would move the renamed directory to the current working directory. Now, it updates the name without changing its location.
 - Updated the confirmation and success messages in the `taskkill` command to display the process name instead of the PID when using the PID.
 - Fixed an issue where the `taskkill` command would detect if the process did not exist after the confirmation prompt was accepted when using PIDs.
 - Fixed an issue where the configuration file version checker would fail to detect an upgrade in some cases.

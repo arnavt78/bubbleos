@@ -19,7 +19,10 @@ class Checks {
    */
   paramUndefined() {
     if (Array.isArray(this.param)) return this.param.length === 0;
-    return typeof this.param === "undefined";
+    return (
+      typeof this.param === "undefined" ||
+      (typeof this.param === "string" && this.param.trim() === "")
+    );
   }
 
   /**

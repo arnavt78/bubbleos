@@ -1,4 +1,5 @@
 const chalk = require("chalk");
+const path = require("path");
 const fs = require("fs");
 
 const _promptForYN = require("../functions/promptForYN");
@@ -33,9 +34,19 @@ const rename = (oldName, newName, ...args) => {
     // Replace spaces and then convert the path to an absolute one to both the old and new names
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
-    [oldName, newName] = PathUtil.parseQuotes([oldName, newName, ...args]).map((path) =>
-      PathUtil.all(path, { parseQuotes: false })
-    );
+    [oldName, newName] = PathUtil.parseQuotes([oldName, newName, ...args]);
+
+    oldName = PathUtil.all(oldName, { parseQuotes: false });
+
+    if (newName !== undefined) {
+      newName = PathUtil.homeDir(newName);
+
+      if (!path.isAbsolute(newName)) {
+        const oldDir = path.dirname(oldName);
+        newName = path.join(oldDir, newName);
+      }
+      newName = PathUtil.all(newName, { parseQuotes: false });
+    }
 
     Verbose.initChecker();
     const oldChk = new Checks(oldName);
