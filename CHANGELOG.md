@@ -2,6 +2,20 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 200 RC2 to 200 RC3 (v2.0.0-rc2 to v2.0.0-rc3)
+
+### Added Features
+
+_No added features._
+
+### Changed/Fixed Features
+
+_No changed/fixed features._
+
+### Removed Features
+
+- Removed the `--no-intro` flag from the BubbleOS executable.
+
 ## Build 200 RC1 to 200 RC2 (v2.0.0-rc1 to v2.0.0-rc2)
 
 ### Added Features

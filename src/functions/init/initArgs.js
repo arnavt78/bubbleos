@@ -20,7 +20,7 @@ const config = new ConfigManager();
 
 // Introduction
 Verbose.custom("Displaying intro...");
-if (!_detectArgs("intro")) require("./intro");
+require("./intro");
 
 // Timebomb disabler
 Verbose.custom("Completing timebomb disabler check...");

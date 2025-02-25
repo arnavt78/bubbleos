@@ -13,7 +13,6 @@ const _startupArgs = () => {
     "--no-timebomb": `Disables checking the ${GLOBAL_NAME} timebomb.`,
     "--no-checks": "Disables checking if the OS is 64-bit or if it is Windows 8.1 or below.",
     "--no-warnings": "Disables showing startup warnings when using some arguments.",
-    "--no-intro": "Disables showing the intro on startup entirely.",
     "--no-dump": "Disables the fatal error file dump feature.",
     "--reset": `Resets the ${GLOBAL_NAME} configuration file.`,
     "--verbose": "Enables verbose mode to give more information on processes.",
