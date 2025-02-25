@@ -63,7 +63,7 @@ const TIMEBOMB_ACTIVATED = true;
  *
  * For release candidates, the expiry date is [30 days](https://www.google.com/search?q=Date+30+days+from+today) after the executable is compiled.
  */
-const EXPIRY_DATE = new Date(2025, 2, 23);
+const EXPIRY_DATE = new Date(2025, 2, 28);
 /**
  * The number of days the expiry date is from the current date at the time of compilation.
  */
