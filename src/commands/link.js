@@ -100,6 +100,9 @@ const link = (path, newPath, ...args) => {
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
       Errors.noPermissions("make the link", showNewPath);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showNewPath);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

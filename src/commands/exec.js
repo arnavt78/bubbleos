@@ -85,6 +85,9 @@ const exec = (file, ...args) => {
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file", showFile);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showFile);
     } else {
       Verbose.fatalError();
       _fatalError(err);

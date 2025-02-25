@@ -164,10 +164,16 @@ const fif = async (file, ...args) => {
       console.log();
     }
   } catch (err) {
+    Verbose.initShowPath();
+    const showFile = new SettingManager().fullOrBase(file);
+
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
       _exit(false, false);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showFile);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

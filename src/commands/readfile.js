@@ -131,6 +131,9 @@ const readfile = (file, ...args) => {
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file", showFile);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showFile);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

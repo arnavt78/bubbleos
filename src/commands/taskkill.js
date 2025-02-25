@@ -9,6 +9,7 @@ const Checks = require("../classes/Checks");
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const SettingManager = require("../classes/SettingManager");
 
 /**
  * Kill a process on the device using either the PID
@@ -41,15 +42,31 @@ const taskkill = async (processName, ...args) => {
     Verbose.custom("Checking for running processes...");
     const processes = await psList();
 
-    const processExists = processes.some((obj) => obj.pid === Number(processName));
+    let processExists;
+    let processObj;
+    let processNameFromPid;
+
+    if (!isNaN(Number(processName))) {
+      // processName is a PID
+      processExists = processes.some((obj) => obj.pid === Number(processName));
+      if (processExists) {
+        processObj = processes.find((obj) => obj.pid === Number(processName));
+        processNameFromPid = processObj ? processObj.name : null;
+      }
+    } else {
+      // processName is a process name
+      processExists = processes.some((obj) => obj.name === processName);
+      if (processExists) {
+        processObj = processes.find((obj) => obj.name === processName);
+        processNameFromPid = processObj ? processObj.name : null;
+      }
+    }
+
     if (!processExists) {
-      Verbose.custom(`The process with PID '${processName}' was detected to not exist.`);
+      Verbose.custom(`The process '${processName}' was detected to not exist.`);
       Errors.doesNotExist("process", processName);
       return;
     }
-
-    const processObj = processes.find((obj) => obj.pid === Number(processName));
-    const processNameFromPid = processObj ? processObj.name : null;
 
     // If the user did not use the '-y' flag
     if (confirm) {
@@ -73,19 +90,11 @@ const taskkill = async (processName, ...args) => {
         InfoMessages.success(`Successfully killed the process ${chalk.bold(processNameFromPid)}.`);
       else console.log();
     } else {
-      const result = processes.find((obj) => obj.name === processName);
-
-      if (!result) {
-        Verbose.custom(`The process '${processName}' was detected to not exist.`);
-        Errors.doesNotExist("process", processName);
-        return;
-      }
-
       processes.forEach((obj) => {
         if (obj.name === processName) {
           Verbose.custom("Attempting to kill process...");
           try {
-            process.kill(Number(result.pid));
+            process.kill(Number(obj.pid));
 
             // If the user did not request output, show a newline, else, show the success message
             if (!new SettingManager().checkSetting("silenceSuccessMsgs"))

@@ -80,6 +80,7 @@ if (!configData?.firstIntro) {
   console.log(`For a list on some available commands, type '${chalk.italic("help")}'.`);
   console.log(`For more information about a command, type '${chalk.italic("help <command>")}'.\n`);
 
+  console.log(`To modify the settings of ${GLOBAL_NAME}, type '${chalk.italic("setmgr")}'.`);
   console.log(`To exit the ${GLOBAL_NAME} shell, type '${chalk.italic("exit")}'.\n`);
 }
 

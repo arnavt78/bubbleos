@@ -79,7 +79,7 @@ const symlink = (path, newPath, ...args) => {
       if (fs.lstatSync(path).isSymbolicLink()) {
         Verbose.custom("Path is a symbolic link.");
         console.log(chalk.green(`The path, ${chalk.bold(showPath)}, is a symbolic link.`));
-        console.log(chalk.green.italic.dim(`(points to ${chalk.bold(fs.readlinkSync(path))})\n`));
+        console.log(chalk.green.dim(`(points to ${chalk.bold(fs.readlinkSync(path))})\n`));
       } else {
         Verbose.custom("Path is not a symbolic link.");
         console.log(chalk.red(`The path, ${chalk.bold(showPath)}, is not a symbolic link.\n`));
@@ -100,6 +100,7 @@ const symlink = (path, newPath, ...args) => {
     else console.log();
   } catch (err) {
     Verbose.initShowPath();
+    const showPath = new SettingManager().fullOrBase(path);
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
     if (err.code === "EPERM" || err.code === "EACCES") {
@@ -109,6 +110,9 @@ const symlink = (path, newPath, ...args) => {
       Verbose.permError();
       InfoMessages.info(`Try running ${GLOBAL_NAME} with elevated privileges.`);
       Errors.noPermissions("make the symbolic link", showNewPath);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showPath);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

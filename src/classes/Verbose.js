@@ -176,6 +176,13 @@ class Verbose {
   }
 
   /**
+   * Verbose message describing an error due to there being no such device or address.
+   */
+  static noDeviceError() {
+    this.custom("Encountered an error, due to there being no such device or address.");
+  }
+
+  /**
    * Verbose message describing an unknown error.
    */
   static unknownError() {

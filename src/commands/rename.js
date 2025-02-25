@@ -140,6 +140,9 @@ const rename = (oldName, newName, ...args) => {
         "characters such as '?' or ':' (Windows only)",
         showNewName
       );
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showFile);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

@@ -136,6 +136,9 @@ const stat = (path, ...args) => {
 
       Verbose.custom("Path does not exist.");
       Errors.doesNotExist("file/directory", showPath);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showFile);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

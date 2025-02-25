@@ -7,12 +7,18 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Added Features
 
 - Added safeguards against renaming the BubbleOS configuration file using `rename`, to prevent BubbleOS from thinking the file was deleted.
+- Added a message for the first introduction of BubbleOS to inform how to change the settings.
 
 ### Changed/Fixed Features
 
 - The `rename` command now keeps the directory in its original location when renaming it. Previously, if the new name didn’t include a directory, the command would move the renamed directory to the current working directory. Now, it updates the name without changing its location.
 - Updated the confirmation and success messages in the `taskkill` command to display the process name instead of the PID when using the PID.
+- Changed the timeout in the `ping` command from 10 seconds to 5 seconds.
+- Fixed a formatting error in the `ping` command where the success code would not have an closing bracket.
+- Fixed an issue where BubbleOS would crash upon encountering the `ENXIO` error.
 - Fixed an issue where the `taskkill` command would detect if the process did not exist after the confirmation prompt was accepted when using PIDs.
+- Fixed an issue where the `taskkill` command would crash BubbleOS when it successfully killed a process.
+- Fixed an issue where the `cd` command would count the tilda (`~`) as valid if it was anywhere in the path, instead of the first character.
 - Fixed an issue where the configuration file version checker would fail to detect an upgrade in some cases.
 - Fixed an issue where the version in the configuration file would not update if the configuration file did not require a reset.
 

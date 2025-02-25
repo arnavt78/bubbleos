@@ -24,7 +24,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
   const options = {
     host,
     path,
-    timeout: 10000,
+    timeout: 5000,
     method: "HEAD", // HEAD request to only fetch headers
     rejectUnauthorized: true,
   };
@@ -76,7 +76,7 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
           chalk.green(
             `The server, ${chalk.bold.italic(formattedURL)}, is responding with status code 200 (${
               HTTP_CODES_AND_MESSAGES[res.statusCode] ?? "N/A"
-            }!\n`
+            })!\n`
           )
         );
         resolve();

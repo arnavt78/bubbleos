@@ -167,6 +167,9 @@ const copy = (src, dest, ...args) => {
       // If the user attempted to copy a directory to a file
       Verbose.chkType(dest, "directory");
       Errors.expectedDir(showDest);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showSrc);
     } else if (err.code === "ERR_FS_CP_DIR_TO_NON_DIR") {
       // If the user attempted to copy a directory to a non-directory
 

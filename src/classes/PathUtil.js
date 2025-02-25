@@ -20,7 +20,7 @@ class PathUtil {
    */
   static homeDir(inputPath) {
     if (os.platform() === "win32") return inputPath;
-    else return inputPath.replace("~", os.homedir());
+    else return inputPath.startsWith("~") ? inputPath.replace("~", os.homedir()) : inputPath;
   }
 
   /**

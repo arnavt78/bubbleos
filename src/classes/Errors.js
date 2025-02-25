@@ -272,6 +272,26 @@ class Errors {
   /**
    * Information about the error message:
    *
+   * **Name:** _No such device or address_
+   *
+   * **Parameters:** `device`
+   *
+   * **Error code:** `12`
+   *
+   * **Message:** No such device or address: **_'`device`'_**.
+   *
+   * @param {string} device The device or address that the user entered.
+   */
+  static noDevice(device) {
+    const CODE = 12;
+    const MESSAGE = `No such device or address: ${chalk.bold(device)}.`;
+
+    _interpretError(CODE, MESSAGE);
+  }
+
+  /**
+   * Information about the error message:
+   *
    * **Name:** _Unknown error_
    *
    * **Parameters:** _(none)_
@@ -281,7 +301,7 @@ class Errors {
    * **Message:** _{GLOBAL_NAME}_ encountered an unknown error.
    */
   static unknown() {
-    const CODE = 12;
+    const CODE = 13;
     const MESSAGE = `${GLOBAL_NAME} encountered an unknown error.`;
 
     _interpretError(CODE, MESSAGE);

@@ -88,6 +88,9 @@ const del = (path, ...args) => {
     } else if (err.code === "EBUSY") {
       Verbose.inUseError();
       Errors.inUse("file/directory", showPath);
+    } else if (err.code === "ENXIO") {
+      Verbose.noDeviceError();
+      Errors.noDevice(showPath);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
