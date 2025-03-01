@@ -42,7 +42,7 @@ const _nonFatalError = (err) => {
     // Beep
     process.stdout.write("\u0007");
 
-    console.log(`${chalk.bgHex("#FFA500").bold.underline("=== NON-FATAL ERROR ===")}\n`);
+    console.log(`${chalk.bgHex("#FFA500").bold.black.underline("=== NON-FATAL ERROR ===")}\n`);
 
     console.log(
       `${chalk.hex("#FFA500").bold(
