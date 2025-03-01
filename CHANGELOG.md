@@ -6,11 +6,13 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-_No added features._
+- Added the time of crash to the fatal error information file.
 
 ### Changed/Fixed Features
 
 - Changed the requirement for entering the 'all' keyword in `hash` to show all hashes; now to show all hashes, nothing has to be entered.
+- Fixed an issue where the `symlink` command would crash when attempting to create a symbolic link.
+- Fixed an issue where the `symlink` command would crash if the target path and source were the same.
 - Fixed an issue where BubbleOS would crash when copying a file/directory to a subdirectory of itself.
 - Fixed an issue where the absolute path verbose message would always show _undefined_.
 - Fixed an issue where the help message for the `history` command would not show information about the `-c` argument.

@@ -29,45 +29,45 @@ const SettingManager = require("../classes/SettingManager");
  * Available arguments:
  * `-c`: Check if a path is a symbolic link.
  *
- * @param {string} path The path that the symbolic link will point to (the target).
- * @param {string} newPath The symbolic link to create (the path). It can also be the `-c` argument.
+ * @param {string} target The path that the symbolic link will point to (the target).
+ * @param {string} path The symbolic link to create (the path). It can also be the `-c` argument.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.ink` function.
  */
-const symlink = (path, newPath, ...args) => {
+const symlink = (target, path, ...args) => {
   try {
     // Initialize the 'check' argument as it defines whether or not to convert the new path to absolute
     Verbose.initArgs();
-    const check = args.includes("-c") || newPath === "-c";
+    const check = args.includes("-c") || path === "-c";
 
     // Replace spaces and then convert to an absolute path
     // Only if 'check' is false, convert the new path
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
     if (!check) {
-      [path, newPath] = PathUtil.parseQuotes([path, newPath, ...args]).map((p) =>
-        PathUtil.all(path, { parseQuotes: false })
-      );
+      [target, path] = PathUtil.parseQuotes([target, path, ...args]);
+      target = PathUtil.all(target, { parseQuotes: false });
+      path = PathUtil.all(path, { parseQuotes: false });
     } else {
-      path = PathUtil.all([path, newPath, ...args]);
+      target = PathUtil.all([target, path, ...args]);
     }
 
     Verbose.initChecker();
+    const targetChk = new Checks(target);
     const pathChk = new Checks(path);
-    const newPathChk = new Checks(newPath);
 
     Verbose.initShowPath();
+    const showTarget = new SettingManager().fullOrBase(target);
     const showPath = new SettingManager().fullOrBase(path);
-    const showNewPath = new SettingManager().fullOrBase(newPath);
 
-    if (pathChk.paramUndefined() || newPathChk.paramUndefined()) {
+    if (targetChk.paramUndefined() || pathChk.paramUndefined()) {
       Verbose.chkEmpty();
-      Errors.enterParameter("a path/the paths", "symlink path symbol");
+      Errors.enterParameter("a path/the paths", "symlink target path");
       return;
-    } else if (!pathChk.doesExist()) {
-      Verbose.chkExists(path);
-      Errors.doesNotExist("file/directory", showPath);
+    } else if (!targetChk.doesExist()) {
+      Verbose.chkExists(target);
+      Errors.doesNotExist("file/directory", showTarget);
       return;
-    } else if (pathChk.pathUNC()) {
+    } else if (targetChk.pathUNC()) {
       Verbose.chkUNC();
       Errors.invalidUNCPath();
       return;
@@ -76,32 +76,38 @@ const symlink = (path, newPath, ...args) => {
     // If the user wanted to check if the path is a symbolic link
     if (check) {
       Verbose.custom("Checking if path is a symbolic link...");
-      if (fs.lstatSync(path).isSymbolicLink()) {
+      if (fs.lstatSync(target).isSymbolicLink()) {
         Verbose.custom("Path is a symbolic link.");
-        console.log(chalk.green(`The path, ${chalk.bold(showPath)}, is a symbolic link.`));
-        console.log(chalk.green.dim(`(points to ${chalk.bold(fs.readlinkSync(path))})\n`));
+        console.log(chalk.green(`The path, ${chalk.bold(showTarget)}, is a symbolic link.`));
+        console.log(chalk.green.dim(`(points to ${chalk.bold(fs.readlinkSync(target))})\n`));
       } else {
         Verbose.custom("Path is not a symbolic link.");
-        console.log(chalk.red(`The path, ${chalk.bold(showPath)}, is not a symbolic link.\n`));
+        console.log(chalk.red(`The path, ${chalk.bold(showTarget)}, is not a symbolic link.\n`));
       }
 
       return;
     }
 
+    if (target === path) {
+      Verbose.custom("Detected that source and target are the same...");
+      InfoMessages.error("Cannot create a symbolic where the source and target are the same.");
+      return;
+    }
+
     Verbose.custom("Creating a symbolic link...");
-    fs.symlinkSync(path, newPath);
+    fs.symlinkSync(target, path);
 
     if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
       InfoMessages.success(
-        `Successfully created the symbolic link ${chalk.bold(
-          showNewPath
-        )} that points to ${chalk.bold(showPath)}.`
+        `Successfully created the symbolic link ${chalk.bold(showPath)} that points to ${chalk.bold(
+          showTarget
+        )}.`
       );
     else console.log();
   } catch (err) {
     Verbose.initShowPath();
+    const showTarget = new SettingManager().fullOrBase(target);
     const showPath = new SettingManager().fullOrBase(path);
-    const showNewPath = new SettingManager().fullOrBase(newPath);
 
     if (err.code === "EPERM" || err.code === "EACCES") {
       // If there are no permissions to make the symbolic link
@@ -109,10 +115,10 @@ const symlink = (path, newPath, ...args) => {
       // to run it with elevated privileges to make the command work.
       Verbose.permError();
       InfoMessages.info(`Try running ${GLOBAL_NAME} with elevated privileges.`);
-      Errors.noPermissions("make the symbolic link", showNewPath);
+      Errors.noPermissions("make the symbolic link", showPath);
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
-      Errors.noDevice(showPath);
+      Errors.noDevice(showTarget);
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
