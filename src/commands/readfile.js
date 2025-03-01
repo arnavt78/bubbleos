@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _promptForYN = require("../functions/promptForYN");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -134,12 +134,15 @@ const readfile = (file, ...args) => {
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showFile);
+    } else if (err.code === "EINVAL") {
+      Verbose.invalOperationError();
+      Errors.invalidOperation();
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

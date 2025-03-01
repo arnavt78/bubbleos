@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const psList = require("ps-list");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
@@ -73,8 +73,8 @@ const tasklist = async (filter, ...args) => {
 
     console.log();
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

@@ -18,7 +18,7 @@ const AUTHOR = "Arnav Thorat";
  *
  * For betas, add `-beta` to the end of the version number, and for release candidates, add `-rc<ver>`, replacing `<ver>` with the release candidate version.
  */
-const VERSION = "2.0.0-rc2";
+const VERSION = "2.0.0-rc3";
 /**
  * The build of the shell.
  *
@@ -28,7 +28,7 @@ const BUILD = 200;
 /**
  * The release candidate of the shell. If set to `0`, it is not a release candidate.
  */
-const RELEASE_CANDIDATE = 2;
+const RELEASE_CANDIDATE = 3;
 
 /**
  * If the configuration file needs to be reset if it is an older version when loaded in this version.
@@ -63,7 +63,7 @@ const TIMEBOMB_ACTIVATED = true;
  *
  * For release candidates, the expiry date is [30 days](https://www.google.com/search?q=Date+30+days+from+today) after the executable is compiled.
  */
-const EXPIRY_DATE = new Date(2025, 2, 28);
+const EXPIRY_DATE = new Date(2025, 2, 31);
 /**
  * The number of days the expiry date is from the current date at the time of compilation.
  */

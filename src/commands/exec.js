@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const childProcess = require("child_process");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -88,9 +88,12 @@ const exec = (file, ...args) => {
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showFile);
+    } else if (err.code === "EINVAL") {
+      Verbose.invalOperationError();
+      Errors.invalidOperation();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

@@ -5,7 +5,7 @@ const { GLOBAL_NAME } = require("../variables/constants");
 
 const settings = require("../data/settings.json");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 const _exit = require("../functions/exit");
 
 const InfoMessages = require("../classes/InfoMessages");
@@ -109,8 +109,8 @@ const setmgr = async (...args) => {
       Verbose.custom("Detected Ctrl+C, exiting...");
       _exit(false, false);
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

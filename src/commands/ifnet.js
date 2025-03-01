@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const sortKeys = require("sort-keys");
 const { networkInterfaces } = require("os");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
@@ -70,8 +70,8 @@ const ifnet = (...args) => {
       });
     }
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

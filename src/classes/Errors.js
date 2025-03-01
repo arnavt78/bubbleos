@@ -33,7 +33,9 @@ const _interpretError = (code, message) => {
  * - `9` - `invalidCharacters()`
  * - `10` - `pathTooLong()`
  * - `11` - `invalidUNCPath()`
- * - `12` - `unknown()`
+ * - `12` - `noDevice()`
+ * - `13` - `invalidOperation()`
+ * - `14` - `unknown()`
  */
 class Errors {
   constructor() {}
@@ -292,16 +294,34 @@ class Errors {
   /**
    * Information about the error message:
    *
+   * **Name:** _Invalid operation_
+   *
+   * **Parameters:** _(none)_
+   *
+   * **Error code:** `13`
+   *
+   * **Message:** An invalid operation was attempted.
+   */
+  static invalidOperation() {
+    const CODE = 13;
+    const MESSAGE = `No such device or address: ${chalk.bold(device)}.`;
+
+    _interpretError(CODE, MESSAGE);
+  }
+
+  /**
+   * Information about the error message:
+   *
    * **Name:** _Unknown error_
    *
    * **Parameters:** _(none)_
    *
-   * **Error code:** `12`
+   * **Error code:** `14`
    *
    * **Message:** _{GLOBAL_NAME}_ encountered an unknown error.
    */
   static unknown() {
-    const CODE = 13;
+    const CODE = 14;
     const MESSAGE = `${GLOBAL_NAME} encountered an unknown error.`;
 
     _interpretError(CODE, MESSAGE);

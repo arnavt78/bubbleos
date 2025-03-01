@@ -4,7 +4,7 @@ const ALL_TIPS = require("../data/tips.json");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Verbose = require("../classes/Verbose");
 
@@ -60,8 +60,8 @@ const tips = (...args) => {
       return;
     }
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

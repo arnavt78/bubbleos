@@ -183,6 +183,13 @@ class Verbose {
   }
 
   /**
+   * Verbose message describing an error due to there being no such device or address.
+   */
+  static invalOperationError() {
+    this.custom("Encountered an error, due to an invalid operation being attempted.");
+  }
+
+  /**
    * Verbose message describing an unknown error.
    */
   static unknownError() {
@@ -196,6 +203,13 @@ class Verbose {
    */
   static exitProcess(code = 0) {
     this.custom(`Exiting ${GLOBAL_NAME} process with status code ${code}...`);
+  }
+
+  /**
+   * Verbose message describing a non-fatal unhandled exception.
+   */
+  static nonFatalError() {
+    this.custom("Unhandled exception, throwing non-fatal error...");
   }
 
   /**

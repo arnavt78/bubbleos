@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -123,8 +123,8 @@ const symlink = (target, path, ...args) => {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

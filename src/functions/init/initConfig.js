@@ -2,6 +2,8 @@ const settings = require("../../data/settings.json");
 
 const { BUILD, RELEASE_CANDIDATE } = require("../../variables/constants");
 
+const _fatalError = require("../fatalError");
+
 const ConfigManager = require("../../classes/ConfigManager");
 
 /**
@@ -30,28 +32,32 @@ const _getLastSundayAtMidnight = () => {
  * @returns `true` if an error was encountered, else, `false`.
  */
 const _initConfig = () => {
-  const config = new ConfigManager();
-  let errorEncountered = false;
+  try {
+    const config = new ConfigManager();
+    let errorEncountered = false;
 
-  const actions = [
-    config.deleteConfig(),
-    config.createConfig(),
-    config.addData({
-      settings: Object.fromEntries(
-        Object.entries(settings).map(([key, setting]) => [
-          key,
-          { displayName: setting.displayName, current: setting.default },
-        ])
-      ),
-      history: [],
-      build: BUILD,
-      releaseCandidate: RELEASE_CANDIDATE,
-      nextUpdateCheck: _getLastSundayAtMidnight(),
-    }),
-  ];
+    const actions = [
+      config.deleteConfig(),
+      config.createConfig(),
+      config.addData({
+        settings: Object.fromEntries(
+          Object.entries(settings).map(([key, setting]) => [
+            key,
+            { displayName: setting.displayName, current: setting.default },
+          ])
+        ),
+        history: [],
+        build: BUILD,
+        releaseCandidate: RELEASE_CANDIDATE,
+        nextUpdateCheck: _getLastSundayAtMidnight(),
+      }),
+    ];
 
-  errorEncountered = actions.some((action) => !action);
-  return errorEncountered;
+    errorEncountered = actions.some((action) => !action);
+    return errorEncountered;
+  } catch (err) {
+    _fatalError(err);
+  }
 };
 
 module.exports = _initConfig;

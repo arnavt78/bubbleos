@@ -17,6 +17,8 @@ const ERROR_INFO_FILENAME = `${SHORT_NAME}_error_info.txt`.toUpperCase();
 /**
  * End BubbleOS with a fatal exception with exit code `1`.
  *
+ * To give a non-fatal error, use `_nonFatalError`.
+ *
  * Usage:
  *
  * ```js
@@ -52,9 +54,8 @@ const _fatalError = (err, doFileDump = true) => {
   console.log(`${chalk.bgRed.bold.underline("!!! FATAL ERROR !!!")}\n`);
   console.log(
     `${chalk.red.bold(
-      `A fatal exception has occurred in ${GLOBAL_NAME}. To avoid damage to ${GLOBAL_NAME} and ${_friendlyOS()}, ${GLOBAL_NAME} has been aborted with a failure status.`
-    )}\n\n${chalk.red.bold(
-      `Make sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/arnavt78/bubbleos/issues/new).`
+      `A fatal exception has occurred in ${GLOBAL_NAME}. To avoid damage to ${GLOBAL_NAME} and ${_friendlyOS()}, ${GLOBAL_NAME} has been aborted with a failure status.
+      \nMake sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/arnavt78/bubbleos/issues/new).`
     )}\n`
   );
 
@@ -113,7 +114,7 @@ const _fatalError = (err, doFileDump = true) => {
 
   question(chalk.red("Press the Enter key to continue . . . "), { hideEchoBack: true, mask: "" });
 
-  console.log(`${chalk.bold(`\nTerminating ${GLOBAL_NAME} process...\n`)}`);
+  console.log(`\nTerminating ${GLOBAL_NAME} process...\n`);
   process.exit(1);
 };
 

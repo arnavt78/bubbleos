@@ -1,4 +1,4 @@
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Verbose = require("../classes/Verbose");
 
@@ -14,8 +14,8 @@ const cls = (...args) => {
     process.stdout.write("\x1bc");
     Verbose.custom("Cleared screen.");
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

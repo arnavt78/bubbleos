@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -105,12 +105,15 @@ const cd = (dir, ...args) => {
 
       Verbose.custom("Directory does not exist.");
       Errors.doesNotExist("directory", showDir);
+    } else if (err.code === "EINVAL") {
+      Verbose.invalOperationError();
+      Errors.invalidOperation();
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

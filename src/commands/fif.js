@@ -3,7 +3,7 @@ const path = require("path");
 const chalk = require("chalk");
 const { input } = require("@inquirer/prompts");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 const _exit = require("../functions/exit");
 
 const Errors = require("../classes/Errors");
@@ -174,12 +174,15 @@ const fif = async (file, ...args) => {
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showFile);
+    } else if (err.code === "EINVAL") {
+      Verbose.invalOperationError();
+      Errors.invalidOperation();
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

@@ -2,7 +2,7 @@ const fs = require("fs");
 const chalk = require("chalk");
 const path = require("path");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -178,8 +178,8 @@ const bub = async (intCmds, file, ...args) => {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

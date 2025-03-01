@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const fs = require("fs");
 
 const _convertSize = require("../functions/convSize");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 const _getSize = require("../functions/getSize");
 
 const Errors = require("../classes/Errors");
@@ -139,12 +139,15 @@ const stat = (path, ...args) => {
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showFile);
+    } else if (err.code === "EINVAL") {
+      Verbose.invalOperationError();
+      Errors.invalidOperation();
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

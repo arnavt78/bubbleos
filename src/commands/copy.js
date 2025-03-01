@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const fs = require("fs");
 
 const _promptForYN = require("../functions/promptForYN");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 const _getSize = require("../functions/getSize");
 
 const Errors = require("../classes/Errors");
@@ -183,12 +183,15 @@ const copy = (src, dest, ...args) => {
       // in fs.cpSync().
       Verbose.custom("Error copying a directory to a non-directory...");
       InfoMessages.error("Cannot overwrite a directory with a non-directory.");
+    } else if (err.code === "EINVAL") {
+      Verbose.invalOperationError();
+      Errors.invalidOperation();
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

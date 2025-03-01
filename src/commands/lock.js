@@ -3,7 +3,7 @@ const lockSystem = require("lock-system");
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _friendlyOS = require("../functions/friendlyOS");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const SettingManager = require("../classes/SettingManager");
 const InfoMessages = require("../classes/InfoMessages");
@@ -38,8 +38,8 @@ const lock = (...args) => {
       Verbose.custom("No command was found to lock the system on Linux.");
       InfoMessages.error("Locking the OS failed. Please install xdg-screensaver and try again.");
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

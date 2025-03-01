@@ -1,4 +1,4 @@
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Verbose = require("../classes/Verbose");
 
@@ -12,8 +12,8 @@ const cwd = (...args) => {
     Verbose.custom("Outputting current working directory...");
     console.log(process.cwd() + "\n");
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

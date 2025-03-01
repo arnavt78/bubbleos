@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 const _promptForYN = require("../functions/promptForYN");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -147,8 +147,8 @@ const rename = (oldName, newName, ...args) => {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

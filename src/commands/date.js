@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Verbose = require("../classes/Verbose");
 
@@ -70,8 +70,8 @@ const date = (...args) => {
 
     console.log();
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

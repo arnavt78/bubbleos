@@ -5,7 +5,7 @@ const HELP_MESSAGES = require("../data/helpMsgs.json");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -124,8 +124,8 @@ const help = (command, ...args) => {
       Errors.unrecognizedCommand(command);
     }
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

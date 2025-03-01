@@ -2,7 +2,7 @@ const chalk = require("chalk");
 
 const _initConfig = require("../functions/init/initConfig");
 const { NUMBER_TO_STORE } = require("../functions/addToHist");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const InfoMessages = require("../classes/InfoMessages");
@@ -108,8 +108,8 @@ const history = (numToDisplay, ...args) => {
     _formatHist(numToDisplay, historyConfig[numToDisplay - 1]);
     console.log();
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

@@ -3,7 +3,7 @@ const chalk = require("chalk");
 const path = require("path");
 const { input } = require("@inquirer/prompts");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 const _promptForYN = require("../functions/promptForYN");
 const _exit = require("../functions/exit");
 
@@ -109,8 +109,8 @@ const _fileContents = async (file) => {
       Verbose.custom("Detected Ctrl+C, exiting...");
       _exit(false, false);
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };
@@ -221,8 +221,8 @@ const mkfile = async (file, ...args) => {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

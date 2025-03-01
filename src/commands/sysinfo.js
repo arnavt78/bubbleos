@@ -8,7 +8,7 @@ const { GLOBAL_NAME } = require("../variables/constants");
 
 const _convertSize = require("../functions/convSize");
 const _friendlyOS = require("../functions/friendlyOS");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Verbose = require("../classes/Verbose");
 
@@ -268,8 +268,8 @@ const sysinfo = async (...args) => {
       console.log();
     }
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

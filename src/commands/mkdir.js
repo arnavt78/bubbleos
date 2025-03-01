@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 const _promptForYN = require("../functions/promptForYN");
 
 const Errors = require("../classes/Errors");
@@ -127,8 +127,8 @@ const mkdir = (dir, ...args) => {
       Verbose.unknownError();
       Errors.unknown();
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

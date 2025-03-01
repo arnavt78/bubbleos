@@ -8,6 +8,7 @@ const CRASHES = require("../data/crashes.json");
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _promptForYN = require("../functions/promptForYN");
+const _nonFatalError = require("../functions/nonFatalError");
 const _fatalError = require("../functions/fatalError");
 const _exit = require("../functions/exit");
 
@@ -20,6 +21,8 @@ const Verbose = require("../classes/Verbose");
  * BubbleOS will request the user to select a crashing method from a list
  * of elements. These are the following current ways that a user can crash
  * BubbleOS, their terminal, or even their computer:
+ * - _Non-fatal error_: Throws a non-fatal error in BubbleOS. BubbleOS is still
+ * operational after this.
  * - _Fatal error_: Crash BubbleOS with a fatal error. File dumping is
  * enabled.
  * - _Hang_: Hangs the terminal completely in some scenarios, making it
@@ -75,17 +78,25 @@ const crash = async (...args) => {
     console.log();
 
     if (index === 1) {
-      // Fatal error
-      Verbose.custom("Crashing method: fatal error.");
+      // Non-fatal error
+      Verbose.custom("Crashing method: non-fatal error.");
       throw new Error(`${GLOBAL_NAME} was purposefully crashed with the 'crash' command.`);
     } else if (index === 2) {
+      // Fatal error
+      Verbose.custom("Crashing method: fatal error.");
+      try {
+        throw new Error(`${GLOBAL_NAME} was purposefully crashed with the 'crash' command.`);
+      } catch (err) {
+        _fatalError(err);
+      }
+    } else if (index === 3) {
       // Crash BubbleOS by continuously writing 'clear screen' to the terminal.
       // This can make the terminal hang, and sometimes make it impossible to press ^C.
       Verbose.custom("Crashing method: hang.");
       while (true) {
         process.stdout.write("\x1bc");
       }
-    } else if (index === 3) {
+    } else if (index === 4) {
       // Node.js will crash once the heap has run out of memory
       Verbose.custom("Crashing method: memory leak.");
       InfoMessages.info(
@@ -98,7 +109,7 @@ const crash = async (...args) => {
       for (let i = 0; i < Number.MAX_VALUE; i++) {
         crashArr.push(new Array(100000000));
       }
-    } else if (index === 4) {
+    } else if (index === 5) {
       Verbose.custom("Crashing method: BSOD.");
 
       if (process.platform !== "win32") {
@@ -157,8 +168,8 @@ const crash = async (...args) => {
     } else {
       // If an unknown exception occurred, or the user selected
       // to purposely crash BubbleOS with a fatal error
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

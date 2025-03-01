@@ -8,7 +8,7 @@ const {
   RELEASE_CANDIDATE,
 } = require("../variables/constants");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Verbose = require("../classes/Verbose");
 
@@ -74,8 +74,8 @@ const about = (...args) => {
     console.log(`GitHub: ${chalk.underline.blueBright("https://github.com/arnavt78/bubbleos")}`);
     console.log(`YouTube: ${chalk.underline.blueBright("https://youtube.com/InfiniTech78")}\n`);
   } catch (err) {
-    Verbose.fatalError();
-    _fatalError(err);
+    Verbose.nonFatalError();
+    _nonFatalError(err);
   }
 };
 

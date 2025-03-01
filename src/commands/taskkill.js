@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const psList = require("ps-list");
 
 const _promptForYN = require("../functions/promptForYN");
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -119,8 +119,8 @@ const taskkill = async (processName, ...args) => {
       Verbose.custom(`The process '${processName}' was detected to not exist.`);
       Errors.doesNotExist("process", processName);
     } else {
-      Verbose.fatalError();
-      _fatalError(err, false);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };

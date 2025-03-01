@@ -6,14 +6,17 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
+- Added the non-fatal error, which occurs when BubbleOS encounters an error that it can recover from. The fatal error still occurs when a critical component crashes. Note that the non-fatal error still shows a bug in BubbleOS, like the fatal error, and should be reported. The difference is that it does not end the BubbleOS process.
+- Added compatibility for release candidates to the update checker.
 - Added the time of crash to the fatal error information file.
 
 ### Changed/Fixed Features
 
 - Changed the requirement for entering the 'all' keyword in `hash` to show all hashes; now to show all hashes, nothing has to be entered.
+- Fixed an issue where some commands would crash when interacting with files ([#17](https://github.com/arnavt78/bubbleos/issues/17)).
 - Fixed an issue where the `symlink` command would crash when attempting to create a symbolic link.
 - Fixed an issue where the `symlink` command would crash if the target path and source were the same.
-- Fixed an issue where BubbleOS would crash when copying a file/directory to a subdirectory of itself.
+- Fixed an issue where the `copy` command would crash when copying a file/directory to a subdirectory of itself.
 - Fixed an issue where the absolute path verbose message would always show _undefined_.
 - Fixed an issue where the help message for the `history` command would not show information about the `-c` argument.
 - Fixed an inconsistency issue where the fatal error information file would not have leading zeros in the date.
@@ -38,7 +41,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where BubbleOS would crash upon encountering the `ENXIO` error.
 - Fixed an issue where the `taskkill` command would detect if the process did not exist after the confirmation prompt was accepted when using PIDs.
 - Fixed an issue where the `taskkill` command would crash BubbleOS when it successfully killed a process.
-- Fixed an issue where the `cd` command would count the tilda (`~`) as valid if it was anywhere in the path, instead of the first character.
+- Fixed an issue where the `cd` command would count the tilde (`~`) as valid if it was anywhere in the path, instead of the first character.
 - Fixed an issue where the configuration file version checker would fail to detect an upgrade in some cases.
 - Fixed an issue where the version in the configuration file would not update if the configuration file did not require a reset.
 

@@ -5,7 +5,7 @@ const HTTP_CODES_AND_MESSAGES = require("../data/httpCodes.json");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
-const _fatalError = require("../functions/fatalError");
+const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -201,8 +201,8 @@ const ping = async (host, ...args) => {
       Verbose.custom("Invalid URL.");
       InfoMessages.error("Invalid URL.");
     } else {
-      Verbose.fatalError();
-      _fatalError(err);
+      Verbose.nonFatalError();
+      _nonFatalError(err);
     }
   }
 };
