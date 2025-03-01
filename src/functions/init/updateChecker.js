@@ -125,7 +125,7 @@ const _updateChecker = () => {
                   (BUILD === build && RELEASE_CANDIDATE > releaseCandidate));
 
               // If current build is newer than fetched build, ignore
-              if (!isOutdated) {
+              if (isOutdated) {
                 Verbose.custom(
                   "Build information fetched detected to be older than current build, exiting..."
                 );
