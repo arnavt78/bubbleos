@@ -64,8 +64,8 @@ class Verbose {
    *
    * @param {string} path The path to convert.
    */
-  static pathAbsolute(path) {
-    this.custom(`Converting path '${chalk.italic(path)}' to an absolute path...`);
+  static pathAbsolute() {
+    this.custom(`Converting path to an absolute path...`);
   }
 
   /**

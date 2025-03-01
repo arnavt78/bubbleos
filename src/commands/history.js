@@ -92,7 +92,7 @@ const history = (numToDisplay, ...args) => {
       );
       console.log(
         chalk.yellow(
-          `The history point ${numToDisplay} exceeds range of history points able to be stored (1-${NUMBER_TO_STORE}).\n`
+          `The history point ${numToDisplay} exceeds the range of history points able to be stored (1-${NUMBER_TO_STORE}).\n`
         )
       );
       return;

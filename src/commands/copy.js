@@ -170,6 +170,10 @@ const copy = (src, dest, ...args) => {
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showSrc);
+    } else if (err.code === "ERR_FS_CP_EINVAL") {
+      // If the user attempted to copy a file/directory to a subdirectory of itself
+      Verbose.custom("Error copying a file/directory to a subdirectory of itself...");
+      InfoMessages.error("Cannot copy the file/directory to a subdirectory of itself.");
     } else if (err.code === "ERR_FS_CP_DIR_TO_NON_DIR") {
       // If the user attempted to copy a directory to a non-directory
 

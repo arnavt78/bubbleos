@@ -78,13 +78,11 @@ const _fatalError = (err, doFileDump = true) => {
 
       const date = new Date();
       const errorInfoTxt = `BubbleOS encountered a fatal error at ${String(
-        date.getHours()
-      )}:${String(date.getMinutes()).padStart(2, "0")}:${String(date.getSeconds()).padStart(
+        date.getMonth() + 1
+      ).padStart(2, "0")}/${String(date.getDate()).padStart(
         2,
         "0"
-      )} on ${
-        date.getMonth() + 1
-      }/${date.getDate()}/${date.getFullYear()}.\nGive the developer this information by going to https://github.com/arnavt78/bubbleos/issues/new (GitHub account required).\n\n${errorArr.join(
+      )}/${date.getFullYear()}.\nGive the developer this information by going to https://github.com/arnavt78/bubbleos/issues/new (GitHub account required).\n\n${errorArr.join(
         "\n"
       )}\n`;
 

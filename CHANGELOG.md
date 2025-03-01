@@ -10,7 +10,11 @@ _No added features._
 
 ### Changed/Fixed Features
 
-_No changed/fixed features._
+- Changed the requirement for entering the 'all' keyword in `hash` to show all hashes; now to show all hashes, nothing has to be entered.
+- Fixed an issue where BubbleOS would crash when copying a file/directory to a subdirectory of itself.
+- Fixed an issue where the absolute path verbose message would always show _undefined_.
+- Fixed an issue where the help message for the `history` command would not show information about the `-c` argument.
+- Fixed an inconsistency issue where the fatal error information file would not have leading zeros in the date.
 
 ### Removed Features
 

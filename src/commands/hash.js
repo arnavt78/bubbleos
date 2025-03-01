@@ -93,9 +93,7 @@ const hash = async (file, ...args) => {
     Verbose.custom("Requesting user for hashes...");
     const requested = (
       await input({
-        message: `Enter the file hashes to be shown ('${chalk.italic(
-          "all"
-        )}') for all hashes; separate values with a space):`,
+        message: `Enter the file hashes to be shown (separate values with a space, or enter nothing for all values):`,
         theme: {
           style: {
             answer: (text) => chalk.reset(text),
@@ -107,9 +105,8 @@ const hash = async (file, ...args) => {
     Verbose.custom("Reading file...");
     const contents = fs.readFileSync(file, { encoding: "utf-8", flag: "r" });
 
-    // If user specifically requested all hashes, or entered nothing
-    const all =
-      (requested.length === 1 && requested[0].toLowerCase() === "all") || requested[0] === "";
+    // If user entered nothing, show all hashes
+    const all = requested[0] === "";
 
     console.log();
 

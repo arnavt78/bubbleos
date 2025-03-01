@@ -159,10 +159,11 @@
   },
 
   "history": {
-    "usage": "history [<place>]",
+    "usage": "history [<place>] [-c]",
     "desc": "Show the last fifty commands entered in {GLOBAL_NAME}. The history persists through sessions, as it is stored in the configuration file.",
     "args": {
-      "[<place>]": "Optionally show the exact command at the history point specified."
+      "[<place>]": "Optionally show the exact command at the history point specified.",
+      "[-c]": "Clear the history."
     },
     "hardAlias": false
   },
