@@ -2,7 +2,7 @@
   {
     "name": "Non-Fatal Error (BubbleOS)",
     "value": 1,
-    "description": "Crash BubbleOS with a fatal error."
+    "description": "Crash BubbleOS with a non-fatal error."
   },
   {
     "name": "Fatal Error (BubbleOS)",

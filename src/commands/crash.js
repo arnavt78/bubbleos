@@ -80,12 +80,12 @@ const crash = async (...args) => {
     if (index === 1) {
       // Non-fatal error
       Verbose.custom("Crashing method: non-fatal error.");
-      throw new Error(`${GLOBAL_NAME} was purposefully crashed with the 'crash' command.`);
+      throw new Error(`${GLOBAL_NAME} was purposely crashed with the 'crash' command`);
     } else if (index === 2) {
       // Fatal error
       Verbose.custom("Crashing method: fatal error.");
       try {
-        throw new Error(`${GLOBAL_NAME} was purposefully crashed with the 'crash' command.`);
+        throw new Error(`${GLOBAL_NAME} was purposely crashed with the 'crash' command`);
       } catch (err) {
         _fatalError(err);
       }

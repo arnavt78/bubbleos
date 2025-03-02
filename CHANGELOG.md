@@ -2,6 +2,22 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 200 RC3 to 200 RC4 (v2.0.0-rc3 to v2.0.0-rc4)
+
+### Added Features
+
+_No added features._
+
+### Changed/Fixed Features
+
+- Slightly changed the error message in the `crash` command.
+- Fixed an issue where the description of the non-fatal error in the crash command described it as a fatal error.
+- Fixed an issue where the _terminating BubbleOS process_ text in the fatal error was no longer bolded.
+
+### Removed Features
+
+_No removed features._
+
 ## Build 200 RC2 to 200 RC3 (v2.0.0-rc2 to v2.0.0-rc3)
 
 ### Added Features

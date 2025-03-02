@@ -114,7 +114,7 @@ const _fatalError = (err, doFileDump = true) => {
 
   question(chalk.red("Press the Enter key to continue . . . "), { hideEchoBack: true, mask: "" });
 
-  console.log(`\nTerminating ${GLOBAL_NAME} process...\n`);
+  console.log(chalk.bold(`\nTerminating ${GLOBAL_NAME} process...\n`));
   process.exit(1);
 };
 
