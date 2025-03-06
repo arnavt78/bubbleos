@@ -10,7 +10,7 @@ const _fatalError = require("../fatalError");
 const _welcomeMsg = () => {
   try {
     cfonts.say(GLOBAL_NAME, {
-      font: "block", // Closest to "ANSI Shadow"
+      font: "block",
       align: "left",
       gradient: ["red", "yellow", "green", "cyan", "blue", "magenta"], // Full rainbow effect
       independentGradient: true, // Apply gradient per letter

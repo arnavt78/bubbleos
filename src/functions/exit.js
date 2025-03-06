@@ -8,6 +8,12 @@ const _fatalError = require("./fatalError");
 const Verbose = require("../classes/Verbose");
 const SettingManager = require("../classes/SettingManager");
 
+/**
+ * Exits the BubbleOS shell gracefully.
+ *
+ * @param {boolean} showPrompt Whether to show the exit prompt or not. Defaults to `false`.
+ * @param {boolean} clearScreen Whether to clear the screen on exit or not. Defaults to `false`.
+ */
 const _exit = (showPrompt = false, clearScreen = false) => {
   try {
     if (new SettingManager().checkSetting("confirmExit") && showPrompt) {

@@ -10,8 +10,9 @@ _No added features._
 
 ### Changed/Fixed Features
 
-- Significally improved performance of the command interpreter.
+- Significantly improved performance of the command interpreter and `taskkill` command.
 - The `symlink` command no longer requires the `-c` argument to check if a path is a symbolic link. Instead, if one path is entered, the command will automatically check if the specified path is a symbolic link.
+- Changed the environment variables displayed in the `sysinfo` command to be alphabetically sorted.
 - Changed the _exiting BubbleOS shell_ message to be bolded.
 - Edited some tips to be correct due to recent changes.
 - Fixed an issue where entering a period at the end of a URL in the `ping` command would cause it to crash.

@@ -29,16 +29,10 @@ const tasklist = async (filter, ...args) => {
     Verbose.custom("Sorting processes by name...");
     processes.sort((a, b) => a.name.localeCompare(b.name));
 
-    let maxLength = 0;
     Verbose.custom("Finding the longest process name...");
-    if (filterUndefined) {
-      for (let i = 0; i < processes.length; i++) {
-        let len = processes[i].name.length;
-        if (len > maxLength) {
-          maxLength = len;
-        }
-      }
-    }
+    const maxLength = filterUndefined
+      ? processes.reduce((max, p) => Math.max(max, p.name.length), 0)
+      : filter.length;
 
     // Print the processes
     if (filterUndefined)

@@ -42,75 +42,49 @@ const taskkill = async (processName, ...args) => {
     Verbose.custom("Checking for running processes...");
     const processes = await psList();
 
-    let processExists;
-    let processObj;
-    let processNameFromPid;
+    const isPID = !isNaN(Number(processName));
+    const processList = isPID
+      ? [processes.find((p) => p.pid === Number(processName))].filter(Boolean)
+      : processes.filter((p) => p.name === processName);
 
-    if (!isNaN(Number(processName))) {
-      // processName is a PID
-      processExists = processes.some((obj) => obj.pid === Number(processName));
-      if (processExists) {
-        processObj = processes.find((obj) => obj.pid === Number(processName));
-        processNameFromPid = processObj ? processObj.name : null;
-      }
-    } else {
-      // processName is a process name
-      processExists = processes.some((obj) => obj.name === processName);
-      if (processExists) {
-        processObj = processes.find((obj) => obj.name === processName);
-        processNameFromPid = processObj ? processObj.name : null;
-      }
-    }
-
-    if (!processExists) {
+    if (processList.length === 0) {
       Verbose.custom(`The process '${processName}' was detected to not exist.`);
       Errors.doesNotExist("process", processName);
       return;
     }
 
     // If the user did not use the '-y' flag
+    const actualProcessName = processList.length > 0 ? processList[0].name : processName;
+
     if (confirm) {
       Verbose.promptUser();
       if (
-        !_promptForYN(
-          `Are you sure you want to kill the process ${chalk.bold(processNameFromPid)}?`
-        )
+        !_promptForYN(`Are you sure you want to kill the process ${chalk.bold(actualProcessName)}?`)
       ) {
         console.log(chalk.yellow("Process aborted.\n"));
         return;
       }
     }
 
-    if (!isNaN(Number(processName))) {
-      Verbose.custom("Attempting to kill process...");
-      process.kill(Number(processName));
+    processList.forEach((p) => {
+      try {
+        Verbose.custom(`Attempting to kill process ${p.name} (PID: ${p.pid})...`);
+        process.kill(p.pid);
 
-      // If the user did not request output, show a newline, else, show the success message
-      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
-        InfoMessages.success(`Successfully killed the process ${chalk.bold(processNameFromPid)}.`);
-      else console.log();
-    } else {
-      processes.forEach((obj) => {
-        if (obj.name === processName) {
-          Verbose.custom("Attempting to kill process...");
-          try {
-            process.kill(Number(obj.pid));
-
-            // If the user did not request output, show a newline, else, show the success message
-            if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
-              InfoMessages.success(`Successfully killed the process ${chalk.bold(processName)}.`);
-            else console.log();
-          } catch (err) {
-            // In case there are some processes that have perm errors,
-            // one error won't cause the command to terminate
-            if (err.code === "EPERM" || err.code === "EACCES") {
-              Verbose.permError();
-              Errors.noPermissions("kill the process", processName);
-            }
-          }
+        if (!new SettingManager().checkSetting("silenceSuccessMsgs")) {
+          InfoMessages.success(`Successfully killed the process ${chalk.bold(p.name)}.`);
+        } else {
+          console.log();
         }
-      });
-    }
+      } catch (err) {
+        // In case there are some processes that have perm errors,
+        // one error won't cause the command to terminate
+        if (err.code === "EPERM" || err.code === "EACCES") {
+          Verbose.permError();
+          Errors.noPermissions("kill the process", processName);
+        }
+      }
+    });
   } catch (err) {
     if (err.code === "EPERM" || err.code === "EACCES") {
       Verbose.permError();
