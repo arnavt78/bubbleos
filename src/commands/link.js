@@ -1,9 +1,6 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const { GLOBAL_NAME } = require("../variables/constants");
-
-const _promptForYN = require("../functions/promptForYN");
 const _nonFatalError = require("../functions/nonFatalError");
 
 const Errors = require("../classes/Errors");
@@ -22,26 +19,9 @@ const SettingManager = require("../classes/SettingManager");
  */
 const link = (path, newPath, ...args) => {
   try {
-    Verbose.initArgs();
-    const unlink = args.includes("-u") || newPath === "-u";
-    const confirm = !(args.includes("-y") || newPath === "-y");
-
-    if (!unlink) {
-      // Parse input and normalize paths when 'unlink' is false
-      Verbose.parseQuotes();
-      [path, newPath] = PathUtil.parseQuotes([path, newPath, ...args]);
-
-      Verbose.pathAbsolute(path);
-      path = PathUtil.all(path, { parseQuotes: false });
-
-      Verbose.pathAbsolute(newPath);
-      newPath = PathUtil.all(newPath, { parseQuotes: false });
-    } else {
-      // Parse input and normalize only the first path when 'unlink' is true
-      Verbose.pathAbsolute(path);
-      Verbose.parseQuotes();
-      path = PathUtil.all([path, newPath, ...args]);
-    }
+    Verbose.pathAbsolute(path);
+    Verbose.parseQuotes();
+    path = PathUtil.all([path, newPath, ...args]);
 
     Verbose.initChecker();
     const pathChk = new Checks(path);
@@ -61,28 +41,13 @@ const link = (path, newPath, ...args) => {
       Verbose.chkExists();
       Errors.doesNotExist("file/directory", showPath);
       return;
+    } else if (pathChk.validateType()) {
+      Verbose.chkType(showPath, "file");
+      Errors.expectedFile(showPath);
+      return;
     } else if (pathChk.pathUNC()) {
       Verbose.chkUNC();
       Errors.invalidUNCPath();
-      return;
-    }
-
-    if (unlink) {
-      // Unlinks file
-      if (confirm) {
-        Verbose.promptUser();
-        if (!_promptForYN(`Are you sure you want to unlink ${chalk.bold(showPath)}?`)) {
-          console.log(chalk.yellow("Process aborted.\n"));
-          return;
-        }
-      }
-
-      Verbose.custom("Unlinking file...");
-      fs.unlinkSync(path);
-
-      if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
-        InfoMessages.success(`Successfully unlinked ${chalk.bold(showPath)}.`);
-      else console.log();
       return;
     }
 
@@ -100,14 +65,8 @@ const link = (path, newPath, ...args) => {
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
     if (err.code === "EPERM" || err.code === "EACCES") {
-      // Note that on Windows (and maybe Linux/macOS), you need
-      // to run it with elevated privileges to make the command work.
       Verbose.permError();
-      InfoMessages.info(`Try running ${GLOBAL_NAME} with elevated privileges.`);
       Errors.noPermissions("make the link", showNewPath);
-    } else if (err.code === "EISDIR") {
-      Verbose.custom("Path cannot be unlinked as it is not a symbolic link.");
-      InfoMessages.error("The path cannot be unlinked as it is not a symbolic link.");
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showNewPath);

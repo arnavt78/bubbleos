@@ -176,12 +176,9 @@
   },
 
   "link": {
-    "usage": "link <source> [<link>] [-u] [-y]",
+    "usage": "link <source> <link>",
     "desc": "Create a hard link that points to the source. Hard links will replicate the data of the source, and will keep the data even when the source is deleted.",
-    "args": {
-      "[-u]": "Unlink a file. This will ultimately be a file, no matter if it is a link or not.",
-      "[-y]": "Automatically accept the confirmation prompt."
-    },
+    "args": {},
     "hardAlias": false
   },
 

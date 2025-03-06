@@ -12,16 +12,21 @@ _No added features._
 
 - The `symlink` command no longer requires the `-c` argument to check if a path is a symbolic link. Instead, if one path is entered, the command will automatically check if the specified path is a symbolic link.
 - Changed the _exiting BubbleOS shell_ message to be bolded.
+- Edited some tips to be correct due to recent changes.
 - Fixed an issue where the `mkfile` and `mkdir` commands would crash if the file/directory could not be deleted if it already exists.
 - Fixed an issue where the `symlink` command would crash if the symbolic link path already existed when making a symbolic link.
 - Fixed an issue where the `link` command would crash if unlinking a directory that was not a symbolic link.
+- Fixed an issue where the `link` command would allow the hard linking of directories, which would always cause an incorrect permission error.
+- Fixed an issue where the `sysinfo` command would print the CPU speed twice on some systems.
 - Fixed an issue where the description of the non-fatal error in the crash command described it as a fatal error.
 - Fixed an issue where the _terminating BubbleOS process_ text in the fatal error was no longer bolded.
 - Slightly changed the error message in the `crash` command.
 
 ### Removed Features
 
+- Removed the ability for the following commands to run in the pre-boot interpreter: `cd`, `exit`, `history`, `setmgr`, and `tips`.
 - Removed the `-c` argument from the `symlink` command. To check if a path is a symbolic link, simply enter one path.
+- Removed the `-u` (and `-y`, as a side-effect) arguments from the `link` command. To unlink a link or symbolic link, use the `del` command.
 
 ## Build 200 RC2 to 200 RC3 (v2.0.0-rc2 to v2.0.0-rc3)
 

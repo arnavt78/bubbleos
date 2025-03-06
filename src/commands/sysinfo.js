@@ -215,15 +215,13 @@ const sysinfo = async (...args) => {
       const cpuMap = new Map();
 
       cpus.forEach((cpu) => {
-        // Only include the speed if it's not 0
-        const speed = cpu.speed === 0 ? "" : ` @ ${(cpu.speed / 1000).toFixed(2)}GHz`;
-        const key = `${cpu.model}${speed}`;
+        let model = cpu.model.trim(); // Trim any leading/trailing spaces
+        let speedGHz = (cpu.speed / 1000).toFixed(2) + "GHz";
 
-        if (cpuMap.has(key)) {
-          cpuMap.set(key, cpuMap.get(key) + 1);
-        } else {
-          cpuMap.set(key, 1);
-        }
+        // Only append speed if it's not already in the model name
+        const key = model.includes(`@ ${speedGHz}`) ? model : `${model} @ ${speedGHz}`;
+
+        cpuMap.set(key, (cpuMap.get(key) || 0) + 1);
       });
 
       let cpuInfo = "CPU information: ";
