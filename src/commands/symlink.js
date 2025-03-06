@@ -1,9 +1,11 @@
 const chalk = require("chalk");
 const fs = require("fs");
+const { basename } = require("path");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _nonFatalError = require("../functions/nonFatalError");
+const _promptForYN = require("../functions/promptForYN");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -36,19 +38,20 @@ const SettingManager = require("../classes/SettingManager");
 const symlink = (target, path, ...args) => {
   try {
     // Initialize the 'check' argument as it defines whether or not to convert the new path to absolute
-    Verbose.initArgs();
-    const check = args.includes("-c") || path === "-c";
+    // Verbose.initArgs();
+    // const check = args.includes("-c") || path === "-c";
 
     // Replace spaces and then convert to an absolute path
     // Only if 'check' is false, convert the new path
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
-    if (!check) {
-      [target, path] = PathUtil.parseQuotes([target, path, ...args]);
-      target = PathUtil.all(target, { parseQuotes: false });
-      path = PathUtil.all(path, { parseQuotes: false });
-    } else {
-      target = PathUtil.all([target, path, ...args]);
+    [target, path] = PathUtil.parseQuotes([target, path, ...args]);
+    target = PathUtil.all(target, { parseQuotes: false });
+    path = PathUtil.all(path, { parseQuotes: false });
+
+    let check = false;
+    if (path?.trim() === "" || typeof path === "undefined") {
+      check = true;
     }
 
     Verbose.initChecker();
@@ -59,7 +62,7 @@ const symlink = (target, path, ...args) => {
     const showTarget = new SettingManager().fullOrBase(target);
     const showPath = new SettingManager().fullOrBase(path);
 
-    if (targetChk.paramUndefined() || pathChk.paramUndefined()) {
+    if (targetChk.paramUndefined()) {
       Verbose.chkEmpty();
       Errors.enterParameter("a path/the paths", "symlink target path");
       return;
@@ -88,7 +91,36 @@ const symlink = (target, path, ...args) => {
       return;
     }
 
-    if (target === path) {
+    if (pathChk.doesExist()) {
+      Verbose.promptUser();
+      if (
+        _promptForYN(
+          `The file/directory, '${chalk.italic(
+            basename(path)
+          )}', already exists. Would you like to delete it?`
+        )
+      ) {
+        try {
+          Verbose.custom("Deleting the path...");
+          fs.rmSync(path, { recursive: true, force: true });
+          InfoMessages.success(`Successfully deleted ${chalk.bold(showPath)}.`);
+        } catch (err) {
+          if (err.code === "EPERM" || err.code === "EACCES") {
+            Verbose.permError();
+            Errors.noPermissions("delete the file/directory", showPath);
+          } else if (err.code === "EBUSY") {
+            Verbose.inUseError();
+            Errors.inUse("file/directory", showPath);
+          }
+
+          InfoMessages.error(`Could not delete ${chalk.bold(showPath)}.`);
+          return;
+        }
+      } else {
+        console.log(chalk.yellow("Process aborted.\n"));
+        return;
+      }
+    } else if (target === path) {
       Verbose.custom("Detected that source and target are the same...");
       InfoMessages.error("Cannot create a symbolic where the source and target are the same.");
       return;

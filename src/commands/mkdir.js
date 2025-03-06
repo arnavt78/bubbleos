@@ -57,7 +57,7 @@ const mkdir = (dir, ...args) => {
           Verbose.custom("Deleting the directory...");
           fs.rmSync(dir, { recursive: true, force: true });
           InfoMessages.success(`Successfully deleted ${chalk.bold(showDir)}.`);
-        } catch {
+        } catch (err) {
           if (err.code === "EPERM" || err.code === "EACCES") {
             Verbose.permError();
             Errors.noPermissions("delete the directory", showDir);
@@ -66,6 +66,7 @@ const mkdir = (dir, ...args) => {
             Errors.inUse("directory", showDir);
           }
 
+          InfoMessages.error(`Could not delete ${chalk.bold(showPath)}.`);
           return;
         }
       } else {

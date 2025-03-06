@@ -163,7 +163,7 @@ const mkfile = async (file, ...args) => {
           Verbose.custom("Deleting the file...");
           fs.rmSync(file, { recursive: true, force: true });
           InfoMessages.success(`Successfully deleted ${chalk.bold(showFile)}.`);
-        } catch {
+        } catch (err) {
           if (err.code === "EPERM" || err.code === "EACCES") {
             Verbose.permError();
             Errors.noPermissions("delete the file", showFile);
@@ -172,6 +172,7 @@ const mkfile = async (file, ...args) => {
             Errors.inUse("file", showFile);
           }
 
+          InfoMessages.error(`Could not delete ${chalk.bold(showPath)}.`);
           return;
         }
       } else {

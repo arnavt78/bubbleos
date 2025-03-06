@@ -18,7 +18,7 @@ const AUTHOR = "Arnav Thorat";
  *
  * For betas, add `-beta` to the end of the version number, and for release candidates, add `-rc<ver>`, replacing `<ver>` with the release candidate version.
  */
-const VERSION = "2.0.0-rc3";
+const VERSION = "2.0.0-rc4";
 /**
  * The build of the shell.
  *
@@ -28,7 +28,7 @@ const BUILD = 200;
 /**
  * The release candidate of the shell. If set to `0`, it is not a release candidate.
  */
-const RELEASE_CANDIDATE = 3;
+const RELEASE_CANDIDATE = 4;
 
 /**
  * If the configuration file needs to be reset if it is an older version when loaded in this version.

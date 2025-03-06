@@ -19,7 +19,7 @@ const _exit = (showPrompt = false, clearScreen = false) => {
       }
     }
 
-    console.log(`Exiting the ${GLOBAL_NAME} shell...\n`);
+    console.log(chalk.bold(`Exiting the ${GLOBAL_NAME} shell...\n`));
 
     if (clearScreen) {
       process.stdout.write("\x1bc");

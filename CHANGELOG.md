@@ -10,13 +10,17 @@ _No added features._
 
 ### Changed/Fixed Features
 
-- Slightly changed the error message in the `crash` command.
+- The `symlink` command no longer requires the `-c` argument to check if a path is a symbolic link. Instead, if one path is entered, the command will automatically check if the specified path is a symbolic link.
+- Changed the _exiting BubbleOS shell_ message to be bolded.
+- Fixed an issue where the `mkfile` and `mkdir` commands would crash if the file/directory could not be deleted if it already exists.
+- Fixed an issue where the `symlink` command would crash if the symbolic link path already existed when making a symbolic link.
 - Fixed an issue where the description of the non-fatal error in the crash command described it as a fatal error.
 - Fixed an issue where the _terminating BubbleOS process_ text in the fatal error was no longer bolded.
+- Slightly changed the error message in the `crash` command.
 
 ### Removed Features
 
-_No removed features._
+- Removed the `-c` argument from the `symlink` command. To check if a path is a symbolic link, simply enter one path.
 
 ## Build 200 RC2 to 200 RC3 (v2.0.0-rc2 to v2.0.0-rc3)
 

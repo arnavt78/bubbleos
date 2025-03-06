@@ -137,7 +137,7 @@ const _updateChecker = () => {
               const message =
                 `A new ${GLOBAL_NAME} version, ` +
                 `${chalk.yellow(releaseInfo.tag)} ` +
-                `(${chalk.magenta(releaseInfo.name.toLowerCase())}), ` +
+                `(${chalk.magenta(releaseInfo.name)}), ` +
                 `was released on ${chalk.green(_formatDate(releaseInfo.published))}!\n` +
                 `Download at: ${chalk.cyan.underline(releaseInfo.url)}`;
 
