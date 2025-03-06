@@ -14,6 +14,7 @@ _No added features._
 - Changed the _exiting BubbleOS shell_ message to be bolded.
 - Fixed an issue where the `mkfile` and `mkdir` commands would crash if the file/directory could not be deleted if it already exists.
 - Fixed an issue where the `symlink` command would crash if the symbolic link path already existed when making a symbolic link.
+- Fixed an issue where the `link` command would crash if unlinking a directory that was not a symbolic link.
 - Fixed an issue where the description of the non-fatal error in the crash command described it as a fatal error.
 - Fixed an issue where the _terminating BubbleOS process_ text in the fatal error was no longer bolded.
 - Slightly changed the error message in the `crash` command.

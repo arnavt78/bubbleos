@@ -172,7 +172,7 @@ const mkfile = async (file, ...args) => {
             Errors.inUse("file", showFile);
           }
 
-          InfoMessages.error(`Could not delete ${chalk.bold(showPath)}.`);
+          InfoMessages.error(`Could not delete ${chalk.bold(showFile)}.`);
           return;
         }
       } else {

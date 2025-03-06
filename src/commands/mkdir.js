@@ -66,7 +66,7 @@ const mkdir = (dir, ...args) => {
             Errors.inUse("directory", showDir);
           }
 
-          InfoMessages.error(`Could not delete ${chalk.bold(showPath)}.`);
+          InfoMessages.error(`Could not delete ${chalk.bold(showDir)}.`);
           return;
         }
       } else {

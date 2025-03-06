@@ -1,6 +1,8 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
+const { GLOBAL_NAME } = require("../variables/constants");
+
 const _promptForYN = require("../functions/promptForYN");
 const _nonFatalError = require("../functions/nonFatalError");
 
@@ -98,8 +100,14 @@ const link = (path, newPath, ...args) => {
     const showNewPath = new SettingManager().fullOrBase(newPath);
 
     if (err.code === "EPERM" || err.code === "EACCES") {
+      // Note that on Windows (and maybe Linux/macOS), you need
+      // to run it with elevated privileges to make the command work.
       Verbose.permError();
+      InfoMessages.info(`Try running ${GLOBAL_NAME} with elevated privileges.`);
       Errors.noPermissions("make the link", showNewPath);
+    } else if (err.code === "EISDIR") {
+      Verbose.custom("Path cannot be unlinked as it is not a symbolic link.");
+      InfoMessages.error("The path cannot be unlinked as it is not a symbolic link.");
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showNewPath);
