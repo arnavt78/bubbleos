@@ -30,7 +30,13 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
   };
 
   Verbose.custom("Creating formatted URL...");
-  const formattedURL = (options.host + options.path).replace(/^www\.|\/+$/g, "");
+  let formattedURL = (options.host + options.path).replace(/^www\.|\/+$/g, "");
+
+  if (formattedURL.endsWith(".")) {
+    Verbose.custom("Removing trailing period from URL...");
+    formattedURL = formattedURL.slice(0, -1);
+    options.host = formattedURL;
+  }
 
   // The reason resolve() is used everywhere is because if
   // reject() is used, BubbleOS will crash
@@ -109,14 +115,15 @@ const _makeConnection = async (host, path = "", maxRedirects = 5) => {
  * Pings a specified address and returns the status
  * code and message that was given by the server.
  *
- * @param {string} host The host address to ping.
- * @param {...string} args Arguments that can be used to modify the behavior of this command.
+ * @param {...string} host The host address to ping.
  */
-const ping = async (host, ...args) => {
+const ping = async (...host) => {
   try {
+    host = host.join(" ");
+
     if (new Checks(host).paramUndefined()) {
       Verbose.chkEmpty();
-      Errors.enterParameter("a host", "ping www.google.com");
+      Errors.enterParameter("a host", "ping google.com");
       return;
     }
 

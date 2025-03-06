@@ -10,9 +10,11 @@ _No added features._
 
 ### Changed/Fixed Features
 
+- Significally improved performance of the command interpreter.
 - The `symlink` command no longer requires the `-c` argument to check if a path is a symbolic link. Instead, if one path is entered, the command will automatically check if the specified path is a symbolic link.
 - Changed the _exiting BubbleOS shell_ message to be bolded.
 - Edited some tips to be correct due to recent changes.
+- Fixed an issue where entering a period at the end of a URL in the `ping` command would cause it to crash.
 - Fixed an issue where the `mkfile` and `mkdir` commands would crash if the file/directory could not be deleted if it already exists.
 - Fixed an issue where the `symlink` command would crash if the symbolic link path already existed when making a symbolic link.
 - Fixed an issue where the `link` command would crash if unlinking a directory that was not a symbolic link.
