@@ -9,7 +9,7 @@
   "You can use the 'bub' command to make a batch-like file that contains {GLOBAL_NAME} commands.",
   "You can do a 'cut' action by using the 'rename' command and specifying different paths.",
   "On most commands that have a confirmation prompt, you can use the '-y' flag to automatically accept prompts.",
-  "The 'crash' command can crash BubbleOS, hang the terminal, cause a memory leak, and crash Windows with a BSOD!",
+  "The 'crash' command can crash {GLOBAL_NAME}, hang the terminal, cause a memory leak, and crash Windows with a BSOD!",
   "The 'stat' command shows various information about a file/directory!",
   "The 'dirtree' command shows nested files and directories inside of a specified directory.",
   "You can run executable files using the 'exec' command, even if they are not executable!",

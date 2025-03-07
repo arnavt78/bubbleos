@@ -109,12 +109,10 @@
   },
 
   "exec": {
-    "usage": "exec <file> [-h] [--sh]",
+    "usage": "exec <file>",
     "desc": "Run an executable. {GLOBAL_NAME} will attempt to execute all files, regardless of if they are an executable or not.",
     "args": {
-      "<file>": "The executable file path. Note that a file may show a success message while not successfully executing.",
-      "[-h]": "Hide the subprocess console window that would be created on Windows systems.",
-      "[--sh]": "Run the executable inside a shell."
+      "<file>": "The executable file path. Note that a file may show a success message while not successfully executing."
     },
     "hardAlias": false
   },

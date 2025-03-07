@@ -1,5 +1,5 @@
 const chalk = require("chalk");
-const childProcess = require("child_process");
+const execa = require("execa");
 
 const _nonFatalError = require("../functions/nonFatalError");
 
@@ -17,16 +17,10 @@ const SettingManager = require("../classes/SettingManager");
  * that BubbleOS will not validate extensions, there are chances
  * when a file cannot run, even when the success message is shown.
  *
- * Available arguments:
- * - `-h`: Hide the subprocess console window that would normally
- * be created on Windows systems.
- * - `--sh`: If this argument is passed, the executable will run
- * inside of a shell.
- *
  * @param {string} file The filename to execute. Both absolute and relative paths are accepted.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
-const exec = (file, ...args) => {
+const exec = async (file, ...args) => {
   try {
     Verbose.pathAbsolute();
     Verbose.parseQuotes();
@@ -37,10 +31,6 @@ const exec = (file, ...args) => {
 
     Verbose.initShowPath();
     const showFile = new SettingManager().fullOrBase(file);
-
-    Verbose.initArgs();
-    const winHide = args.includes("-h");
-    const shell = args.includes("--sh");
 
     if (fileChk.paramUndefined()) {
       Verbose.chkEmpty();
@@ -62,12 +52,15 @@ const exec = (file, ...args) => {
       return;
     }
 
-    // Execute the file
-    // Not using execSync() as that does not let BubbleOS continue
-    // unless the window is closed. This should be used instead, with an
-    // empty callback function.
+    // Execute the file without blocking the main process
     Verbose.custom(`Executing the file '${file}'...`);
-    childProcess.exec(file, { cwd: process.cwd(), windowsHide: winHide, shell }, () => {});
+    const subprocess = execa(file, [], {
+      cwd: process.cwd(),
+      detached: true, // Allows independent execution
+      stdio: "ignore", // Prevents waiting for output
+    });
+
+    subprocess.unref(); // Fully detach process from parent
 
     if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
       InfoMessages.success(`Successfully executed ${chalk.bold(showFile)}.`);

@@ -3,7 +3,7 @@ const { select } = require("@inquirer/prompts");
 const isElevated = require("is-elevated");
 const execa = require("execa");
 
-const CRASHES = require("../data/crashes.json");
+const CRASHES_RAW = require("../data/crashes.json");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
@@ -14,6 +14,12 @@ const _exit = require("../functions/exit");
 
 const InfoMessages = require("../classes/InfoMessages");
 const Verbose = require("../classes/Verbose");
+
+const CRASHES = CRASHES_RAW.map((crash) => ({
+  ...crash,
+  name: crash.name.replace(/\{GLOBAL_NAME\}/g, GLOBAL_NAME),
+  description: crash.description.replace(/\{GLOBAL_NAME\}/g, GLOBAL_NAME),
+}));
 
 /**
  * Crash BubbleOS and the terminal in many ways.

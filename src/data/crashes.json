@@ -1,13 +1,13 @@
 [
   {
-    "name": "Non-Fatal Error (BubbleOS)",
+    "name": "Non-Fatal Error ({GLOBAL_NAME})",
     "value": 1,
-    "description": "Crash BubbleOS with a non-fatal error."
+    "description": "Crash {GLOBAL_NAME} with a non-fatal error."
   },
   {
-    "name": "Fatal Error (BubbleOS)",
+    "name": "Fatal Error ({GLOBAL_NAME})",
     "value": 2,
-    "description": "Crash BubbleOS with a fatal error."
+    "description": "Crash {GLOBAL_NAME} with a fatal error."
   },
   {
     "name": "Hang",

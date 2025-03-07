@@ -60,7 +60,7 @@ const _nonFatalError = (err) => {
 
     console.log();
 
-    if (!_promptForYN("Would you like to continue using BubbleOS?")) {
+    if (!_promptForYN(`Would you like to continue using ${GLOBAL_NAME}?`)) {
       console.log(chalk.bold(`\nTerminating ${GLOBAL_NAME} process...\n`));
       process.exit(1);
     }

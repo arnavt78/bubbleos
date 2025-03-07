@@ -137,7 +137,7 @@ class Verbose {
    * Verbose message describing the fact that the path was detected to be a UNC path.
    */
   static chkUNC() {
-    this.custom("Path was detected to be a UNC path, which is not supported by BubbleOS.");
+    this.custom(`Path was detected to be a UNC path, which is not supported by ${GLOBAL_NAME}.`);
   }
 
   /**
