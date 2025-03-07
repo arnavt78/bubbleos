@@ -197,15 +197,17 @@ const sysinfo = async (...args) => {
         if (!isNaN(batteryPercent)) {
           // The Math.floor() is to prevent a floating-point precision
           // error that can occur sometimes
-          console.log(
-            `Battery level: ${chalk.bold(
-              `${await _determineColor(
-                "battery",
-                Math.floor(batteryPercent * 100) + "%" + (onCharge ? " (charging)" : ""),
-                { onCharge, batteryPercent } // To minimize lag, pass the variables that were already defined
-              )}`
-            )}`
-          );
+          const batteryDisplay = `${Math.floor(batteryPercent * 100)}%${
+            onCharge ? " (charging)" : ""
+          }`;
+
+          // Determine color before logging (reducing await usage inside template literals)
+          const coloredBattery = await _determineColor("battery", batteryDisplay, {
+            onCharge,
+            batteryPercent,
+          });
+
+          console.log(`Battery level: ${chalk.bold(coloredBattery)}`);
         }
       } catch {}
 
@@ -215,11 +217,9 @@ const sysinfo = async (...args) => {
       const cpuMap = new Map();
 
       cpus.forEach((cpu) => {
-        let model = cpu.model.trim(); // Trim any leading/trailing spaces
-        let speedGHz = (cpu.speed / 1000).toFixed(2) + "GHz";
-
-        // Only append speed if it's not already in the model name
-        const key = model.includes(`@ ${speedGHz}`) ? model : `${model} @ ${speedGHz}`;
+        const model = cpu.model.replace(/@\s*\d+(\.\d+)?GHz/, "").trim(); // Remove existing speed
+        const speedGHz = (cpu.speed / 1000).toFixed(2) + "GHz";
+        const key = `${model} @ ${speedGHz}`;
 
         cpuMap.set(key, (cpuMap.get(key) || 0) + 1);
       });
@@ -231,7 +231,6 @@ const sysinfo = async (...args) => {
 
       // Remove the trailing comma and space
       cpuInfo = cpuInfo.slice(0, -2);
-
       console.log(cpuInfo);
       console.log();
     }

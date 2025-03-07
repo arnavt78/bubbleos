@@ -19,64 +19,64 @@ const SettingManager = require("../classes/SettingManager");
  * Options:
  * - `short`: If the directory should be in a short
  * view or not. Default: `false`.
- * - `max`: Only applies if `short` is `true`. The
- * maximum padding to the end of each item.
  *
  * @param {[ { name: string, type: string, isSymlink: boolean } ]} contents An array of objects containing information about the files/directories.
  * @param {{ short: boolean, max: boolean }} options Options to modify the behavior of `_logDirContents()`.
  * @returns A string with the final value.
  */
-const _logDirContents = (contents, options = { short: false, max: undefined }) => {
+const _logDirContents = (contents, options = { short: false }) => {
   let dirStr = "";
 
-  for (let i = 1; i < Object.keys(contents).length + 1; i++) {
-    Verbose.custom(`Item #${i} of directory.`);
-    let item = contents[i - 1];
+  // Compute max length for short view (longest name + 5)
+  const maxLength = Math.max(...contents.map((item) => item.name.length), 0) + 5;
 
-    if (item.type === "file" && item.isSymlink) {
-      // Is file and is a symbolic link
-      Verbose.custom("Item is a file and symbolic link...");
-      if (options.short) dirStr += chalk.red(item.name).padEnd(options.max);
-      else dirStr += chalk.red(item.name);
-    } else if (item.type === "folder" && item.isSymlink) {
-      // Is folder and is symbolic link
-      Verbose.custom("Item is a folder and symbolic link...");
-      if (options.short) dirStr += chalk.bgRed(` ${item.name} `).padEnd(options.max);
-      else dirStr += chalk.bold.red(item.name);
-    } else if (item.type === "file") {
-      // Is file
-      Verbose.custom("Item is a file...");
-      if (options.short) dirStr += chalk.green(item.name).padEnd(options.max);
-      else dirStr += chalk.green(item.name);
-    } else if (
-      item.type === "folder" &&
-      (item.name.startsWith(".") || item.name.startsWith("_") || item.name.startsWith("$"))
-    ) {
-      // Is folder and is most likely hidden
-      Verbose.custom("Item is a hidden folder...");
-      if (options.short) dirStr += chalk.bgGrey(` ${item.name} `).padEnd(options.max);
-      else dirStr += chalk.bold.grey(item.name);
-    } else if (item.type === "folder") {
-      // Is folder
-      Verbose.custom("Item is a folder...");
-      if (options.short) dirStr += chalk.bgBlue(` ${item.name} `).padEnd(options.max);
-      else dirStr += chalk.bold.blue(item.name);
-    } else {
-      // Unknown type
-      Verbose.custom(`Item '${item.type}' is unknown...`);
-      if (options.short) dirStr += chalk.italic(item.name).padEnd(options.max);
-      else dirStr += chalk.italic(item.name);
+  contents.forEach((item, index) => {
+    const { type, name, isSymlink } = item;
+    const isHidden = name.startsWith(".") || name.startsWith("_") || name.startsWith("$");
+
+    Verbose.custom(`Item #${index + 1} of directory.`);
+
+    // Apply padding before styling
+    const paddedName = options.short ? name.padEnd(maxLength) : name;
+
+    // Determine chalk style based on type
+    let styledName;
+    switch (true) {
+      case type === "file" && isSymlink:
+        Verbose.custom("Item is a file and symbolic link...");
+        styledName = chalk.red(paddedName);
+        break;
+      case type === "folder" && isSymlink:
+        Verbose.custom("Item is a folder and symbolic link...");
+        styledName = chalk.bold.red(paddedName);
+        break;
+      case type === "file":
+        Verbose.custom("Item is a file...");
+        styledName = chalk.green(paddedName);
+        break;
+      case type === "folder" && isHidden:
+        Verbose.custom("Item is a hidden folder...");
+        styledName = chalk.bold.gray(paddedName);
+        break;
+      case type === "folder":
+        Verbose.custom("Item is a folder...");
+        styledName = chalk.bold.blue(paddedName);
+        break;
+      default:
+        Verbose.custom(`Item '${type}' is unknown...`);
+        styledName = chalk.italic(paddedName);
     }
 
-    if (i % 3 === 0 && options.short) {
-      // If there are already three rows and the user requested a short view, make a new column
+    dirStr += styledName;
+
+    // Handle line breaks
+    if (options.short && (index + 1) % 3 === 0) {
       Verbose.custom("Three rows and short view, making new column...");
       dirStr += "\n";
-    } else if (!options.short && i !== Object.keys(contents).length) {
-      // If the user wanted the normal view and 'i' is not the final occurrence
+    } else if (!options.short && index !== contents.length - 1) {
       dirStr += "\n";
     }
-  }
+  });
 
   return dirStr + "\n";
 };
@@ -148,18 +148,12 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
       return;
     }
 
-    const options = { short };
     if (short) {
-      // If the user wanted a short view, find the longest filename for the file/directory
-      Verbose.custom("Finding longest file/folder name...");
-      const maxLength = Math.max(...all.map((el) => el.name.length));
-      options.max = maxLength * 2;
-
       Verbose.custom("Logging directory contents in short form...");
-      console.log(_logDirContents(all, options));
+      console.log(_logDirContents(all, { short }));
     } else {
       Verbose.custom("Logging directory contents in long form...");
-      console.log(_logDirContents(all, options));
+      console.log(_logDirContents(all, { short }));
     }
   } catch (err) {
     if (err.code === "EPERM" || err.code === "EACCES") {

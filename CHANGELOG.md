@@ -14,6 +14,7 @@ _No added features._
 - The `symlink` command no longer requires the `-c` argument to check if a path is a symbolic link. Instead, if one path is entered, the command will automatically check if the specified path is a symbolic link.
 - Modified the internal system of executing files in the `exec` command, allowing it to be faster and more flexible.
 - Changed the environment variables displayed in the `sysinfo` command to be alphabetically sorted.
+- The short view in the `ls` command now has folders bolded rather than highlighted.
 - Changed the _exiting BubbleOS shell_ message to be bolded.
 - Edited some tips to be correct due to recent changes.
 - Fixed an issue where entering a period at the end of a URL in the `ping` command would cause it to crash.
@@ -23,8 +24,8 @@ _No added features._
 - Fixed an issue where the `link` command would allow the hard linking of directories, which would always cause an incorrect permission error.
 - Fixed an issue where the `sysinfo` command would print the CPU speed twice on some systems.
 - Fixed an issue where the description of the non-fatal error in the `crash` command described it as a fatal error.
-- Fixed an issue where the BubbleOS name was hardcoded in some areas.
 - Fixed an issue where the _terminating BubbleOS process_ text in the fatal error was no longer bolded.
+- Fixed an issue where the BubbleOS name was hardcoded in some areas.
 - Slightly changed the error message in the `crash` command.
 
 ### Removed Features
