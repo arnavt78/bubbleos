@@ -70,7 +70,7 @@ const _getDate = (date) => {
  * @param {string} path The file/directory to get information on.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
-const stat = (path, ...args) => {
+const stat = (path = process.cwd(), ...args) => {
   try {
     // Converts path to an absolute path and corrects
     // casing on Windows, and resolves spaces

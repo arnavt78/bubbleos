@@ -2,6 +2,21 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 200 RC4 to 200 RC5 (v2.0.0-rc3 to v2.0.0-rc5)
+
+### Added Features
+
+_No added features._
+
+### Changed/Fixed Features
+
+- Changed the `stat` command to automatically retrieve the stats of the current directory if no path is specified.
+- Fixed an issue where reading an empty directory with `dirtree` would not show a message saying the directory was empty.
+
+### Removed Features
+
+_No removed features._
+
 ## Build 200 RC3 to 200 RC4 (v2.0.0-rc3 to v2.0.0-rc4)
 
 ### Added Features

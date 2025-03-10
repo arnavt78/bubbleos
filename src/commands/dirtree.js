@@ -93,6 +93,13 @@ const dirtree = (dir = process.cwd(), ...args) => {
       return;
     }
 
+    // If there is nothing in the directory
+    if (fs.readdirSync(dir).length === 0) {
+      Verbose.custom("No files or folders were detected in the directory...");
+      console.log(chalk.yellow("There are no files/directories in the directory.\n"));
+      return;
+    }
+
     // Start the tree generation
     Verbose.custom("Logging current directory...");
     console.log(chalk.bold(PathUtil.convertAbsolute(dir)));
