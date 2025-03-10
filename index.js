@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const chalk = require("chalk");
-const { input } = require("@inquirer/prompts");
+const { question } = require("readline-sync");
 
 const {
   GLOBAL_NAME,
@@ -13,14 +13,13 @@ const {
 
 const _intCmds = require("./src/functions/interpret");
 const _detectArgs = require("./src/functions/detectArgs");
-const _exit = require("./src/functions/exit");
 
 const Verbose = require("./src/classes/Verbose");
 const PathUtil = require("./src/classes/PathUtil");
 
 (async () => {
   // Check if terminal supports color
-  // Verbose.custom("Checking terminal color support..."); // <- It would look weird if the terminal doesn't support color
+  Verbose.custom("Checking terminal color support...");
   require("./src/functions/init/colorSupport")();
 
   // Initialize timebomb
@@ -70,33 +69,23 @@ const PathUtil = require("./src/classes/PathUtil");
   Verbose.custom("Initializing update checker...");
   await require("./src/functions/init/updateChecker")();
 
-  // If the BubbleOS process is killed, exit gracefully
-  // Works during the CLI
-  process.once("SIGTERM", _exit);
+  // TODO Change the prompt to use built-in readline module,
+  // to allow for Ctrl+C handling and command history cycling
+  // on all OSes. When doing so, there are a few bugs:
+  //  - All commands must be converted into async
+  //  - All stdin such as in mkfile will need to be dealt with
+  //    as it acts like the CLI
 
   // CLI of BubbleOS
   Verbose.custom("Starting command interpreter...");
   while (true) {
-    try {
-      const command = await input({
-        message: `${chalk.blueBright(PathUtil.caseSensitive(process.cwd()))} ${chalk.red("$")}`,
-        theme: {
-          prefix: chalk.bold.green(SHORT_NAME.toLowerCase()),
-          style: {
-            answer: (text) => chalk.reset(text),
-          },
-        },
-      });
+    const command = question(
+      `${chalk.bold.green(SHORT_NAME.toLowerCase())} ${chalk.blueBright(process.cwd())} ${chalk.red(
+        "$"
+      )} `
+    );
 
-      Verbose.custom("Interpreting command...");
-      await _intCmds(command?.trim());
-    } catch ({ name }) {
-      if (name === "ExitPromptError") {
-        // If the user presses Ctrl+C, exit BubbleOS gracefully
-        // Note this does not catch if a command is executing
-        Verbose.custom("Detected Ctrl+C, exiting...");
-        _exit(false, false);
-      }
-    }
+    Verbose.custom("Interpreting command...");
+    await _intCmds(command?.trim());
   }
 })();

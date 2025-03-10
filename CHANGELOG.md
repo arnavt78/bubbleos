@@ -11,6 +11,7 @@ _No added features._
 ### Changed/Fixed Features
 
 - Significantly improved performance of the command interpreter and `taskkill` command.
+- Reverted the changes from a few builds ago to use the older prompt, to allow cycling through previous commands on Windows. This may be fixed in a future build.
 - The `symlink` command no longer requires the `-c` argument to check if a path is a symbolic link. Instead, if one path is entered, the command will automatically check if the specified path is a symbolic link.
 - Modified the internal system of executing files in the `exec` command, allowing it to be faster and more flexible.
 - Changed the environment variables displayed in the `sysinfo` command to be alphabetically sorted.
