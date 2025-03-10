@@ -80,9 +80,9 @@ const PathUtil = require("./src/classes/PathUtil");
   Verbose.custom("Starting command interpreter...");
   while (true) {
     const command = question(
-      `${chalk.bold.green(SHORT_NAME.toLowerCase())} ${chalk.blueBright(process.cwd())} ${chalk.red(
-        "$"
-      )} `
+      `${chalk.bold.green(SHORT_NAME.toLowerCase())} ${chalk.blueBright(
+        PathUtil.caseSensitive(process.cwd())
+      )} ${chalk.red("$")} `
     );
 
     Verbose.custom("Interpreting command...");
