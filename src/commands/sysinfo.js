@@ -261,7 +261,9 @@ const sysinfo = async (...args) => {
       console.log(`${chalk.bold.underline("Environment Variables")}`);
 
       // Get the keys and values of all environment variables
-      for (const [key, value] of Object.entries(process.env).sort()) {
+      for (const [key, value] of Object.entries(process.env).sort((a, b) =>
+        a[0].localeCompare(b[0], "en", { sensitivity: "base" })
+      )) {
         console.log(`${chalk.green(key)}: ${value}`);
       }
 

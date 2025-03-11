@@ -14,6 +14,7 @@ _No added features._
 - Changed all references from "folder" to "directory" to help create a consistency of terminology usage.
 - Changed the `sysinfo` CPU information so that the speed will not be outputted if it is zero, and the CPU information will not be shown if BubbleOS is unable to get CPU information.
 - Fixed an issue where reading an empty directory with `dirtree` would not show a message saying the directory was empty.
+- Fixed an issue where the alphabetial sorting of the `sysinfo` command would sort by words starting with uppercase letters first.
 
 ### Removed Features
 
