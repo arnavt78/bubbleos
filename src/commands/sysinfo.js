@@ -216,22 +216,25 @@ const sysinfo = async (...args) => {
       const cpus = os.cpus();
       const cpuMap = new Map();
 
-      cpus.forEach((cpu) => {
-        const model = cpu.model.replace(/@\s*\d+(\.\d+)?GHz/, "").trim(); // Remove existing speed
-        const speedGHz = (cpu.speed / 1000).toFixed(2) + "GHz";
-        const key = `${model} @ ${speedGHz}`;
+      if (cpus.length !== 0) {
+        cpus.forEach((cpu) => {
+          const model = cpu.model.replace(/@\s*\d+(\.\d+)?GHz/, "").trim(); // Remove existing speed
+          const speedGHz = (cpu.speed / 1000).toFixed(2) + "GHz";
+          const key = `${model}${speedGHz > 0 ? ` @ ${speedGHz}` : ""}`;
 
-        cpuMap.set(key, (cpuMap.get(key) || 0) + 1);
-      });
+          cpuMap.set(key, (cpuMap.get(key) || 0) + 1);
+        });
 
-      let cpuInfo = "CPU information: ";
-      cpuMap.forEach((count, key) => {
-        cpuInfo += `${chalk.bold(key)}${count > 1 ? ` x ${count}` : ""}, `;
-      });
+        let cpuInfo = "CPU information: ";
+        cpuMap.forEach((count, key) => {
+          cpuInfo += `${chalk.bold(key)}${count > 1 ? ` x ${count}` : ""}, `;
+        });
 
-      // Remove the trailing comma and space
-      cpuInfo = cpuInfo.slice(0, -2);
-      console.log(cpuInfo);
+        // Remove the trailing comma and space
+        cpuInfo = cpuInfo.slice(0, -2);
+        console.log(cpuInfo);
+      }
+
       console.log();
     }
 

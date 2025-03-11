@@ -49,7 +49,7 @@
       "<dest>": "The destination file/directory's name. If the path already exists, it will be overwritten.",
       "[-y]": "Automatically accept the confirmation prompt.",
       "[-t]": "Only for copying directories. Keeps the original timestamps of the nested files/directories.",
-      "[--rm-symlink]": "Only for copying directories. If a file/folder in the directory is a symbolic link, it will be replaced by the contents of the path it was pointing to."
+      "[--rm-symlink]": "Only for copying directories. If a file/directory in the directory is a symbolic link, it will be replaced by the contents of the path it was pointing to."
     },
     "hardAlias": false
   },
@@ -93,7 +93,7 @@
 
   "dirtree": {
     "usage": "dirtree [<path>]",
-    "desc": "Shows files and folders inside of the directory specified, including nested files and folders, in a tree-like format.",
+    "desc": "Shows files and directories inside of the directory specified, including nested files and directories, in a tree-like format.",
     "args": {
       "[<path>]": "Optionally specify a directory. By default, {GLOBAL_NAME} will use the current working directory."
     },
@@ -101,7 +101,7 @@
   },
   "tree": {
     "usage": "tree [<path>]",
-    "desc": "Shows files and folders inside of the directory specified, including nested files and folders, in a tree-like format.",
+    "desc": "Shows files and directories inside of the directory specified, including nested files and directories, in a tree-like format.",
     "args": {
       "[<path>]": "Optionally specify a directory. By default, {GLOBAL_NAME} will use the current working directory."
     },

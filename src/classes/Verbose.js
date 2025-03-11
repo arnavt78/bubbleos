@@ -61,8 +61,6 @@ class Verbose {
 
   /**
    * Verbose message describing conversion of the path to an absolute path.
-   *
-   * @param {string} path The path to convert.
    */
   static pathAbsolute() {
     this.custom(`Converting path to an absolute path...`);

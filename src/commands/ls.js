@@ -46,20 +46,20 @@ const _logDirContents = (contents, options = { short: false }) => {
         Verbose.custom("Item is a file and symbolic link...");
         styledName = chalk.red(paddedName);
         break;
-      case type === "folder" && isSymlink:
-        Verbose.custom("Item is a folder and symbolic link...");
+      case type === "directory" && isSymlink:
+        Verbose.custom("Item is a directory and symbolic link...");
         styledName = chalk.bold.red(paddedName);
         break;
       case type === "file":
         Verbose.custom("Item is a file...");
         styledName = chalk.green(paddedName);
         break;
-      case type === "folder" && isHidden:
-        Verbose.custom("Item is a hidden folder...");
+      case type === "directory" && isHidden:
+        Verbose.custom("Item is a hidden directory...");
         styledName = chalk.bold.gray(paddedName);
         break;
-      case type === "folder":
-        Verbose.custom("Item is a folder...");
+      case type === "directory":
+        Verbose.custom("Item is a directory...");
         styledName = chalk.bold.blue(paddedName);
         break;
       default:
@@ -112,7 +112,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
 
     if (!dirChk.doesExist()) {
       Verbose.chkExists(dir);
-      Errors.doesNotExist("folder", showDir);
+      Errors.doesNotExist("directory", showDir);
       return;
     } else if (!dirChk.validateType()) {
       Verbose.chkType(dir, "directory");
@@ -125,25 +125,25 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
     }
 
     // Get all properties about each file and directory in a directory
-    Verbose.custom("Getting properties of all file and folders in directory...");
+    Verbose.custom("Getting properties of all file and directories...");
     const items = fs
       .readdirSync(dir, { withFileTypes: true })
       .map((item) => ({
         name: item.name,
-        type: item.isDirectory() ? "folder" : "file",
+        type: item.isDirectory() ? "directory" : "file",
         isSymlink: item.isSymbolicLink(),
       }))
       .sort();
 
-    // Filter all items by 'folder' first and then 'file'
-    Verbose.custom("Sorting items by folder first and then files...");
+    // Filter all items by 'directory' first and then 'file'
+    Verbose.custom("Sorting items by directory first and then files...");
     const all = items
-      .filter((item) => item.type === "folder")
+      .filter((item) => item.type === "directory")
       .concat(items.filter((item) => item.type === "file"));
 
     // If there is nothing in the directory
     if (all.length === 0) {
-      Verbose.custom("No files or folders were detected in the directory...");
+      Verbose.custom("No files or directories were detected in the directory...");
       console.log(chalk.yellow("There are no files/directories in the directory.\n"));
       return;
     }
@@ -162,7 +162,7 @@ const ls = (dir = `"${process.cwd()}"`, ...args) => {
     } else if (err.code === "ENOENT") {
       // For some reason, there are rare cases where the checks think the directory exists,
       // but when trying to list the contents, it throws an error.
-      // This usually happens when using the BubbleOS executable, where a folder called
+      // This usually happens when using the BubbleOS executable, where a directory called
       // "C:\snapshot" is visible on Windows (through 'ls' in BubbleOS), but when trying to
       // list it, it throws an error.
 

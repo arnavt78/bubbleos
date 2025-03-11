@@ -81,7 +81,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
 
     if (!dirChk.doesExist()) {
       Verbose.chkExists();
-      Errors.doesNotExist("folder", showDir);
+      Errors.doesNotExist("directory", showDir);
       return;
     } else if (!dirChk.validateType()) {
       Verbose.chkType(dir, "directory");
@@ -95,7 +95,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
 
     // If there is nothing in the directory
     if (fs.readdirSync(dir).length === 0) {
-      Verbose.custom("No files or folders were detected in the directory...");
+      Verbose.custom("No files or directories were detected in the directory...");
       console.log(chalk.yellow("There are no files/directories in the directory.\n"));
       return;
     }
@@ -112,7 +112,7 @@ const dirtree = (dir = process.cwd(), ...args) => {
     if (err.code === "ENOENT") {
       // For some reason, there are rare cases where the checks think the directory exists,
       // but when trying to change into it, it throws an error.
-      // This usually happens when using the BubbleOS executable, where a folder called
+      // This usually happens when using the BubbleOS executable, where a directory called
       // "C:\snapshot" is visible on Windows (through 'ls' in BubbleOS), but when trying to
       // change into it, it throws an error.
 
