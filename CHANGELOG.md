@@ -6,7 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-_No added features._
+- Added some easter eggs! ;)
 
 ### Changed/Fixed Features
 

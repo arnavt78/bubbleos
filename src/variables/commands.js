@@ -34,6 +34,7 @@ const tasklist = require("../commands/tasklist");
 const time = require("../commands/time");
 const tips = require("../commands/tips");
 const wcount = require("../commands/wcount");
+const { cConCon, creeper } = require("../commands/special");
 
 /**
  * All of the BubbleOS commands and their respective functions.
@@ -89,6 +90,9 @@ const COMMANDS = {
   time,
   tips,
   wcount,
+  "c:\\con\\con": cConCon,
+  "C:\\con\\con": cConCon,
+  creeper,
 };
 
 /**
