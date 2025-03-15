@@ -19,10 +19,8 @@ const SettingManager = require("../classes/SettingManager");
  * @returns {object} The sizes of the file or directory in different units.
  */
 const _calcSize = async (path, pathChk) => {
-  console.time();
   Verbose.custom("Calculating size...");
   const totalSize = await _getSize(path, pathChk.validateType() ? "directory" : "file");
-  console.timeEnd();
 
   // The size shortened to 2 decimal places
   Verbose.custom("Converting size and shortening...");
