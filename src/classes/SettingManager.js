@@ -33,8 +33,12 @@ class SettingManager {
    * @returns The full or basename path, depending on the setting.
    */
   fullOrBase(argPath) {
-    if (this.checkSetting("fullPathOrBase") === "base") return path.basename(argPath);
-    else return PathUtil.convertAbsolute(argPath);
+    if (this.checkSetting("fullPathOrBase") === "base") {
+      const basename = path.basename(argPath);
+      return basename || (argPath === "/" || argPath.endsWith(path.sep) ? argPath : "");
+    } else {
+      return PathUtil.convertAbsolute(argPath);
+    }
   }
 
   /**

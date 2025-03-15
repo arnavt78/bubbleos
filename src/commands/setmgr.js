@@ -106,6 +106,7 @@ const setmgr = async (...args) => {
   } catch (err) {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
+      InfoMessages.error("Changes not saved.");
       Verbose.custom("Detected Ctrl+C, exiting...");
       _exit(false, false);
     } else {

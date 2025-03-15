@@ -160,4 +160,31 @@ const newton = async (...args) => {
   }
 };
 
-module.exports = { cConCon, creeper, newton };
+/**
+ * I had way too much fun coding this :D
+ */
+const error = (...args) => {
+  try {
+    const errorMsgs = [
+      "This program has performed an illegal operation and will be shut down.",
+      "404 Not Found",
+      "Segmentation Fault (core dumped)",
+      "Kernel panic - not syncing",
+      "This application is not responding. The program may respond again if you wait.",
+      "Not recognized as an internal or external command, operable program or batch file.",
+      "Not ready reading drive A\nAbort, Retry, Fail?",
+      "Keyboard not responding, press any key to continue...",
+      "Error: The operation completed successfully.",
+      "Error at line 295 on your 78 line file.",
+    ];
+
+    console.log(chalk.red.bold(errorMsgs[Math.floor(Math.random() * errorMsgs.length)]) + "\n");
+  } catch (err) {
+    console.log(`Looks like you found our very special error :)\n`);
+
+    Verbose.nonFatalError();
+    _nonFatalError(err);
+  }
+};
+
+module.exports = { cConCon, creeper, newton, error };

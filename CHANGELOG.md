@@ -2,7 +2,7 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 200 RC4 to 200 RC5 (v2.0.0-rc4 to v2.0.0-rc5)
+## Build 200 RC4 to 200 (v2.0.0-rc4 to v2.0.0)
 
 ### Added Features
 
@@ -14,6 +14,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Changed the `stat` command to automatically retrieve the stats of the current directory if no path is specified.
 - Changed all references from "folder" to "directory" to help create a consistency of terminology usage.
 - Changed the `sysinfo` CPU information so that the speed will not be outputted if it is zero, and the CPU information will not be shown if BubbleOS is unable to get CPU information.
+- Fixed an issue where showing path basenames would show an empty string when at the root of a drive.
 - Fixed an issue where reading an empty directory with `dirtree` would not show a message saying the directory was empty.
 - Fixed an issue where the alphabetical sorting of the `sysinfo` command would sort by words starting with uppercase letters first.
 
