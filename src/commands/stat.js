@@ -18,9 +18,11 @@ const SettingManager = require("../classes/SettingManager");
  * @param {object} pathChk The Checks instance for the path.
  * @returns {object} The sizes of the file or directory in different units.
  */
-const _calcSize = (path, pathChk) => {
+const _calcSize = async (path, pathChk) => {
+  console.time();
   Verbose.custom("Calculating size...");
-  const totalSize = _getSize(path, pathChk.validateType() ? "directory" : "file");
+  const totalSize = await _getSize(path, pathChk.validateType() ? "directory" : "file");
+  console.timeEnd();
 
   // The size shortened to 2 decimal places
   Verbose.custom("Converting size and shortening...");
@@ -70,7 +72,7 @@ const _getDate = (date) => {
  * @param {string} path The file/directory to get information on.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
-const stat = (path = process.cwd(), ...args) => {
+const stat = async (path = process.cwd(), ...args) => {
   try {
     // Converts path to an absolute path and corrects
     // casing on Windows, and resolves spaces
@@ -102,7 +104,7 @@ const stat = (path = process.cwd(), ...args) => {
     console.log(`Location: ${chalk.bold(path)}`);
 
     Verbose.custom("Calculating size...");
-    const size = _calcSize(path, pathChk);
+    const size = await _calcSize(path, pathChk);
     const sizeLabel = Object.keys(size)[0];
 
     const sizeValue = size[sizeLabel];

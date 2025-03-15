@@ -3,7 +3,6 @@ const fs = require("fs");
 
 const _promptForYN = require("../functions/promptForYN");
 const _nonFatalError = require("../functions/nonFatalError");
-const _getSize = require("../functions/getSize");
 
 const Errors = require("../classes/Errors");
 const Checks = require("../classes/Checks");
@@ -11,11 +10,6 @@ const Verbose = require("../classes/Verbose");
 const InfoMessages = require("../classes/InfoMessages");
 const PathUtil = require("../classes/PathUtil");
 const SettingManager = require("../classes/SettingManager");
-
-/**
- * The size of the file/directory in bytes before showing a "this may take a while" message.
- */
-const SIZE_TO_SHOW_DIALOG = 262_144_000;
 
 /**
  * Synchronously copy a directory from the source (`src`)
@@ -115,14 +109,6 @@ const copy = (src, dest, ...args) => {
       // TODO there is an error where ERR_FS_CP_DIR_TO_NON_DIR
       // will appear even if the paths are files
 
-      // If size of directory is over 250MB, show "may take a while" message
-      Verbose.custom("Getting size of directory...");
-      if (
-        !new SettingManager().checkSetting("silenceSuccessMsgs") &&
-        _getSize(src, "directory") >= SIZE_TO_SHOW_DIALOG
-      )
-        console.log(chalk.italic.blueBright("Please wait; this may take a while..."));
-
       // TODO if needed, see if there are more options
       Verbose.custom("Copying directory...");
       fs.cpSync(src, dest, {
@@ -131,14 +117,6 @@ const copy = (src, dest, ...args) => {
         preserveTimestamps: keepTimes,
       });
     } else {
-      // If size of directory is over 250MB, show "may take a while" message
-      Verbose.custom("Getting size of file...");
-      if (
-        !new SettingManager().checkSetting("silenceSuccessMsgs") &&
-        _getSize(src, "file") >= SIZE_TO_SHOW_DIALOG
-      )
-        console.log(chalk.italic.blueBright("Please wait; this may take a while..."));
-
       Verbose.custom("Copying file...");
       fs.copyFileSync(src, dest);
     }

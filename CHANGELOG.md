@@ -2,7 +2,7 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 200 RC4 to 200 RC5 (v2.0.0-rc3 to v2.0.0-rc5)
+## Build 200 RC4 to 200 RC5 (v2.0.0-rc4 to v2.0.0-rc5)
 
 ### Added Features
 
@@ -10,6 +10,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Changed/Fixed Features
 
+- Optimized directory size calculations for the `stat` command, resulting in a 2x performance improvement.
 - Changed the `stat` command to automatically retrieve the stats of the current directory if no path is specified.
 - Changed all references from "folder" to "directory" to help create a consistency of terminology usage.
 - Changed the `sysinfo` CPU information so that the speed will not be outputted if it is zero, and the CPU information will not be shown if BubbleOS is unable to get CPU information.
@@ -18,7 +19,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Removed Features
 
-_No removed features._
+- Removed the "this may take a while message" when the path being copied in the `copy` command is over 250MB, to improve performance.
 
 ## Build 200 RC3 to 200 RC4 (v2.0.0-rc3 to v2.0.0-rc4)
 
