@@ -1,10 +1,13 @@
 const chalk = require("chalk");
 const os = require("os");
 const { keyInPause } = require("readline-sync");
+const { input } = require("@inquirer/prompts");
 
 const { GLOBAL_NAME } = require("../variables/constants");
 
 const _nonFatalError = require("../functions/nonFatalError");
+
+const Verbose = require("../classes/Verbose");
 
 const _delay = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,6 +37,7 @@ const cConCon = (...args) => {
     console.log();
     process.exit(1);
   } catch (err) {
+    Verbose.nonFatalError();
     _nonFatalError(err);
   }
 };
@@ -92,7 +96,6 @@ const creeper = async (...args) => {
         chalk.gray("       ▒▒▒       "),
         chalk.gray("        ▒        "),
       ],
-      [chalk.whiteBright.bold(`${capitalUsername} was blown up by Creeper`), "", ""],
     ];
 
     console.log("Creeper? Aww, man...");
@@ -104,11 +107,57 @@ const creeper = async (...args) => {
       await _delay(200);
     }
 
+    process.stdout.write("\x1bc");
+    console.log(chalk.whiteBright.bold(`${capitalUsername} was blown up by Creeper\n`));
+
     await _delay(1000);
     process.exit(1);
   } catch (err) {
+    Verbose.nonFatalError();
     _nonFatalError(err);
   }
 };
 
-module.exports = { cConCon, creeper };
+/**
+ * This is a very historically accurate representation of the Apple Newton
+ * Personal Digital Assistant. Trust, bro.
+ */
+const newton = async (...args) => {
+  try {
+    console.log(chalk.underline.bold("Apple Newton Personal Digital Assistant"));
+
+    const notes = await input({
+      message: "Enter your notes:",
+      theme: {
+        style: {
+          answer: (text) => chalk.strikethrough(text),
+        },
+      },
+    });
+
+    const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let historicallyAccurate = "";
+
+    // Simpsons reference? :P
+    if (notes.toLowerCase().trim() === "beat up martin") {
+      console.log("\nEat up Martha\n");
+      return;
+    }
+
+    for (let i = 0; i < notes.length; i++) {
+      if (Math.random() > 0.7) {
+        // 30% chance to replace the character with something random
+        historicallyAccurate += characters.charAt(Math.floor(Math.random() * characters.length));
+      } else {
+        historicallyAccurate += notes.charAt(i);
+      }
+    }
+
+    console.log("\n" + historicallyAccurate + "\n");
+  } catch (err) {
+    Verbose.nonFatalError();
+    _nonFatalError(err);
+  }
+};
+
+module.exports = { cConCon, creeper, newton };

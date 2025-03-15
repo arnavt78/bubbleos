@@ -74,6 +74,12 @@ const _intCmds = async (command, storeInHistory = true) => {
       }
     }
 
+    // Will anyone even find this?
+    if (Math.floor(Math.random() * 1000) <= 0 && !isEmpty) {
+      console.log(chalk.yellow("Herobrine joined the game"));
+      console.log(chalk.white("<Herobrine> I'm watching you...\n"));
+    }
+
     Verbose.custom("Verifying configuration file integrity...");
     _verifyConfig(false);
 

@@ -26,7 +26,7 @@ const startupChecks = () => {
       // Running on Windows 8.1 or below
       Verbose.custom(`${GLOBAL_NAME} has been detected to run on unsupported software.`);
       _startupError(
-        `${GLOBAL_NAME} cannot run on Windows 8.1 and below. Please use a device which runs Windows 10 LTSC and later.`,
+        `${GLOBAL_NAME} cannot run on Windows 8.1 and below. Please use a device that runs Windows 10 LTSC and later.`,
         false
       );
     }

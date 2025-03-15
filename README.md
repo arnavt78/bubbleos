@@ -96,7 +96,7 @@ This section covers information about getting BubbleOS to run on your device.
 
 ## Downloading Standalone Executable
 
-BubbleOS does not have an installer program but instead has a standalone executable. BubbleOS is provided for the Windows, macOS and Linux operating systems. To download it, go to the Releases GitHub page. Download the respective executable from the assets. The filename is named according to the OS it is intended to be run on:
+BubbleOS does not have an installer program but instead has a standalone executable. BubbleOS is provided for the Windows, macOS, and Linux operating systems. To download it, go to the Releases GitHub page. Download the respective executables from the assets. The filename is named according to the OS it is intended to be run on:
 
 - `windows-x64` for Windows
 - `linux-x64` for Linux
@@ -108,7 +108,7 @@ BubbleOS is not available for 32-bit operating systems.
 
 ### Windows
 
-BubbleOS can be run by running the executable file directly through File Explorer, or through Command Prompt, PowerShell, or other command line interpreters. Note that when running BubbleOS for the first time, a SmartScreen window may appear saying that the app may put your PC at risk. This can be safely ignored, and BubbleOS can be run by clicking _More Info_ and then _Run anyway_.
+BubbleOS can be started by running the executable file directly through File Explorer or Command Prompt, PowerShell, or other command-line interpreters. Note that when running BubbleOS for the first time, a SmartScreen window may appear saying that the app may put your PC at risk. This can be safely ignored, and BubbleOS can be run by clicking _More Info_ and then _Run anyway_.
 
 When BubbleOS is run, a command line will appear using the default terminal application (by default, this is the Command Prompt, but it can also commonly be the Windows Terminal on most systems). Generally, a terminal application that supports more color is recommended, such as Windows Terminal.
 
@@ -122,8 +122,8 @@ To run BubbleOS on Linux and macOS, the file must be made executable. To do this
 
 To add BubbleOS to the `PATH` to allow it to be run anywhere, follow the steps:
 
-1. Move the BubbleOS executable to a location where it won’t be deleted by accident.
-2. Enter _sysdm.cpl_ in the Search menu or in Run.
+1. Move the BubbleOS executable to a location where it won’t be deleted.
+2. Enter _sysdm.cpl_ in the Search menu or Run.
 3. Go to the _Advanced_ tab, and then _Environment Variables_.
 4. Click _New_ under _System Variables_ (or User Variables if you want to install BubbleOS for your user only).
 5. Add the absolute path to the BubbleOS executable.
@@ -153,9 +153,9 @@ Then, restart the shell.
 
 **WARNING: Do this at your own risk. Running BubbleOS on Windows versions below 8.1 is unsupported and can cause unexpected behavior.**
 
-On Windows Vista and below, BubbleOS will completely fail to run. This cannot be circumvented.
+On Windows Vista and below, BubbleOS will fail to run. This cannot be circumvented.
 
-1. Enter _sysdm.cpl_ in the Search menu or in Run.
+1. Enter _sysdm.cpl_ in the Search menu or Run.
 2. Go to the _Advanced_ tab, and then _Environment Variables_.
 3. Click _New_ under _User Variables_ and add the key `NODE_SKIP_PLATFORM_CHECK` with a value of `1`.
 4. Press _OK_ on all the windows to confirm.
@@ -184,18 +184,18 @@ This section covers information about the BubbleOS booting system.
 
 When running BubbleOS for the first time on the system, a welcome message will appear. This appears when the BubbleOS configuration file does not exist when BubbleOS is started up.
 
-To continue past the welcome message and enter the CLI, press Enter when prompted to do so.
+To continue past the welcome message and enter the CLI, press Enter when prompted.
 
-When entering the CLI for the first time, the introduction is noticeably long, containing information such as the version, author, and basic command guides. This introduction only shows when launching BubbleOS for the first time, and when launching BubbleOS any other time after the first time, the introduction only displays the version (which can be disabled).
+When entering the CLI for the first time, the introduction is noticeably long, containing information such as the version, author, and command guides. This introduction only shows when launching BubbleOS for the first time, and when launching BubbleOS any other time after the first time, the introduction only displays the version (which can be disabled).
 
 For beta builds and release candidates, a greyed-out warning message will always appear in the introduction, informing the user that the program is not a full release and can be unstable. If the timebomb is enabled, it will also show the expiry date. For beta builds, the timebomb expires 90 days after the executable is compiled, and for release candidates, the timebomb expires after 30 days.
 
-The first introduction displays the following commands usage:
+The first introduction displays the following command usage:
 
-- help – For displaying all available BubbleOS commands.
-- help \<command\> – For displaying detailed information about a specific command.
-- setmgr – For changing the BubbleOS settings.
-- exit – For exiting the BubbleOS shell safely.
+- `help` – Display all available BubbleOS commands.
+- `help \<command\>` – Display detailed information about a specific command.
+- `setmgr` – Change the BubbleOS settings.
+- `exit` – Exit the BubbleOS shell safely.
 
 ## Startup Errors
 
@@ -211,7 +211,7 @@ There is no way to circumvent this startup error. You must run BubbleOS in a ter
 
 ### Failed to Create the Configuration File
 
-If BubbleOS fails to create the configuration file when it is detected to not exist, an error will be thrown and BubbleOS will fail to start:
+If BubbleOS fails to create the configuration file when it does not exist, an error will be thrown and BubbleOS will fail to start:
 
 ```
 The BubbleOS configuration file was attempted to be created, but an error occurred when attempting to do so. BubbleOS cannot continue without this file.
@@ -229,14 +229,14 @@ If BubbleOS detects the architecture to not be x64, it will crash on startup wit
 BubbleOS can only run on the x64 processor architecture. Please use a device with a processor that supports the x64 architecture.
 ```
 
-This can be circumvented by using a device with a x64 processor or by running BubbleOS with the `--no-checks` flag.
+This can be circumvented by using a device with an x64 processor or by running BubbleOS with the `--no-checks` flag.
 
 ### Invalid OS
 
 If BubbleOS detects to be running on a version of Windows less than Windows 10, it will fail to start:
 
 ```
-BubbleOS cannot run on Windows 8.1 and below. Please use a device which runs Windows 10 LTSC and later.
+BubbleOS cannot run on Windows 8.1 and below. Please use a device that runs Windows 10 LTSC and later.
 ```
 
 This can be circumvented by using an operating system that is supported, such as Windows 10 or Windows 11, or by running BubbleOS with the `--no-checks` flag.
@@ -263,7 +263,7 @@ The startup arguments are run with the BubbleOS executable and change the regula
 
 To view information about these startup arguments in BubbleOS, run the BubbleOS executable with the `-h` argument.
 
-- `--no-checks` – Disables checking if BubbleOS is running on the correct architecture (x64) or running on the correct OS (Windows 10 and above).
+- `--no-checks` – Disables checking if BubbleOS is running on the correct architecture (x64) or on the correct OS (Windows 10 and above).
 - `--no-dump` – Disables the fatal error file dump feature, which outputs a file containing error information that can be submitted in a bug report whenever a fatal error occurs.
 - `--no-timebomb` – Disables checking if the timebomb has expired.
 - `--no-warnings` – Disables showing warnings during startup if the fatal error file dump feature or the timebomb were disabled.
@@ -274,7 +274,7 @@ To view information about these startup arguments in BubbleOS, run the BubbleOS 
 
 ## Pre-Boot Interpreter
 
-The pre-boot interpreter is a feature which allows running one command directly from the BubbleOS executable without initializing the CLI. The pre-boot interpreter supports running almost all commands in the normal shell and supports arguments to modify the behavior of the command.
+The pre-boot interpreter is a feature that allows running one command directly from the BubbleOS executable without initializing the CLI. The pre-boot interpreter supports running almost all commands in the normal shell and supports arguments to modify the behavior of the command.
 
 To run the pre-boot interpreter, enter the command that should be run, and then the necessary parameters and arguments.
 
@@ -304,7 +304,7 @@ The update checker feature can be disabled in `setmgr`.
 
 ## Configuration File
 
-The BubbleOS configuration file stores information that is required for BubbleOS to function correctly. The configuration file stores values such as:
+The BubbleOS configuration file stores information required for BubbleOS to function correctly. The configuration file stores values such as:
 
 - Command history
 - Settings
@@ -332,11 +332,11 @@ Shows information about BubbleOS, such as the version, author, and links. The li
 
 ### `bub`
 
-Runs a `.bub` file, which contains BubbleOS commands that are run one-by-one automatically, similarly to a batch file.
+Runs a `.bub` file, which contains BubbleOS commands run one by one, similar to a batch file.
 
 The file supports comments, which begin with a hashtag. These lines are ignored by the file interpreter.
 
-The `exit` command is not allowed to be run by default. To allow the file to exit the BubbleOS shell, run the command with the `--allow-exit` argument. To display the commands that are being executed as defined in the file, use the `-d` flag.
+The `exit` command is not allowed to be run by default. To allow the file to exit the BubbleOS shell, run the command with the `--allow-exit` argument. To display the commands being executed as defined in the file, use the `-d` flag.
 
 ### `cd`
 
@@ -348,19 +348,19 @@ Clears the entire terminal screen, including non-visible parts.
 
 ### `copy`
 
-Copies a file or directory from one location to another. If the destination already exists, the user is prompted whether to delete the file or directory and then copy the source.
+Copies a file or directory from one location to another. If the destination already exists, the user is prompted to delete the file or directory and then copy the source.
 
 If the file or directory is over 250 megabytes, a message is shown informing the user it may take slightly longer to copy the source.
 
-There are arguments for the command, however, they are only for copying directories. The `-t` argument keeps the timestamps of all files and directories to the last modified date, instead of modifying them when the directory is copied. The `--rm-symlink` argument dereferences symbolic links in the directory and replace it with a copy of the actual contents of the file or directory it was pointing to.
+There are arguments for the command, however, they are only for copying directories. The `-t` argument keeps the timestamps of all files and directories to the last modified date, instead of changing them when the directory is copied. The `--rm-symlink` argument dereferences symbolic links in the directory and replaces it with a copy of the actual contents of the file or directory it was pointing to.
 
 ### `crash`
 
 Crashes BubbleOS, the terminal, and Windows in specific ways. There are five choices when running the command that the user is prompted to select:
 
-- Non-fatal error: Throws a BubbleOS non-fatal error. This does not crash BubbleOS, but instead only terminates the crash command. BubbleOS is still functional after this, if the user decides to continue using BubbleOS.
+- Non-fatal error: Throws a BubbleOS non-fatal error. This does not crash BubbleOS, but instead only terminates the crash command. BubbleOS is still functional after this if the user decides to continue using BubbleOS.
 - Fatal error: Crashes BubbleOS with a fatal error. A file dump containing the error information was also made in the current directory BubbleOS was in before it crashed.
-- Hang: Hangs the terminal, making it extremely difficult to end by pressing Ctrl+C on BubbleOS.
+- Hang: Hang the terminal, making it extremely difficult to end by pressing Ctrl+C on BubbleOS.
 - Memory leak: Leaks memory from the computer. Usually leaks about 2-4GB of memory from the computer before BubbleOS crashes once it reaches its maximum allocated memory.
 - Blue Screen of Death (BSOD): Crashes Windows with a Blue Screen of Death. This only works on Windows when BubbleOS is run as an administrator.
 
@@ -399,9 +399,9 @@ Finds a word or phrase in a file. By default, the command shows the number of oc
 
 If any of the arguments below are passed, only the arguments specified will be shown.
 
-- -n – Shows the number of occurrences.
-- -p – Shows the character location of occurrences.
-- -v – Shows the visual occurrences.
+- `-n` – Shows the number of occurrences.
+- `-p` – Shows the character location of occurrences.
+- `-v` – Shows the visual occurrences.
 
 The command can only read plain-text files.
 
@@ -432,7 +432,7 @@ The extra information that is displayed when requesting information about a spec
 
 ### `history`
 
-Displays the last 50 commands entered into BubbleOS, even if they threw an error or do not exist. The history persists throughout sessions, as the history is stored in the BubbleOS configuration file.
+Displays the last 50 commands entered into BubbleOS, even if they throw an error or do not exist. The history persists throughout sessions, as the history is stored in the BubbleOS configuration file.
 
 The command at a specific history point can be retrieved by passing a number between 1-50 with the command. This will only show the command stored at the point requested.
 
@@ -464,17 +464,17 @@ Directories are always shown before files.
 
 Creates a directory in the specified location, with the name given. If the directory already exists, the user will be prompted to confirm they want to delete the directory so that it can be replaced with the new directory.
 
-Note that the directory is empty by default and does not have any attributes.
+By default, the directory does not have any attributes and is empty.
 
 ### `mkfile`
 
-Creates a file in the specified location, with the name given. If the file already exists, the user will be prompted to confirm they want to delete the file so that it can be replaced with the new file.
+Creates a file in the specified location, with the name given. If the file already exists, the user will be prompted to confirm they want to delete the file so that it can be replaced with a new file.
 
-When creating a file, the user will be prompted to enter the file contents in a basic file editor. When pressing Enter, a new prompt will appear for the next line. To edit a previous line, enter `!EDIT` by itself on a newline, and specify the line that should be edited. A prompt will appear to edit that specific line. Enter `!SAVE` once the file contents have been entered, which will save the file with the text contents. Enter `!CANCEL` to discard the file contents and abort the file creation.
+When creating a file, the user will be prompted to enter the file contents in a basic file editor. When pressing Enter, a new prompt will appear for the next line. To edit a previous line, enter `!EDIT` by itself on a new line, and specify the line that should be edited. A prompt will appear to edit that specific line. Enter `!SAVE` once the file contents have been entered, which will save the file with the text contents. Enter `!CANCEL` to discard the file contents and abort the file creation.
 
 To create a file with no contents, enter `!SAVE` on the first prompt.
 
-The file does not have any attributes by default.
+By default, the file does not have any attributes.
 
 ### `ping`
 
@@ -494,85 +494,85 @@ If the file contains more than 5000 characters, the user will be prompted to mak
 
 ### `rename`
 
-Renames a file or directory from the old name to the new specified name. The old and new names cannot be the same. If the new name already exists, the user will be prompted to make sure that they want to overwrite the file.
+Renames a file or directory from the old name to the new specified name. The old and new names cannot be the same. If the new name already exists, the user will be prompted to confirm they want to overwrite the file.
 
-This command can also be used as a 'cut' action, if a different path is specified in the new name field.
+This command can also be used as a 'cut' action if a different path is specified in the new name field.
 
 ### `setmgr`
 
-Change the settings of BubbleOS. When run, the command sets up a temporary environment for changing the settings, by clearing the screen, and showing each setting one by one When each setting shows, the title and description of the setting is shown, as well as the current option and default option. The user will be requested to select their preferred setting. By default, the selection will be on the current setting.
+Change the settings of BubbleOS. When run, the command sets up a temporary environment for changing the settings, by clearing the screen, and showing each setting one by one When each setting shows, the title and description of the setting are shown, as well as the current option and default option. The user will be requested to select their preferred setting. By default, the selection will be on the current setting.
 
 The available settings are described below.
 
-| Name                      | Description                                                          | Default        | Options                          |
-| ------------------------- | -------------------------------------------------------------------- | -------------- | -------------------------------- |
-| Case-Sensitive Commands   | Make commands case-sensitive or case-insensitive.                    | Case-Sensitive | Case-Sensitive, Case-Insensitive |
-| Confirm Exiting BubbleOS  | Show a confirmation prompt before exiting BubbleOS.                  | No             | Yes, No                          |
-| Full Path or Basename     | Choose whether to display the full path or just the basename.        | Full Path      | Full Path, Basename              |
-| Show Message Label Prefix | Show the prefix labels on messages (success, error, etc.).           | Yes            | Yes, No                          |
-| Show Version on Startup   | Show the version of BubbleOS when it is started.                     | Yes            | Yes, No                          |
-| Silence Success Messages  | Silence most success messages from commands.                         | No             | Yes, No                          |
-| Update Checker            | Choose what type of BubbleOS updates to get from the update checker. | Releases       | Releases, Pre-Releases, None     |
+| Name                       | Description                                                           | Default         | Options                           |
+| -------------------------- | --------------------------------------------------------------------- | --------------- | --------------------------------- |
+| Case-Sensitive Commands    | Make commands case-sensitive or case-insensitive.                     | Case-Sensitive  | Case-Sensitive, Case-Insensitive  |
+| Confirm Exiting BubbleOS   | Show a confirmation prompt before exiting BubbleOS.                   | No              | Yes, No                           |
+| Full Path or Basename      | Choose whether to display the full path or just the basename.         | Full Path       | Full Path, Basename               |
+| Show Message Label Prefix  | Show the prefix labels on messages (success, error, etc.).            | Yes             | Yes, No                           |
+| Show Version on Startup    | Show the version of BubbleOS when it is started.                      | Yes             | Yes, No                           |
+| Silence Success Messages   | Silence most success messages from commands.                          | No              | Yes, No                           |
+| Update Checker             | Choose what type of BubbleOS updates to get from the update checker.  | Releases        | Releases, Pre-Releases, None      |
 
 ### `stat`
 
-Gets information about a specified file or directory (or the current working directory if not specified), including the absolute location, size, and accessed, modified and created dates. The unit of size to display is done automatically.
+Gets information about a specified file or directory (or the current working directory if not specified), including the absolute location, size, accessed, modified, and created dates. The unit of size to display is done automatically.
 
 ### `symlink`
 
-Creates a symbolic link between two files/directories or check if a specified path is a symbolic link.
+Creates a symbolic link between two files/directories or checks if a specified path is a symbolic link.
 
 To check if a path is a symbolic link, only enter one path which is the path to check. If the path is a symbolic link, the command will also output the location to the file/directory it points to.
 
-To link two files or directories, enter the target (the original file) and the path (the new file that links to the original target file). This usually requires administrator permission, so BubbleOS will usually need to be run as Administrator/root for this command to function correctly.
+To link two files or directories, enter the target (the original file) and the path (the new file that links to the original target file). This requires administrator permission, so BubbleOS will usually need to be run as Administrator/root for this command to function correctly.
 
 ### `sysinfo`
 
 Shows information about the local system that BubbleOS is running on. Information is categorized into subheadings.
 
-By default, computer information, user information, and system resources are displayed. However, these can be modified by using arguments (`-c` for computer information, `-u` for user information, `-s` for system resources, `-a` for advanced information, and `-e` for environment variables). Alternatively, the `--all` argument displays all available information that is not shown by default, including advanced information and environment variables.
+By default, computer information, user information, and system resources are displayed. However, these can be modified using arguments (`-c` for computer information, `-u` for user information, `-s` for system resources, `-a` for advanced information, and `-e` for environment variables). Alternatively, the `--all` argument displays all available information that is not shown by default, including advanced information and environment variables.
 
 All the information that is displayed by the command is shown below:
 
 - Computer Information
-  - Full operating system name
-  - Operating system
-  - Release
-  - Architecture
-  - Computer name
-  - Locale
+    - Full operating system name
+    - Operating system
+    - Release
+    - Architecture
+    - Computer name
+    - Locale
 - User Information
-  - Username
-  - Home directory
-  - Temporary directory
-  - Group identifier (all OSes other than Windows)
-  - User identifier (all OSes other than Windows)
-  - Shell (all OSes other than Windows)
+    - Username
+    - Home directory
+    - Temporary directory
+    - Group identifier (all OSes other than Windows)
+    - User identifier (all OSes other than Windows)
+    - Shell (all OSes other than Windows)
 - System Resources
-  - Memory usage
-  - System uptime
-  - Battery level and charging status
-  - CPU cores
-  - CPU information and speed
+    - Memory usage
+    - System uptime
+    - Battery level and charging status
+    - CPU cores
+    - CPU information and speed
 - Advanced Information
-  - NULL device
-  - Estimated default parallelism amount (program)
-  - BubbleOS process identification number
+    - NULL device
+    - Estimated default parallelism amount (program)
+    - BubbleOS process identification number
 - Environment Variables
-  - List of all environment variables and values
+    - List of all environment variables and values
 
 The memory usage and battery level values are color-coded, and environment variables are alphabetically sorted.
 
-For the memory, if a third of memory is available, red text is shown. If a third of the memory is used, green text is shown. If it is in between, yellow text is shown.
+For the memory, if a third of memory is available, red text is shown. If a third of the memory is used, green text is shown. If it is in between, the yellow text is shown.
 For the battery, if the device is on charge, green text is always shown. If the device is not on charge and there is above 50% remaining, yellow text is shown. If it is below 50%, red text is shown.
 
 ### `taskkill`
 
-Kills a specified process running on the computer. The process name or process identification number can be passed. When run, BubbleOS sends a `SIGTERM` signal to the program specified. It is recommended to save your work when killing a process which contains important information, as the data can be lost if the process terminates without gracefully shutting down.
+Kills a specified process running on the computer. The process name or process identification number can be passed. When run, BubbleOS sends a `SIGTERM` signal to the program specified. It is recommended to save your work when killing a process that contains important information, as the data can be lost if the process terminates without gracefully shutting down.
 
 ### `tasklist`
 
-Shows all the processes running on the system. The command displays the process name and identification number. A specific process can be filtered for by entering the process name as an argument in the command, which will only show processes with the name enter if they exist.
+Shows all the processes running on the system. The command displays the process name and identification number. A specific process can be filtered for by entering the process name as an argument in the command, which will only show processes with the name entered if they exist.
 
 ### `time`
 
@@ -583,11 +583,11 @@ Outputs the system time in 12-hour time (by default) or 24-hour time. The format
 
 ### `tips`
 
-Shows various tips and useful information relating to the usage of BubbleOS. There are approximately 20 tips in total, and they reset once all the tips have been shown.
+Shows various tips and useful information relating to the usage of BubbleOS. There are approximately 20 tips, and they reset once all the tips have been shown.
 
 ### `wcount`
 
-Shows the number of lines, words, and characters in a file. If the number of characters with whitespace and without whitespace are the same, they are combined into one value.
+Shows the number of lines, words, and characters in a file. If the number of characters with and without whitespace are the same, they are combined into one value.
 
 By default, all the values show, however, they can be customized using arguments: `-l` for lines, `-w` for words, and -c` for characters.
 
@@ -597,7 +597,7 @@ By default, all the values show, however, they can be customized using arguments
 
 **Error code: 1**
 
-When the command entered in the command interpreter or the help command could not be recognized. If BubbleOS cannot find the command that the user entered either as a direct reference or a hard alias, it will throw this error.
+When the command entered in the command interpreter or the help command could not be recognized. If BubbleOS cannot find the command that the user entered as a direct reference or a hard alias, it will throw this error.
 
 When this error appears in the command interpreter, and a soft alias is found for what the user entered, BubbleOS will attempt to help the user by asking if they meant the command that exists. For example, entering `touch` will throw an unrecognized command error, but it will also say that the correct command is likely `mkfile`.
 
@@ -653,7 +653,7 @@ The phrase that was entered can only contain certain types of characters but was
 
 **Error code: 10**
 
-The path is too long. In most file systems, the limit of a path is around 255 characters. To circumvent this error, chose shorter names for files and directories.
+The path is too long. In most file systems, the limit of a path is around 255 characters. To circumvent this error, choose shorter names for files and directories.
 
 ### Invalid UNC Path
 
@@ -683,7 +683,7 @@ An unknown error occurred when BubbleOS attempted to access a resource.
 
 When an uncaught exception occurs in BubbleOS, a non-fatal error or fatal error will occur, depending on the severity of the issue. These errors almost always describe a bug in BubbleOS and should be reported as an issue on the [GitHub page](https://github.com/arnavt78/bubbleos/issues/new).
 
-It is recommended to submit the technical error information, as well as steps needed to reproduce the issue.
+It is recommended to submit the technical error information, as well as the steps needed to reproduce the issue.
 
 ### Non-Fatal Error
 
@@ -711,4 +711,4 @@ By default, the commands entered into the command interpreter are case-sensitive
 
 If the command interpreter recognizes a command, it will be run. Once the command finishes executing, the command interpreter will appear again. If the command interpreter does not recognize the command entered, it will throw an error. However, if the command was recognized as a soft alias, BubbleOS will suggest a similar command.
 
-At the end of a command execution, the command is entered into history, even if it was unrecognized or threw an error. The configuration file is also verified to ensure it hasn’t been deleted or corrupted.
+At the end of a command execution, the command is entered into history, even if it was unrecognized or threw an error. The configuration file is verified to ensure it hasn’t been deleted or corrupted.
