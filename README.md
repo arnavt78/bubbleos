@@ -350,8 +350,6 @@ Clears the entire terminal screen, including non-visible parts.
 
 Copies a file or directory from one location to another. If the destination already exists, the user is prompted to delete the file or directory and then copy the source.
 
-If the file or directory is over 250 megabytes, a message is shown informing the user it may take slightly longer to copy the source.
-
 There are arguments for the command, however, they are only for copying directories. The `-t` argument keeps the timestamps of all files and directories to the last modified date, instead of changing them when the directory is copied. The `--rm-symlink` argument dereferences symbolic links in the directory and replaces it with a copy of the actual contents of the file or directory it was pointing to.
 
 ### `crash`

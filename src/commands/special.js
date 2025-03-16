@@ -119,8 +119,7 @@ const creeper = async (...args) => {
 };
 
 /**
- * This is a very historically accurate representation of the Apple Newton
- * Personal Digital Assistant. Trust, bro.
+ * This is a very historically accurate representation of the Apple Newton. Trust, bro.
  */
 const newton = async (...args) => {
   try {

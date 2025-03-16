@@ -118,14 +118,15 @@ const _updateChecker = () => {
 
               const isOutdated =
                 typeof build !== "undefined" &&
-                ((BUILD === build && RELEASE_CANDIDATE < releaseCandidate) ||
-                  (RELEASE_CANDIDATE === 0 && BUILD > build) ||
-                  (build === build && releaseCandidate > 0 && RELEASE_CANDIDATE === 0) ||
-                  BUILD > build ||
-                  (BUILD === build && RELEASE_CANDIDATE > releaseCandidate));
+                (BUILD < build || // A higher fetched build is always outdated
+                  (BUILD === build &&
+                    RELEASE_CANDIDATE > 0 &&
+                    RELEASE_CANDIDATE < releaseCandidate) || // Fetched RC is greater than nonzero current RC
+                  (BUILD === build && RELEASE_CANDIDATE > releaseCandidate) || // Installed RC is newer, no downgrade
+                  (BUILD === build && releaseCandidate === 0)); // Fetched RC is 0, meaning a stable release, outdated
 
               // If current build is newer than fetched build, ignore
-              if (isOutdated) {
+              if (!isOutdated) {
                 Verbose.custom(
                   "Build information fetched detected to be older than current build, exiting..."
                 );
@@ -134,12 +135,11 @@ const _updateChecker = () => {
               }
 
               Verbose.custom("Outputting message...");
-              const message =
-                `A new ${GLOBAL_NAME} version, ` +
-                `${chalk.yellow(releaseInfo.tag)} ` +
-                `(${chalk.magenta(releaseInfo.name)}), ` +
-                `was released on ${chalk.green(_formatDate(releaseInfo.published))}!\n` +
-                `Download at: ${chalk.cyan.underline(releaseInfo.url)}`;
+              const message = `A new ${GLOBAL_NAME} version, ${chalk.yellow(
+                releaseInfo.tag
+              )} (${chalk.magenta(releaseInfo.name)}), was released on ${chalk.green(
+                _formatDate(releaseInfo.published)
+              )}!\nDownload at: ${chalk.cyan.underline(releaseInfo.url)}`;
 
               console.log(
                 boxen(message, {
