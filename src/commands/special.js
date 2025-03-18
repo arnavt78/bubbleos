@@ -18,6 +18,7 @@ const _delay = (ms) => {
  */
 const cConCon = (...args) => {
   try {
+    Verbose.custom("oops!");
     console.log(`${chalk.bgGray.blue(` ${GLOBAL_NAME} `)}\n`);
     console.log(
       chalk.blueBright(
@@ -35,6 +36,7 @@ const cConCon = (...args) => {
     });
 
     console.log();
+    Verbose.exitProcess(1);
     process.exit(1);
   } catch (err) {
     Verbose.nonFatalError();
@@ -47,6 +49,8 @@ const cConCon = (...args) => {
  */
 const creeper = async (...args) => {
   try {
+    Verbose.custom("So we back in the mines...");
+    Verbose.custom("Getting username...");
     const { username } = os.userInfo();
     const capitalUsername = username.trimStart().charAt(0).toUpperCase() + username.slice(1);
 
@@ -101,16 +105,19 @@ const creeper = async (...args) => {
     console.log("Creeper? Aww, man...");
     await _delay(1000);
 
+    Verbose.custom("BOOM!");
     for (const frame of frames) {
       process.stdout.write("\x1bc");
       console.log(frame.join("\n"));
       await _delay(200);
     }
 
+    Verbose.custom("RIP");
     process.stdout.write("\x1bc");
     console.log(chalk.whiteBright.bold(`${capitalUsername} was blown up by Creeper\n`));
 
     await _delay(1000);
+    Verbose.exitProcess(1);
     process.exit(1);
   } catch (err) {
     Verbose.nonFatalError();
@@ -123,8 +130,10 @@ const creeper = async (...args) => {
  */
 const newton = async (...args) => {
   try {
+    Verbose.custom("Starting the historically accurate Apple Newton...");
     console.log(chalk.underline.bold("Apple Newton Personal Digital Assistant"));
 
+    Verbose.custom("Requesting notes...");
     const notes = await input({
       message: "Enter your notes:",
       theme: {
@@ -139,6 +148,7 @@ const newton = async (...args) => {
 
     // Simpsons reference? :P
     if (notes.toLowerCase().trim() === "beat up martin") {
+      Verbose.custom("You found an easter egg inside of the easter egg!");
       console.log("\nEat up Martha\n");
       return;
     }
@@ -152,6 +162,7 @@ const newton = async (...args) => {
       }
     }
 
+    Verbose.custom("Completed handwriting detection, showing converted text...");
     console.log("\n" + historicallyAccurate + "\n");
   } catch (err) {
     Verbose.nonFatalError();
@@ -164,6 +175,7 @@ const newton = async (...args) => {
  */
 const error = (...args) => {
   try {
+    Verbose.custom("Preparing everybody's favorite error messages...");
     const errorMsgs = [
       "This program has performed an illegal operation and will be shut down.",
       "404 Not Found",
