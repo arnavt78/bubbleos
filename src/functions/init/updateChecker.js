@@ -1,6 +1,7 @@
 const https = require("https");
 const chalk = require("chalk");
 const boxen = require("boxen");
+const readline = require("readline");
 
 const { GLOBAL_NAME, BUILD, RELEASE_CANDIDATE } = require("../../variables/constants");
 
@@ -76,6 +77,16 @@ const _updateChecker = () => {
         return Promise.resolve();
       }
 
+      // Disable keyboard input
+      readline.emitKeypressEvents(process.stdin);
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(true);
+      }
+
+      process.stdout.write("\r");
+      process.stdout.write(chalk.blue("Checking for updates... "));
+      process.stdout.write("\x1b[25G");
+
       return new Promise((resolve) => {
         https
           .get(url, options, (res) => {
@@ -125,6 +136,14 @@ const _updateChecker = () => {
                   (BUILD === build && RELEASE_CANDIDATE > releaseCandidate) || // Installed RC is newer, no downgrade
                   (BUILD === build && releaseCandidate === 0)); // Fetched RC is 0, meaning a stable release, outdated
 
+              process.stdout.write(chalk.green.bold("DONE!"));
+              process.stdout.write("\n\n");
+
+              // Re-enable keyboard input
+              if (process.stdin.isTTY) {
+                process.stdin.setRawMode(false);
+              }
+
               // If current build is newer than fetched build, ignore
               if (!isOutdated) {
                 Verbose.custom(
@@ -157,8 +176,20 @@ const _updateChecker = () => {
             });
           })
           .on("error", () => {
+            process.stdout.write(chalk.red.bold("Connection Error"));
+            process.stdout.write("\n");
+
+            // Re-enable keyboard input on error
+            if (process.stdin.isTTY) {
+              process.stdin.setRawMode(false);
+            }
+
+            console.log(
+              chalk.red.dim(
+                `Unable to connect to server (check your internet connection). ${GLOBAL_NAME} will attempt to check for updates next Sunday.\n`
+              )
+            );
             Verbose.custom("An error occurred.");
-            InfoMessages.error("An error occurred while attempting to get updates.");
             resolve();
           });
       });
