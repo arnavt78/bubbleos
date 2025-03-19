@@ -19,6 +19,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Fixed an issue where showing path basenames would show an empty string when at the root of a drive.
 - Fixed an issue where reading an empty directory with `dirtree` would not show a message saying the directory was empty.
 - Fixed an issue where the alphabetical sorting of the `sysinfo` command would sort by words starting with uppercase letters first.
+- Fixed an issue where if the history in the configuration file was not a valid data type, BubbleOS would crash and bootloop instead of fixing the issue automatically.
 
 ### Removed Features
 

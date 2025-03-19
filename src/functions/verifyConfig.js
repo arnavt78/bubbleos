@@ -148,6 +148,10 @@ const _verifyConfig = (showFirstTimeMsg) => {
 
     if (!configData?.history || !configData?.build || !configData?.nextUpdateCheck)
       _resetAndError();
+
+    if (!Array.isArray(configData?.history)) {
+      _resetAndError();
+    }
   } catch (err) {
     _fatalError(err);
   }
