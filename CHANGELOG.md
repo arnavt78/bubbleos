@@ -15,7 +15,6 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 - Changed the `stat` command to automatically retrieve the stats of the current directory if no path is specified.
 - Changed all references from "folder" to "directory" to help create a consistency of terminology usage.
 - Changed the `sysinfo` CPU information so that the speed will not be outputted if it is zero, and the CPU information will not be shown if BubbleOS is unable to get CPU information.
-- Fixed an issue where the update checker incorrectly considered a full release of the same build as outdated if a release candidate existed. For example, if the installed version was Build 200, but the fetched version was Build 200 Release Candidate 1, the update checker would mistakenly treat the release candidate as newer.
 - Fixed an issue where the `time` command would not show times in AM/PM format by default.
 - Fixed an issue where showing path basenames would show an empty string when at the root of a drive.
 - Fixed an issue where reading an empty directory with `dirtree` would not show a message saying the directory was empty.
@@ -27,6 +26,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Removed Features
 
+- Removed support for release candidates. Configuration files containing release candidate data will be removed upon booting into this version.
 - Removed the "this may take a while message" when the path being copied in the `copy` command is over 250MB, to improve performance.
 
 ## Build 200 RC3 to 200 RC4 (v2.0.0-rc3 to v2.0.0-rc4)

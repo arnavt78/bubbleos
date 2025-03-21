@@ -5,12 +5,7 @@ const _welcomeMsg = require("./init/welcomeMsg");
 const _initConfig = require("./init/initConfig");
 const _fatalError = require("./fatalError");
 
-const {
-  GLOBAL_NAME,
-  REQUIRE_CONFIG_RESET,
-  BUILD,
-  RELEASE_CANDIDATE,
-} = require("../variables/constants");
+const { GLOBAL_NAME, REQUIRE_CONFIG_RESET, BUILD } = require("../variables/constants");
 
 const requiredSettings = require("../data/settings.json");
 
@@ -85,22 +80,7 @@ const _verifyConfig = (showFirstTimeMsg) => {
       _resetAndError();
     }
 
-    // Check if the configuration file is outdated.
-    //
-    // If the build number is greater than the current build number, or the release candidate
-    // is greater than the current release candidate, then the configuration file is outdated.
-    // Also, if the release candidate is 0 and the build number is greater than the current build number,
-    // then the configuration file is outdated, and if the build number is the same but the release
-    // candidate went from a positive integer to 0, then the configuration file is outdated.
-    const isOutdated =
-      typeof configData?.build !== "undefined" &&
-      ((BUILD === configData?.build && RELEASE_CANDIDATE < configData?.releaseCandidate) ||
-        (RELEASE_CANDIDATE === 0 && BUILD > configData?.build) ||
-        (BUILD === configData?.build &&
-          configData?.releaseCandidate > 0 &&
-          RELEASE_CANDIDATE === 0) ||
-        BUILD > configData?.build ||
-        (BUILD === configData?.build && RELEASE_CANDIDATE > configData?.releaseCandidate));
+    const isOutdated = typeof configData?.build !== "undefined" && BUILD > configData?.build;
 
     if (isOutdated && REQUIRE_CONFIG_RESET) {
       if (!_initConfig()) {
@@ -128,7 +108,30 @@ const _verifyConfig = (showFirstTimeMsg) => {
       }
     } else if (isOutdated && !REQUIRE_CONFIG_RESET) {
       config.addData({ build: BUILD });
-      config.addData({ releaseCandidate: RELEASE_CANDIDATE });
+    } else if (typeof configData?.releaseCandidate !== "undefined") {
+      if (!_initConfig()) {
+        InfoMessages.info(
+          `The configuration file was detected to be outdated, and has been reset. A restart is required for the changes to fully take effect.`
+        );
+        question(chalk.blue("Press the Enter key to continue . . . "), {
+          hideEchoBack: true,
+          mask: "",
+        });
+
+        console.log();
+        process.exit(0);
+      } else {
+        InfoMessages.error(
+          "The configuration file was detected to be outdated, and was attempted to be reset, but an error occurred while attempting to do so."
+        );
+        question(chalk.red("Press the Enter key to continue . . . "), {
+          hideEchoBack: true,
+          mask: "",
+        });
+
+        console.log();
+        process.exit(1);
+      }
     }
 
     const settings = configData?.settings;
@@ -148,10 +151,7 @@ const _verifyConfig = (showFirstTimeMsg) => {
 
     if (!configData?.history || !configData?.build || !configData?.nextUpdateCheck)
       _resetAndError();
-
-    if (!Array.isArray(configData?.history)) {
-      _resetAndError();
-    }
+    if (!Array.isArray(configData?.history)) _resetAndError();
   } catch (err) {
     _fatalError(err);
   }

@@ -1,6 +1,6 @@
 const settings = require("../../data/settings.json");
 
-const { BUILD, RELEASE_CANDIDATE } = require("../../variables/constants");
+const { BUILD } = require("../../variables/constants");
 
 const _fatalError = require("../fatalError");
 
@@ -48,7 +48,6 @@ const _initConfig = () => {
         ),
         history: [],
         build: BUILD,
-        releaseCandidate: RELEASE_CANDIDATE,
         nextUpdateCheck: _getLastSundayAtMidnight(),
       }),
     ];

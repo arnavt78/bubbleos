@@ -1,12 +1,6 @@
 const chalk = require("chalk");
 
-const {
-  GLOBAL_NAME,
-  AUTHOR,
-  VERSION,
-  BUILD,
-  RELEASE_CANDIDATE,
-} = require("../variables/constants");
+const { GLOBAL_NAME, AUTHOR, VERSION, BUILD } = require("../variables/constants");
 
 const _nonFatalError = require("../functions/nonFatalError");
 
@@ -33,13 +27,7 @@ const about = (...args) => {
     console.log(chalk.underline.bold.red(`About ${aboutName}\n`));
 
     // Information about build and author
-    console.log(
-      chalk.bold(
-        `${aboutName}, v${VERSION} (Build ${BUILD}${
-          RELEASE_CANDIDATE ? ` Release Candidate ${RELEASE_CANDIDATE}` : ""
-        })`
-      )
-    );
+    console.log(chalk.bold(`${aboutName}, v${VERSION} (Build ${BUILD})`));
     console.log(`Made by ${AUTHOR}!\n`);
 
     // MIT License (variable year)

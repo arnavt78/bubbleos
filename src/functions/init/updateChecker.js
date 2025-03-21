@@ -3,7 +3,7 @@ const chalk = require("chalk");
 const boxen = require("boxen");
 const readline = require("readline");
 
-const { GLOBAL_NAME, BUILD, RELEASE_CANDIDATE } = require("../../variables/constants");
+const { GLOBAL_NAME, BUILD } = require("../../variables/constants");
 
 const HTTP_CODES = require("../../data/httpCodes.json");
 
@@ -122,19 +122,10 @@ const _updateChecker = () => {
                 published: release?.published_at,
               };
 
-              // Extract build and release candidate
-              const match = releaseInfo.name.match(/Build (\d+)(?: Release Candidate (\d+))?/);
+              const match = releaseInfo.name.match(/Build (\d+)/);
               const build = match ? Number(match[1]) : null;
-              const releaseCandidate = match && match[2] ? Number(match[2]) : 0; // Default RC to 0 if not found
 
-              const isOutdated =
-                typeof build !== "undefined" &&
-                (BUILD < build || // A higher fetched build is always outdated
-                  (BUILD === build &&
-                    RELEASE_CANDIDATE > 0 &&
-                    RELEASE_CANDIDATE < releaseCandidate) || // Fetched RC is greater than nonzero current RC
-                  (BUILD === build && RELEASE_CANDIDATE > releaseCandidate) || // Installed RC is newer, no downgrade
-                  (BUILD === build && releaseCandidate === 0)); // Fetched RC is 0, meaning a stable release, outdated
+              const isOutdated = typeof build !== "undefined" && BUILD < build;
 
               process.stdout.write(chalk.green.bold("DONE!"));
               process.stdout.write("\n\n");
