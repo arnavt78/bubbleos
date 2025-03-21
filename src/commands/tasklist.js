@@ -6,6 +6,7 @@ const _nonFatalError = require("../functions/nonFatalError");
 const Checks = require("../classes/Checks");
 const Verbose = require("../classes/Verbose");
 const PathUtil = require("../classes/PathUtil");
+const InfoMessages = require("../classes/InfoMessages");
 
 /**
  * Shows all the processes running on the system, or
@@ -67,8 +68,15 @@ const tasklist = async (filter, ...args) => {
 
     console.log();
   } catch (err) {
-    Verbose.nonFatalError();
-    _nonFatalError(err);
+    if (err.code === "ENOENT") {
+      Verbose.custom(
+        "Failed to get list of processes, possibly due to the 'tasklist' command not existing."
+      );
+      InfoMessages.error("Failed to get list of processes.");
+    } else {
+      Verbose.nonFatalError();
+      _nonFatalError(err);
+    }
   }
 };
 

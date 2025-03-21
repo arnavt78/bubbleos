@@ -150,6 +150,10 @@ const symlink = (target, path, ...args) => {
     } else if (err.code === "ENXIO") {
       Verbose.noDeviceError();
       Errors.noDevice(showTarget);
+    } else if (err.code === "EISDIR") {
+      // Occurs if system is unable to create symlink (Windows)
+      Verbose.custom("Unable to create symbolic link.");
+      InfoMessages.error("Failed to create a symbolic link.");
     } else if (err.code === "UNKNOWN") {
       Verbose.unknownError();
       Errors.unknown();

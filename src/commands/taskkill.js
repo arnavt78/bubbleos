@@ -92,6 +92,11 @@ const taskkill = async (processName, ...args) => {
     } else if (err.code === "ESRCH") {
       Verbose.custom(`The process '${processName}' was detected to not exist.`);
       Errors.doesNotExist("process", processName);
+    } else if (err.code === "ENOENT") {
+      Verbose.custom(
+        "Failed to get list of processes, possibly due to the 'tasklist' command not existing."
+      );
+      InfoMessages.error("Failed to get list of processes.");
     } else {
       Verbose.nonFatalError();
       _nonFatalError(err);

@@ -8,19 +8,11 @@ const Verbose = require("../classes/Verbose");
  * @param {Date} time The time to convert.
  */
 const _convertTime = (time) => {
-  // Check correct time format and split into components
-  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  const hours = new Date().getHours();
+  const ampm = hours >= 12 ? " PM" : " AM";
+  const hours12 = hours % 12 || 12;
 
-  if (time.length > 1) {
-    // Remove full string match value
-    time = time.slice(1);
-
-    // Set AM/PM and adjust hours
-    time[5] = +time[0] < 12 ? " AM" : " PM";
-    time[0] = +time[0] % 12 || 12;
-  }
-
-  return time.join("");
+  return time.replace(/^\d+/, hours12) + ampm;
 };
 
 /**
