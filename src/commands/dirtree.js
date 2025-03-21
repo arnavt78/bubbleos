@@ -105,6 +105,8 @@ const dirtree = (dir = process.cwd(), ...args) => {
     console.log(chalk.bold(PathUtil.convertAbsolute(dir)));
     Verbose.custom("Starting tree generation...");
     _generateTree(dir);
+
+    console.log();
   } catch (err) {
     Verbose.initShowPath();
     const showDir = new SettingManager().fullOrBase(dir);
