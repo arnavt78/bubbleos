@@ -13,27 +13,26 @@ class InfoMessages {
   constructor() {}
 
   static success(message) {
-    if (new SettingManager().checkSetting("infoMsgPrefix"))
-      console.log(chalk.green(`${chalk.white.bgGreen(" SUCCESS: ")} ${message}\n`));
-    else console.log(chalk.green(`${message}\n`));
+    if (!new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.green(`${message}\n`));
+    else console.log(chalk.green(`${chalk.white.bgGreen(" SUCCESS: ")} ${message}\n`));
   }
 
   static info(message) {
-    if (new SettingManager().checkSetting("infoMsgPrefix"))
-      console.log(chalk.blue(`${chalk.white.bgBlue(" INFO: ")} ${message}\n`));
-    else console.log(chalk.blue(`${message}\n`));
+    if (!new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.blue(`${message}\n`));
+    else console.log(chalk.blue(`${chalk.white.bgBlue(" INFO: ")} ${message}\n`));
   }
 
   static warning(message) {
-    if (new SettingManager().checkSetting("infoMsgPrefix"))
-      console.log(chalk.yellow(`${chalk.black.bgYellow(" WARNING: ")} ${message}\n`));
-    else console.log(chalk.yellow(`${message}\n`));
+    if (!new SettingManager().checkSetting("infoMsgPrefix"))
+      console.log(chalk.yellow(`${message}\n`));
+    else console.log(chalk.yellow(`${chalk.black.bgYellow(" WARNING: ")} ${message}\n`));
   }
 
   static error(message) {
-    if (new SettingManager().checkSetting("infoMsgPrefix"))
-      console.log(chalk.red(`${chalk.white.bgRed(" ERROR: ")} ${message}\n`));
-    else console.log(chalk.red(`${message}\n`));
+    if (!new SettingManager().checkSetting("infoMsgPrefix")) console.log(chalk.red(`${message}\n`));
+    else console.log(chalk.red(`${chalk.white.bgRed(" ERROR: ")} ${message}\n`));
   }
 }
 

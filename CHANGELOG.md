@@ -7,6 +7,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Added Features
 
 - Added a message that appears when BubbleOS checks for updates, and informs the user if the operation was successful or if there was an error connecting to the server.
+- Added the `--delete` argument to the BubbleOS executable, which deletes the BubbleOS configuration file entirely.
 - Added some easter eggs! ;)
 
 ### Changed/Fixed Features

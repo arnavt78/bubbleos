@@ -18,6 +18,7 @@ const _startupArgs = () => {
       "--no-warnings": "Disables showing startup warnings when using some arguments.",
       "--no-dump": "Disables the fatal error file dump feature.",
       "--reset": `Resets the ${GLOBAL_NAME} configuration file.`,
+      "--delete": `Deletes the ${GLOBAL_NAME} configuration file.`,
       "--verbose": "Enables verbose mode to give more information on processes.",
     };
 

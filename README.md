@@ -268,6 +268,7 @@ To view information about these startup arguments in BubbleOS, run the BubbleOS 
 - `--no-timebomb` – Disables checking if the timebomb has expired.
 - `--no-warnings` – Disables showing warnings during startup if the fatal error file dump feature or the timebomb were disabled.
 - `--reset` – Resets the BubbleOS configuration file, clearing all data. This requires a restart once BubbleOS finishes booting.
+- `--delete` – Deletes the BubbleOS configuration file.
 - `--verbose` – Enables verbose mode to give more information about processes. Useful for debugging if something goes wrong.
 - `-h` – Displays the help information about the startup arguments.
 - `-v` – Displays the current version of BubbleOS.

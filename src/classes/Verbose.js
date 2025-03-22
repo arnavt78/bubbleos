@@ -51,11 +51,12 @@ class Verbose {
     );
 
     if (_detectArgs("verbose")) {
-      if (new SettingManager().checkSetting("infoMsgPrefix"))
+      if (!new SettingManager().checkSetting("infoMsgPrefix"))
+        console.log(chalk.yellow(`${formattedDate} ${message}`));
+      else
         console.log(
           chalk.yellow(`${formattedDate} ${chalk.bgBlack.bold(" VERBOSE: ")} ${message}`)
         );
-      else console.log(chalk.yellow(`${formattedDate} ${message}`));
     }
   }
 

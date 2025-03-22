@@ -9,13 +9,14 @@ const arguments = {
   warnings: ["--no-timebomb"],
   dump: ["--no-dump"],
   reset: ["--reset"],
+  delete: ["--delete"],
   verbose: ["--verbose"],
 };
 
 /**
  * Detects if the specified argument was passed into BubbleOS.
  *
- * @param {"help" | "version" | "timebomb" | "checks" | "warnings" | "dump" | "reset" | "verbose"} argument The name of the argument defined in the `arguments` object.
+ * @param {"help" | "version" | "timebomb" | "checks" | "warnings" | "dump" | "reset" | "delete" | "verbose"} argument The name of the argument defined in the `arguments` object.
  * @returns `false` if the argument was not passed into BubbleOS, `true` if it was.
  */
 const _detectArgs = (argument) => {

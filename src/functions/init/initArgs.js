@@ -40,6 +40,24 @@ try {
   if (_detectArgs("dump") && !_detectArgs("warnings"))
     InfoMessages.warning("The fatal error file dump feature has been disabled.");
 
+  // Configuration file deletion
+  // If both --delete and --reset are detected, --delete will take precedence
+  if (_detectArgs("delete")) {
+    Verbose.custom("Deleting configuration file...");
+    if (config.deleteConfig()) {
+      InfoMessages.info("The configuration file was successfully deleted.");
+      question(chalk.blue("Press the Enter key to continue . . . "), {
+        hideEchoBack: true,
+        mask: "",
+      });
+
+      console.log();
+      process.exit(0);
+    } else {
+      InfoMessages.error("An error occurred when attempting to delete the configuration file.");
+    }
+  }
+
   // Configuration file reset/creation
   if (_detectArgs("reset") || typeof config.getConfig() === "undefined") {
     Verbose.custom("Resetting/creating configuration file...");
