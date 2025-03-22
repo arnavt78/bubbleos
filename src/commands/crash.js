@@ -163,7 +163,7 @@ const crash = async (...args) => {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      _exit(false, false);
+      _exit();
     } else if (err.message.toLowerCase().includes("exit code 1")) {
       // If the BSOD failed to run. This is usually due to Windows
       // 'taskkill' not existing/being blocked by the system.

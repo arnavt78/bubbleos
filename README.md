@@ -1,7 +1,5 @@
 # BubbleOS
 
-**⚠️ This file is a work-in-progress for the next stable release and can be inaccurate. Information is subject to changes!**
-
 BubbleOS is a useful and colorful shell for your operating system, with several features to make your computer use easier!
 
 The latest stable version of BubbleOS is **[build 200](https://github.com/arnavt78/bubbleos/releases/tag/v2.0.0)**.
@@ -193,7 +191,7 @@ For beta builds and release candidates, a greyed-out warning message will always
 The first introduction displays the following command usage:
 
 - `help` – Display all available BubbleOS commands.
-- `help \<command\>` – Display detailed information about a specific command.
+- `help <command>` – Display detailed information about a specific command.
 - `setmgr` – Change the BubbleOS settings.
 - `exit` – Exit the BubbleOS shell safely.
 
@@ -317,6 +315,8 @@ BubbleOS will check if the configuration file exists after every command executi
 
 The configuration file is located in the user’s home directory, and is stored as `bubbleos-config.json`. The file is extremely compact and usually takes up less than a kilobyte of space.
 
+This file can be reset by running the BubbleOS executable with the `--reset` argument, or deleted using the `--delete` argument. Note this will clear all history and settings.
+
 # General Usage
 
 This section covers the general usage of the BubbleOS CLI.
@@ -325,7 +325,7 @@ This section covers the general usage of the BubbleOS CLI.
 
 BubbleOS contains a variety of commands. In total, there are 35 commands.
 
-To get information about a command, use help \<command\> in the BubbleOS CLI.
+To get information about a command, use `help <command>` in the BubbleOS CLI.
 
 ### `about`
 
@@ -588,7 +588,7 @@ Shows various tips and useful information relating to the usage of BubbleOS. The
 
 Shows the number of lines, words, and characters in a file. If the number of characters with and without whitespace are the same, they are combined into one value.
 
-By default, all the values show, however, they can be customized using arguments: `-l` for lines, `-w` for words, and -c` for characters.
+By default, all the values show, however, they can be customized using arguments: `-l` for lines, `-w` for words, and `-c` for characters.
 
 ## Errors
 

@@ -107,7 +107,7 @@ const _fileContents = async (file) => {
     if (err.name === "ExitPromptError") {
       // If the user presses Ctrl+C, exit BubbleOS gracefully
       Verbose.custom("Detected Ctrl+C, exiting...");
-      _exit(false, false);
+      _exit();
     } else {
       Verbose.nonFatalError();
       _nonFatalError(err);
