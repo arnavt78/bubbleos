@@ -2,6 +2,21 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 200 to 2?? (v2.0.0 to v2.?.?-beta)
+
+### Added Features
+
+- Added category sorting to the `help` command, which sorts commands based on the category.
+- Added more colors to the `help` command.
+
+### Changed/Fixed Features
+
+_No changed/fixed features._
+
+### Removed Features
+
+_No removed features._
+
 ## Build 200 RC4 to 200 (v2.0.0-rc4 to v2.0.0)
 
 ### Added Features

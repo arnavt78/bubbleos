@@ -18,7 +18,7 @@ const AUTHOR = "Arnav Thorat";
  *
  * For betas, add `-beta` to the end of the version number.
  */
-const VERSION = "2.0.0";
+const VERSION = "2.0.0-beta";
 /**
  * The build of the shell.
  *
@@ -29,15 +29,15 @@ const BUILD = 200;
 /**
  * If the configuration file needs to be reset if it is an older version when loaded in this version.
  */
-const REQUIRE_CONFIG_RESET = true;
+const REQUIRE_CONFIG_RESET = false;
 /**
  * If the shell is in beta or not. `true` if it is in beta, else, `false`.
  */
-const IN_BETA = false;
+const IN_BETA = true;
 /**
  * If the timebomb for the shell has been activated. `true` if the timebomb is activated, else, `false`.
  */
-const TIMEBOMB_ACTIVATED = false;
+const TIMEBOMB_ACTIVATED = true;
 /**
  * The expiry date of the shell. If `TIMEBOMB_ACTIVATED` **and** `IN_BETA` are both `true`, the shell will always check on startup if the current date has surpassed the expiry date.
  *
@@ -57,7 +57,7 @@ const TIMEBOMB_ACTIVATED = false;
  *
  * To see the date in **90** days, [click here](https://www.google.com/search?q=Date+90+days+from+today).
  */
-const EXPIRY_DATE = new Date(2025, 5, 4);
+const EXPIRY_DATE = new Date(2025, 5, 23);
 
 module.exports = {
   GLOBAL_NAME,
