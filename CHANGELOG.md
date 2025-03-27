@@ -6,12 +6,13 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
+- Added the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `graphics`, `hardware`, `mem` (also `ram`), `os`, `printer`, and `usb`. These are currently non-functional.
 - Added category sorting to the `help` command, which sorts commands based on the category.
-- Added more colors to the `help` command.
 
 ### Changed/Fixed Features
 
-_No changed/fixed features._
+- Changed colors used in the `help` command.
+- Changed internal command file structure.
 
 ### Removed Features
 
