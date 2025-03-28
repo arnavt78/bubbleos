@@ -26,6 +26,9 @@ const stat = require("../commands/fs/stat");
 const symlink = require("../commands/fs/symlink");
 const wcount = require("../commands/fs/wcount");
 
+// Gaming Commands
+const snake = require("../commands/gaming/snake");
+
 // Other Commands
 const cls = require("../commands/other/cls");
 const crash = require("../commands/other/crash");
@@ -97,6 +100,10 @@ const COMMANDS = {
   stat,
   symlink,
   wcount,
+
+  // GAMING COMMANDS
+  // ---------------
+  snake,
 
   // OTHER COMMANDS
   // --------------
