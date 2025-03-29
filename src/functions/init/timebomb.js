@@ -27,7 +27,7 @@ const _timebomb = () => {
         _startupError(
           `This beta build of ${GLOBAL_NAME} has expired. Please upgrade to a newer version of ${GLOBAL_NAME}.`,
           true,
-          `${GLOBAL_NAME} was forcefully crashed due to the timebomb expiring.`
+          `${GLOBAL_NAME} was forcefully crashed due to the timebomb expiring`
         );
       }
     }

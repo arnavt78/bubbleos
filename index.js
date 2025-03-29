@@ -16,6 +16,10 @@ const PathUtil = require("./src/classes/PathUtil");
   Verbose.custom("Checking terminal color support...");
   require("./src/functions/init/colorSupport")();
 
+  // Detect if Node.js version is supported
+  Verbose.custom("Checking Node.js version...");
+  require("./src/functions/init/detectNodeVer")();
+
   // Initialize timebomb
   Verbose.custom("Detecting no timebomb argument...");
   if (!_detectArgs("timebomb")) require("./src/functions/init/timebomb")();

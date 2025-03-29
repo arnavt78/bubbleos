@@ -61,6 +61,7 @@ const _fatalError = (err, doFileDump = true) => {
 
   console.log(`${chalk.red.dim.underline("Technical Error Information\n")}`);
 
+  // Show error properties
   for (let error in errProperties) {
     if (typeof errProperties[error] !== "undefined")
       console.log(chalk.red.dim(`${chalk.italic(error)}: ${errProperties[error]}`));
@@ -68,15 +69,18 @@ const _fatalError = (err, doFileDump = true) => {
 
   console.log();
 
+  let saveSuccess = false;
   if (doFileDump) {
     try {
       let errorArr = [];
 
+      // Save error properties in file
       for (let error in errProperties) {
         if (typeof errProperties[error] !== "undefined")
           errorArr.push(`${error}: ${errProperties[error]}`);
       }
 
+      // Starting text for file, including date of crash
       const date = new Date();
       const errorInfoTxt = `${GLOBAL_NAME} encountered a fatal error on ${String(
         date.getMonth() + 1
@@ -98,6 +102,8 @@ const _fatalError = (err, doFileDump = true) => {
       InfoMessages.success(
         `Saved file ${chalk.bold(ERROR_INFO_FILENAME)} in ${chalk.bold(process.cwd())}.`
       );
+
+      saveSuccess = true;
     } catch {
       InfoMessages.error(
         `Could not save file ${chalk.bold(ERROR_INFO_FILENAME)} in ${chalk.bold(process.cwd())}.`
@@ -105,11 +111,13 @@ const _fatalError = (err, doFileDump = true) => {
     }
   }
 
-  const config = new ConfigManager();
-  if (!config.addData({ lastCrashed: true })) {
-    InfoMessages.error(
-      `An error occurred while trying to save information to the configuration file.`
-    );
+  // Save information about BubbleOS crashing
+  if (saveSuccess && doFileDump) {
+    if (!new ConfigManager().addData({ lastCrashed: true })) {
+      InfoMessages.error(
+        `An error occurred while trying to save information to the configuration file.`
+      );
+    }
   }
 
   question(chalk.red("Press the Enter key to continue . . . "), { hideEchoBack: true, mask: "" });
