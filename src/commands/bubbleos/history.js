@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 
-const _initConfig = require("../../functions/init/initConfig");
 const { NUMBER_TO_STORE } = require("../../functions/addToHist");
+
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Errors = require("../../classes/Errors");
@@ -29,13 +29,13 @@ const _formatHist = (index, histCmd) => {
  * The `-c` argument clears the history and the history
  * stored in the configuration file.
  *
- * @param {number | string} numToDisplay Optional. The number point in history to display by itself. If it is not provided, it will show all commands in history.
+ * @param {number | string} amount Optional. Show the last amount of commands entered, instead of all commands.
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
  */
-const history = (numToDisplay, ...args) => {
+const history = (amount, ...args) => {
   try {
     Verbose.initArgs();
-    const clear = args.includes("-c") || numToDisplay === "-c";
+    const clear = args.includes("-c") || amount === "-c";
 
     Verbose.initConfig();
     const config = new ConfigManager();
@@ -64,13 +64,14 @@ const history = (numToDisplay, ...args) => {
       return;
     }
 
-    if (typeof numToDisplay === "undefined") {
+    if (historyConfig.length === 0) {
+      Verbose.custom("No commands detected in history.");
+      console.log(chalk.yellow("No commands in history yet.\n"));
+      return;
+    }
+
+    if (typeof amount === "undefined") {
       Verbose.custom("Showing all commands in history...");
-      if (historyConfig.length === 0) {
-        Verbose.custom("No commands detected in history.");
-        console.log(chalk.yellow("No commands in history yet.\n"));
-        return;
-      }
 
       // Display all history entries
       for (const [idx, value] of historyConfig.entries()) {
@@ -82,30 +83,27 @@ const history = (numToDisplay, ...args) => {
     }
 
     // Validate the input and display specific history point
-    if (numToDisplay % 1 !== 0) {
+    if (amount % 1 !== 0) {
       Verbose.custom("Detected invalid characters passed into history point...");
-      Errors.invalidCharacters("history point", "numbers", "letters/symbols", numToDisplay);
-      return;
-    } else if (numToDisplay > NUMBER_TO_STORE || numToDisplay <= 0) {
-      Verbose.custom(
-        `History point ${numToDisplay} exceeds max storage number (${NUMBER_TO_STORE}).`
-      );
-      console.log(
-        chalk.yellow(
-          `The history point ${numToDisplay} exceeds the range of history points able to be stored (1-${NUMBER_TO_STORE}).\n`
-        )
-      );
-      return;
-    } else if (typeof historyConfig[numToDisplay - 1] === "undefined") {
-      Verbose.custom(
-        `Cannot find command at ${numToDisplay} (${historyConfig[numToDisplay - 1]}).`
-      );
-      console.log(chalk.yellow(`Cannot find the command in history point ${numToDisplay}.\n`));
+      Errors.invalidCharacters("history point", "numbers", "letters/symbols", amount);
       return;
     }
 
-    Verbose.custom(`Showing specific history at point ${numToDisplay}...`);
-    _formatHist(numToDisplay, historyConfig[numToDisplay - 1]);
+    for (let i = historyConfig.length - amount + 1; i < historyConfig.length + 1; i++) {
+      Verbose.custom(`Attempting to display command at history point ${i}...`);
+      if (i - 1 < 0 || i - 1 > NUMBER_TO_STORE) {
+        Verbose.custom(
+          "Number detected to be larger or smaller than expected; displaying all commands..."
+        );
+        for (const [idx, value] of historyConfig.entries()) {
+          _formatHist(idx + 1, value);
+        }
+        break;
+      }
+
+      _formatHist(i, historyConfig[i - 1]);
+    }
+
     console.log();
   } catch (err) {
     Verbose.nonFatalError();

@@ -7,7 +7,7 @@ const Verbose = require("../classes/Verbose");
 /**
  * The number of history commands to store before deleting the oldest ones.
  */
-const NUMBER_TO_STORE = 50;
+const NUMBER_TO_STORE = 100;
 
 /**
  * Add a command to the history to be later
