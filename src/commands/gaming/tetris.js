@@ -102,7 +102,7 @@ const tetris = async (...args) => {
 
   const drawBoard = () => {
     console.clear();
-    let display = "╔" + "═".repeat(WIDTH) + "╗    Score: " + score + "\n";
+    let display = "╔" + "═".repeat(WIDTH) + "╗    Score: " + chalk.bold(score) + "\n";
 
     for (let y = 0; y < HEIGHT; y++) {
       display += "║";
@@ -122,7 +122,7 @@ const tetris = async (...args) => {
       display += "║";
 
       if (y === 0) {
-        display += "    Next:";
+        display += "    Next block:";
       } else if (y >= 1 && y <= 4 && nextPiece) {
         display += "    ";
         for (let x = 0; x < 4; x++) {
@@ -182,6 +182,16 @@ const tetris = async (...args) => {
     }
   };
 
+  const cleanup = () => {
+    stdin.removeAllListeners("data");
+    stdin.setRawMode(false);
+    stdin.pause();
+    stdin.setEncoding("utf8");
+
+    process.stdout.write("\x1bc");
+    console.log(chalk.bold.red(`Game over! Final score: ${score}\n`));
+  };
+
   process.stdout.write("\x1bc");
   console.log(chalk.bold.underline.cyan("Tetris Instructions\n"));
   console.log("- Use WASD keys to control the block falling:");
@@ -207,11 +217,7 @@ const tetris = async (...args) => {
     const keyCode = key.charCodeAt(0);
     if (key === "q") {
       gameOver = true;
-      stdin.removeAllListeners();
-      stdin.setRawMode(false);
-
-      process.stdout.write("\x1bc");
-      console.log(chalk.bold.red(`Game over! Final score: ${score}\n`));
+      cleanup();
       return;
     }
 
@@ -255,11 +261,7 @@ const tetris = async (...args) => {
 
       if (!canMove(currentPiece, currentPos)) {
         gameOver = true;
-        stdin.removeAllListeners();
-        stdin.setRawMode(false);
-
-        process.stdout.write("\x1bc");
-        console.log(chalk.bold.red(`Game over! Final score: ${score}\n`));
+        cleanup();
         break;
       }
     }
