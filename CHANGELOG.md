@@ -14,7 +14,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Changed/Fixed Features
 
 - Changed the function of the number argument in `history`, as it will now show the amount of commands that was requested (e.g. `history 10` will show the last ten commands).
-- The history now stores up to 100 commands, rather than 50.
+- The command history will no longer save commands if they are the same as the previously stored command in history.
+- The command history now stores up to 100 commands, rather than 50.
 - Changed colors used in the `help` command.
 - Changed internal command file structure.
 - The warning for BubbleOS crashing will no longer show on startup if an error information file was not saved.

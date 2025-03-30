@@ -36,6 +36,9 @@ const _addToHist = (command, addToConfig = true) => {
     Verbose.custom("Getting history stored in configuration file...");
     const historyConfig = config.getConfig().history ?? [];
 
+    // Do not save command if previous command is same as entered command
+    if (historyConfig[historyConfig.length - 1]?.toLowerCase() === command.toLowerCase()) return;
+
     // If the number of stored commands exceeds the limit, remove the oldest entry
     Verbose.custom(
       `Checking if number of entries stored is greater than ${NUMBER_TO_STORE} entries, and deleting oldest if so...`
