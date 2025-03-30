@@ -28,6 +28,7 @@ const wcount = require("../commands/fs/wcount");
 
 // Gaming Commands
 const snake = require("../commands/gaming/snake");
+const tetris = require("../commands/gaming/tetris");
 
 // Other Commands
 const cls = require("../commands/other/cls");
@@ -104,6 +105,7 @@ const COMMANDS = {
   // GAMING COMMANDS
   // ---------------
   snake,
+  tetris,
 
   // OTHER COMMANDS
   // --------------

@@ -6,7 +6,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-- Added the `snake` command, which allows you to play Snake! More games may be added in the future (they take a while to code though)!
+- Added the `snake` and `tetris` commands, which allow you to play Snake and Tetris! More games may be added in the future (they take a while to code though)!
 - Added the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `graphics`, `hardware`, `mem` (also `ram`), `os`, `printer`, and `usb`. These are currently non-functional.
 - Added category sorting to the `help` command, which sorts commands based on the category.
 - Added a detection for the Node.js version that BubbleOS is running on. If it is detected to be below version 22, BubbleOS will crash on startup.
