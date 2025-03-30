@@ -64,6 +64,8 @@ const snake = (...args) => {
   const update = (key) => {
     if (gameOver) return;
 
+    const originalDirection = direction;
+
     // Update direction based on key
     switch (key) {
       case "w":
@@ -80,7 +82,14 @@ const snake = (...args) => {
         break;
     }
 
-    // Calculate new head position
+    const keyToDir = { w: "up", s: "down", a: "left", d: "right" };
+    const oppositeDir = { up: "down", down: "up", left: "right", right: "left" };
+
+    if (key in keyToDir && keyToDir[key] === oppositeDir[originalDirection]) {
+      // Key is opposite to the original direction - prevent movement
+      return false; // Exit update early, no movement occurs
+    }
+
     const head = snake[0];
     let newHead;
     switch (direction) {
@@ -158,7 +167,7 @@ const snake = (...args) => {
 
     if (gameOver || key === "q") {
       process.stdout.write("\x1bc");
-      console.log(chalk.bold.red(`Game over! Final score: ${score}\n`));
+      console.log(chalk.bold.red(`Game over! Final score: ${chalk.bold(score)}\n`));
       break;
     }
   }

@@ -189,7 +189,7 @@ const tetris = async (...args) => {
     stdin.setEncoding("utf8");
 
     process.stdout.write("\x1bc");
-    console.log(chalk.bold.red(`Game over! Final score: ${score}\n`));
+    console.log(chalk.bold.red(`Game over! Final score: ${chalk.bold(score)}\n`));
   };
 
   process.stdout.write("\x1bc");
@@ -199,6 +199,9 @@ const tetris = async (...args) => {
   console.log("  S = Soft Drop");
   console.log("  A = Move Left");
   console.log("  D = Move Right");
+  console.log("- Put the blocks together so that lines are cleared");
+  console.log("- Clearing more lines at the same time gives more points");
+  console.log("- Avoid letting the blocks reach the top");
   console.log("- Press 'q' to quit\n");
 
   question(chalk.yellow("Press Enter to start . . . "), { hideEchoBack: true, mask: "" });
