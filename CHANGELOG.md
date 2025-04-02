@@ -2,7 +2,7 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
-## Build 200 to 2?? (v2.0.0 to v2.?.?-beta)
+## Build 200 to 209 (v2.0.0 to v2.0.9-beta)
 
 ### Added Features
 
