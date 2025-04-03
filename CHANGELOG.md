@@ -2,6 +2,20 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 209 to 2?? (v2.0.9-beta to v2.?.?-beta)
+
+### Added Features
+
+- Added the `qrcode` command, which generates a QR code that leads to the link entered. It also generates an image of the QR code and saves it!
+
+### Changed/Fixed Features
+
+_No changed/fixed features._
+
+### Removed Features
+
+_No removed features._
+
 ## Build 200 to 209 (v2.0.0 to v2.0.9-beta)
 
 ### Added Features

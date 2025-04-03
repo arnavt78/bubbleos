@@ -34,6 +34,7 @@ const tetris = require("../commands/gaming/tetris");
 const cls = require("../commands/other/cls");
 const crash = require("../commands/other/crash");
 const print = require("../commands/other/print");
+const qrcode = require("../commands/other/qrcode");
 const { cConCon, creeper, newton, error } = require("../commands/other/special");
 
 // System Commands
@@ -116,6 +117,7 @@ const COMMANDS = {
   // Aliases: print, echo
   print,
   echo: print,
+  qrcode,
   "c:\\con\\con": cConCon,
   "C:\\con\\con": cConCon,
   creeper,

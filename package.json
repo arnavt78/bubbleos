@@ -29,6 +29,7 @@
     "lock-system": "^2.0.0",
     "os-name": "^4.0.1",
     "ps-list": "^5.0.1",
+    "qrcode": "^1.5.4",
     "readline-sync": "^1.4.10",
     "sort-keys": "^4.2.0"
   }
