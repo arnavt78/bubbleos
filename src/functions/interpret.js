@@ -46,6 +46,11 @@ const _intCmds = async (command, storeInHistory = true) => {
       Verbose.custom("Command has been recognized, executing command...");
       recognized = true;
 
+      if (words[1] === "/?") {
+        COMMANDS.help(enteredCmd);
+        return;
+      }
+
       if (enteredCmd === "bub") {
         await COMMANDS[enteredCmd](_intCmds, ..._multiParam(command));
       } else {

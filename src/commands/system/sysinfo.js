@@ -1,8 +1,5 @@
 const os = require("os");
 const chalk = require("chalk");
-const osName = require("os-name");
-const batteryLevel = require("battery-level");
-const isCharging = require("is-charging");
 
 const { GLOBAL_NAME } = require("../../variables/constants");
 
@@ -11,6 +8,7 @@ const _friendlyOS = require("../../functions/friendlyOS");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Verbose = require("../../classes/Verbose");
+const InfoMessages = require("../../classes/InfoMessages");
 
 /**
  * Convert seconds to minutes, hours and days.
@@ -113,6 +111,7 @@ const _fixVersion = (currentOSName) =>
  * - `--all`: Display all system information that is available.
  *
  * @param {...string} args Arguments that can be used to modify the behavior of this command.
+ * @deprecated This command is deprecated and will be removed soon. More specialized commands should be used instead.
  */
 const sysinfo = async (...args) => {
   try {
@@ -134,7 +133,7 @@ const sysinfo = async (...args) => {
       Verbose.custom("Showing computer information...");
       console.log(`${chalk.bold.underline("Computer Information")}`);
 
-      console.log(`Full OS name: ${chalk.bold(_fixVersion(osName()))}`);
+      console.log(`Full OS name: ${chalk.bold("UNAVAILABLE")}`);
       console.log(`Operating system: ${chalk.bold(_friendlyOS())}`);
       console.log(`Release: ${chalk.bold(os.release())}`);
       console.log(`Architecture: ${chalk.bold(process.arch)}`);
@@ -269,6 +268,11 @@ const sysinfo = async (...args) => {
 
       console.log();
     }
+
+    // Deprecation warning
+    InfoMessages.warning(
+      "This command is deprecated and will be removed soon. More specialized commands should be used instead."
+    );
   } catch (err) {
     Verbose.nonFatalError();
     _nonFatalError(err);

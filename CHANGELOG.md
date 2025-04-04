@@ -6,7 +6,9 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
-- Added the `qrcode` command, which generates a QR code that leads to the link entered. It also generates an image of the QR code and saves it!
+- Added the `qrcode` command, which generates a QR code that leads to the link entered. It also generates an image of the QR code and saves it.
+- Added the `env` and `users` commands, which currently have no functionality.
+- Added the ability to get help for a command when using `/?` as the first argument on it.
 
 ### Changed/Fixed Features
 
@@ -14,7 +16,7 @@ _No changed/fixed features._
 
 ### Removed Features
 
-_No removed features._
+- Deprecated the `sysinfo` command. It will be removed soon. A deprecation warning will show when running the command.
 
 ## Build 200 to 209 (v2.0.0 to v2.0.9-beta)
 

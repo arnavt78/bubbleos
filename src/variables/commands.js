@@ -44,6 +44,7 @@ const bluetooth = require("../commands/system/bluetooth");
 const cpu = require("../commands/system/cpu");
 const date = require("../commands/system/date");
 const disks = require("../commands/system/disks");
+const env = require("../commands/system/env");
 const graphics = require("../commands/system/graphics");
 const hardware = require("../commands/system/hardware");
 const ifnet = require("../commands/system/ifnet");
@@ -57,6 +58,7 @@ const taskkill = require("../commands/system/taskkill");
 const tasklist = require("../commands/system/tasklist");
 const time = require("../commands/system/time");
 const usb = require("../commands/system/usb");
+const users = require("../commands/system/users");
 
 /**
  * All of the BubbleOS commands and their respective functions.
@@ -132,6 +134,7 @@ const COMMANDS = {
   cpu,
   date,
   disks,
+  env,
   graphics,
   hardware,
   ifnet,
@@ -147,6 +150,7 @@ const COMMANDS = {
   tasklist,
   time,
   usb,
+  users,
 };
 
 /**
