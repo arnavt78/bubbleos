@@ -6,6 +6,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
+- Added the `editfile` command, which allows the editing of files in the default editor in a temporary file.
+- Added the `tictactoe` command, which lets you play Tic-Tac-Toe!
 - Added the `qrcode` command, which generates a QR code that leads to the link entered. It also generates an image of the QR code and saves it.
 - Added the `env` and `users` commands, which currently have no functionality.
 - Added the ability to get help for a command when using `/?` as the first argument on it.
@@ -22,7 +24,7 @@ _No changed/fixed features._
 
 ### Added Features
 
-- Added the `snake` and `tetris` commands, which allow you to play Snake and Tetris, respectively! Includes high score storage in the configuration file. More games may be added in the future (they take a while to code though)!
+- Added the `snake` and `tetris` commands, which allows you to play Snake and Tetris, respectively! Includes high score storage in the configuration file. More games may be added in the future (they take a while to code though)!
 - Added the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `graphics`, `hardware`, `mem` (also `ram`), `os`, `printer`, and `usb`. These are currently non-functional.
 - Added category sorting to the `help` command, which sorts commands based on the category.
 - Added a detection for the Node.js version that BubbleOS is running on. If it is detected to be below version 22, BubbleOS will crash on startup.

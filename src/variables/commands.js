@@ -13,6 +13,7 @@ const copy = require("../commands/fs/copy");
 const cwd = require("../commands/fs/cwd");
 const del = require("../commands/fs/del");
 const dirtree = require("../commands/fs/dirtree");
+const editfile = require("../commands/fs/editfile");
 const exec = require("../commands/fs/exec");
 const fif = require("../commands/fs/fif");
 const hash = require("../commands/fs/hash");
@@ -29,6 +30,7 @@ const wcount = require("../commands/fs/wcount");
 // Gaming Commands
 const snake = require("../commands/gaming/snake");
 const tetris = require("../commands/gaming/tetris");
+const tictactoe = require("../commands/gaming/tictactoe");
 
 // Other Commands
 const cls = require("../commands/other/cls");
@@ -90,6 +92,7 @@ const COMMANDS = {
   // Aliases: dirtree, tree
   dirtree,
   tree: dirtree,
+  editfile,
   exec,
   fif,
   hash,
@@ -109,6 +112,7 @@ const COMMANDS = {
   // ---------------
   snake,
   tetris,
+  tictactoe,
 
   // OTHER COMMANDS
   // --------------

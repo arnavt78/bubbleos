@@ -52,7 +52,6 @@ const _fileContents = async (file) => {
         Verbose.custom("Saving file with provided file contents...");
         fs.writeFileSync(file, contents.join("\n"), "utf8");
 
-        // If the user requested output, show a success message, else, show a newline
         if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
           InfoMessages.success(`Successfully made the file ${chalk.bold(showFile)}.`);
         else console.log();

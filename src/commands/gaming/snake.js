@@ -189,6 +189,7 @@ const snake = (...args) => {
       }
     }
   } catch (err) {
+    Verbose.nonFatalError();
     _nonFatalError(err);
   }
 };
