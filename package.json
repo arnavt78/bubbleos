@@ -18,6 +18,7 @@
   "homepage": "https://github.com/arnavt78/bubbleos#readme",
   "dependencies": {
     "@inquirer/prompts": "^7.3.2",
+    "archiver": "^7.0.1",
     "boxen": "^5.1.2",
     "cfonts": "^3.3.0",
     "chalk": "^4.1.2",
@@ -25,6 +26,7 @@
     "is-elevated": "^3.0.0",
     "istextorbinary": "^6.0.0",
     "lock-system": "^2.0.0",
+    "progress": "^2.0.3",
     "ps-list": "^5.0.1",
     "qrcode": "^1.5.4",
     "readline-sync": "^1.4.10",

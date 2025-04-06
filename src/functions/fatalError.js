@@ -4,8 +4,6 @@ const { question } = require("readline-sync");
 
 const { GLOBAL_NAME, SHORT_NAME } = require("../variables/constants");
 
-const _friendlyOS = require("./friendlyOS");
-
 const InfoMessages = require("../classes/InfoMessages");
 const ConfigManager = require("../classes/ConfigManager");
 
@@ -54,7 +52,7 @@ const _fatalError = (err, doFileDump = true) => {
   console.log(`${chalk.bgRed.bold.underline("!!! FATAL ERROR !!!")}\n`);
   console.log(
     `${chalk.red.bold(
-      `A fatal exception has occurred in ${GLOBAL_NAME}. To avoid damage to ${GLOBAL_NAME} and ${_friendlyOS()}, ${GLOBAL_NAME} has been aborted with a failure status.
+      `A fatal exception has occurred in ${GLOBAL_NAME}. To avoid damage to ${GLOBAL_NAME} and the operating system, ${GLOBAL_NAME} has been aborted with a failure status.
       \nMake sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/arnavt78/bubbleos/issues/new).`
     )}\n`
   );

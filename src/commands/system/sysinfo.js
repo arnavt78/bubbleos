@@ -4,7 +4,6 @@ const chalk = require("chalk");
 const { GLOBAL_NAME } = require("../../variables/constants");
 
 const _convertSize = require("../../functions/convSize");
-const _friendlyOS = require("../../functions/friendlyOS");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Verbose = require("../../classes/Verbose");
@@ -133,8 +132,8 @@ const sysinfo = async (...args) => {
       Verbose.custom("Showing computer information...");
       console.log(`${chalk.bold.underline("Computer Information")}`);
 
-      console.log(`Full OS name: ${chalk.bold("UNAVAILABLE")}`);
-      console.log(`Operating system: ${chalk.bold(_friendlyOS())}`);
+      console.log(`Full OS name: ${chalk.bold("i cant tell my code is gone :(")}`);
+      console.log(`Operating system: ${chalk.bold("i cant tell my code is gone :(")})}`);
       console.log(`Release: ${chalk.bold(os.release())}`);
       console.log(`Architecture: ${chalk.bold(process.arch)}`);
       console.log(`Computer name: ${chalk.bold(os.hostname())}`);

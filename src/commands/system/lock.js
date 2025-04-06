@@ -2,7 +2,6 @@ const lockSystem = require("lock-system");
 
 const { GLOBAL_NAME } = require("../../variables/constants");
 
-const _friendlyOS = require("../../functions/friendlyOS");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const SettingManager = require("../../classes/SettingManager");
@@ -23,7 +22,7 @@ const lock = (...args) => {
     lockSystem();
 
     if (!new SettingManager().checkSetting("silenceSuccessMsgs"))
-      InfoMessages.success(`${GLOBAL_NAME} has successfully locked ${_friendlyOS()}!`);
+      InfoMessages.success(`${GLOBAL_NAME} has successfully locked the OS!`);
     else console.log();
   } catch (err) {
     if (err.message.toLowerCase().includes("unsupported os")) {

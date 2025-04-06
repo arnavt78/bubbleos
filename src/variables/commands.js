@@ -8,6 +8,7 @@ const setmgr = require("../commands/bubbleos/setmgr");
 const tips = require("../commands/bubbleos/tips");
 
 // File System Commands
+const archive = require("../commands/fs/archive");
 const cd = require("../commands/fs/cd");
 const copy = require("../commands/fs/copy");
 const cwd = require("../commands/fs/cwd");
@@ -83,6 +84,7 @@ const COMMANDS = {
 
   // FILE SYSTEM COMMANDS
   // --------------------
+  archive,
   cd,
   copy,
   // Aliases: cwd, pwd

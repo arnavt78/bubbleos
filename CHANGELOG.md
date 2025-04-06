@@ -7,6 +7,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 ### Added Features
 
 - Added the `editfile` command, which allows the editing of files in the default editor in a temporary file.
+- Added the `archive` command, which compresses a directory into a ZIP archive. This command also features a progress bar, which may be added to other commands.
 - Added the `tictactoe` command, which lets you play Tic-Tac-Toe!
 - Added the `qrcode` command, which generates a QR code that leads to the link entered. It also generates an image of the QR code and saves it.
 - Added the `env` and `users` commands, which currently have no functionality.
@@ -14,11 +15,13 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Changed/Fixed Features
 
-_No changed/fixed features._
+- Changed the fatal error screen and `lock` command to no longer explicitly say the operating system's name.
+- Edited the text on the timebomb error screen, showing the date of expiry and where to download the latest version.
 
 ### Removed Features
 
-- Deprecated the `sysinfo` command. It will be removed soon. A deprecation warning will show when running the command.
+- Deprecated the `sysinfo` command. A deprecation warning will show when running the command.
+- Internally removed the `friendlyOS` function.
 
 ## Build 200 to 209 (v2.0.0 to v2.0.9-beta)
 
