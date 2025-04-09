@@ -35,7 +35,9 @@ const lock = (...args) => {
       err.message.toLowerCase().includes("command failed")
     ) {
       Verbose.custom("No command was found to lock the system on Linux.");
-      InfoMessages.error("Locking the OS failed. Please install xdg-screensaver and try again.");
+      InfoMessages.error(
+        "Locking the OS failed. Please install xdg-screensaver, gnome-screensaver, cinnamon-screensaver, or dm-tool, and try again."
+      );
     } else {
       Verbose.nonFatalError();
       _nonFatalError(err);

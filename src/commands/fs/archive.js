@@ -5,6 +5,7 @@ const chalk = require("chalk");
 
 const _getSize = require("../../functions/getSize");
 const _promptForYN = require("../../functions/promptForYN");
+const _convertSize = require("../../functions/convertSize");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Errors = require("../../classes/Errors");
@@ -13,23 +14,6 @@ const Verbose = require("../../classes/Verbose");
 const InfoMessages = require("../../classes/InfoMessages");
 const PathUtil = require("../../classes/PathUtil");
 const SettingManager = require("../../classes/SettingManager");
-
-/**
- * Custom convert size function including size labels.
- *
- * @param {number} bytes The size in bytes to convert.
- * @param {number} decimals The number of decimal places to round to. Defaults to `2`.
- * @returns The best size and unit.
- */
-const _convertSize = (bytes, decimals = 2) => {
-  if (bytes === 0) return { size: 0, unit: "bytes" };
-
-  const sizes = ["bytes", "KB", "MB", "GB", "TB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  const size = parseFloat((bytes / Math.pow(1024, i)).toFixed(decimals));
-
-  return { size, unit: sizes[i] };
-};
 
 /**
  * Compresses a directory into a zip file.

@@ -21,11 +21,17 @@ const SettingManager = require("./SettingManager");
  * - `chkType`
  * - `chkUNC`
  * - `chkEncoding`
+ * - `startSpinner`
+ * - `stopSpinner`
  * - `promptUser`
  * - `declinePrompt`
  * - `permError`
  * - `inUseError`
+ * - `noDeviceError`
+ * - `invalOperationError`
+ * - `unknownError`
  * - `exitProcess`
+ * - `nonFatalError`
  * - `fatalError`
  */
 class Verbose {
@@ -144,6 +150,20 @@ class Verbose {
    */
   static chkEncoding() {
     this.custom("File was detected to have invalid encoding.");
+  }
+
+  /**
+   * Verbose message describing the starting of the spinner.
+   */
+  static startSpinner() {
+    this.custom("Starting spinner...");
+  }
+
+  /**
+   * Verbose message describing the stopping of the spinner.
+   */
+  static stopSpinner() {
+    this.custom("Stopping spinner...");
   }
 
   /**

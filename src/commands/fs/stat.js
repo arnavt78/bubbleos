@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const fs = require("fs");
 
-const _convertSize = require("../../functions/convSize");
+const _convertSize = require("../../functions/convertSize");
 const _nonFatalError = require("../../functions/nonFatalError");
 const _getSize = require("../../functions/getSize");
 

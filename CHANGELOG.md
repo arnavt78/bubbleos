@@ -2,6 +2,21 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 217 to 2?? (v2.1.7-beta to v2.?.?-beta)
+
+### Added Features
+
+- Added functionality for the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `env`, `graphics`, `hardware`, `mem`, `os`, `printer`, `usb`, and `users`. The values are currently printed out without much formatting, which will be changed in future versions.
+- Added a loading spinner for the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `graphics`, `hardware`, `mem`, `os`, `printer`, `usb`, and `users`.
+
+### Changed/Fixed Features
+
+- Changed the CLI prompt to use the one used in Build 180 to Build 200 RC3, to allow compatibility with the loading spinner used in commands.
+
+### Removed Features
+
+- Removed the code for battery information in `sysinfo`.
+
 ## Build 209 to 217 (v2.0.9-beta to v2.1.7-beta)
 
 ### Added Features

@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 const chalk = require("chalk");
-const { question } = require("readline-sync");
+const { input } = require("@inquirer/prompts");
 
 const { GLOBAL_NAME, SHORT_NAME, VERSION, BUILD } = require("./src/variables/constants");
 
 const _intCmds = require("./src/functions/interpret");
 const _detectArgs = require("./src/functions/detectArgs");
+const exit = require("./src/functions/exit");
 
 const Verbose = require("./src/classes/Verbose");
 const PathUtil = require("./src/classes/PathUtil");
@@ -73,13 +74,26 @@ const PathUtil = require("./src/classes/PathUtil");
   // CLI of BubbleOS
   Verbose.custom("Starting command interpreter...");
   while (true) {
-    const command = question(
-      `${chalk.bold.green(SHORT_NAME.toLowerCase())} ${chalk.blueBright(
-        PathUtil.caseSensitive(process.cwd())
-      )} ${chalk.red("$")} `
-    );
+    try {
+      const command = await input({
+        message: `${chalk.blueBright(PathUtil.caseSensitive(process.cwd()))} ${chalk.red("$")}`,
+        theme: {
+          prefix: chalk.bold.green(SHORT_NAME.toLowerCase()),
+          style: {
+            answer: (text) => chalk.reset(text),
+          },
+        },
+      });
 
-    Verbose.custom("Interpreting command...");
-    await _intCmds(command?.trim());
+      Verbose.custom("Interpreting command...");
+      await _intCmds(command?.trim());
+    } catch ({ name }) {
+      if (name === "ExitPromptError") {
+        // If the user presses Ctrl+C, exit BubbleOS gracefully
+        // Note this does not catch if a command is executing
+        Verbose.custom("Detected Ctrl+C, exiting...");
+        exit();
+      }
+    }
   }
 })();

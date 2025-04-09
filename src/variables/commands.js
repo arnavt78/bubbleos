@@ -48,6 +48,7 @@ const cpu = require("../commands/system/cpu");
 const date = require("../commands/system/date");
 const disks = require("../commands/system/disks");
 const env = require("../commands/system/env");
+const fs = require("../commands/system/fs");
 const graphics = require("../commands/system/graphics");
 const hardware = require("../commands/system/hardware");
 const ifnet = require("../commands/system/ifnet");
@@ -141,6 +142,7 @@ const COMMANDS = {
   date,
   disks,
   env,
+  fs,
   graphics,
   hardware,
   ifnet,

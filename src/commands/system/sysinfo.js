@@ -3,7 +3,7 @@ const chalk = require("chalk");
 
 const { GLOBAL_NAME } = require("../../variables/constants");
 
-const _convertSize = require("../../functions/convSize");
+const _convertSize = require("../../functions/convertSize");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Verbose = require("../../classes/Verbose");
@@ -81,20 +81,6 @@ const _determineColor = async (
 };
 
 /**
- * Fixes issue where BubbleOS reports Windows 11 systems as Windows 10 ([#7](https://github.com/arnavt78/bubbleos/issues/7)),
- * because Microsoft apparently can't do it...
- *
- * Windows builds from 21370 and onwards are reported as Windows 11.
- *
- * @param {string} currentOSName The current name of the OS.
- * @returns The name of the OS.
- */
-const _fixVersion = (currentOSName) =>
-  currentOSName === "Windows 10" && parseInt(os.release().split(".").pop(), 10) >= 21370
-    ? "Windows 11"
-    : currentOSName;
-
-/**
  * Get system information about the computer.
  *
  * Get lots of information about the local computer
@@ -132,8 +118,8 @@ const sysinfo = async (...args) => {
       Verbose.custom("Showing computer information...");
       console.log(`${chalk.bold.underline("Computer Information")}`);
 
-      console.log(`Full OS name: ${chalk.bold("i cant tell my code is gone :(")}`);
-      console.log(`Operating system: ${chalk.bold("i cant tell my code is gone :(")})}`);
+      console.log(`Full OS name: `);
+      console.log(`Operating system: `);
       console.log(`Release: ${chalk.bold(os.release())}`);
       console.log(`Architecture: ${chalk.bold(process.arch)}`);
       console.log(`Computer name: ${chalk.bold(os.hostname())}`);
@@ -183,31 +169,7 @@ const sysinfo = async (...args) => {
       const uptime = _convertTime(os.uptime(), 0).recommended;
       console.log(`System uptime: ${chalk.bold(`${uptime.value} ${uptime.type}`)}`);
 
-      // If the system has a battery, show the battery information
-      try {
-        // If the system does not have a battery, this will be caught,
-        // and therefore the code after this will not be run
-        const onCharge = await isCharging();
-        const batteryPercent = await batteryLevel();
-
-        // Sometimes, there will be no error but the device has no battery
-        // Usually happens on Windows, so this is to prevent that
-        if (!isNaN(batteryPercent)) {
-          // The Math.floor() is to prevent a floating-point precision
-          // error that can occur sometimes
-          const batteryDisplay = `${Math.floor(batteryPercent * 100)}%${
-            onCharge ? " (charging)" : ""
-          }`;
-
-          // Determine color before logging (reducing await usage inside template literals)
-          const coloredBattery = await _determineColor("battery", batteryDisplay, {
-            onCharge,
-            batteryPercent,
-          });
-
-          console.log(`Battery level: ${chalk.bold(coloredBattery)}`);
-        }
-      } catch {}
+      console.log(`Battery level:`);
 
       console.log(`CPU cores: ${chalk.bold(os.cpus().length)}`);
 
