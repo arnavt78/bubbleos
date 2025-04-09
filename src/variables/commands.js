@@ -16,6 +16,7 @@ const del = require("../commands/fs/del");
 const dirtree = require("../commands/fs/dirtree");
 const editfile = require("../commands/fs/editfile");
 const exec = require("../commands/fs/exec");
+const extract = require("../commands/fs/extract");
 const fif = require("../commands/fs/fif");
 const hash = require("../commands/fs/hash");
 const link = require("../commands/fs/link");
@@ -97,6 +98,7 @@ const COMMANDS = {
   tree: dirtree,
   editfile,
   exec,
+  extract,
   fif,
   hash,
   link,

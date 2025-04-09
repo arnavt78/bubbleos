@@ -32,6 +32,7 @@
     "qrcode": "^1.5.4",
     "readline-sync": "^1.4.10",
     "sort-keys": "^4.2.0",
-    "systeminformation": "^5.25.11"
+    "systeminformation": "^5.25.11",
+    "yauzl": "^3.2.0"
   }
 }

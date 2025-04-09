@@ -6,6 +6,8 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Added Features
 
+- Added the `extract` command, which extracts files from a ZIP file into a specified folder.
+- Added the `fs` command, which gives information about the file system of different drives.
 - Added functionality for the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `env`, `graphics`, `hardware`, `mem`, `os`, `printer`, `usb`, and `users`. The values are currently printed out without much formatting, which will be changed in future versions.
 - Added a loading spinner for the following commands: `audio`, `battery`, `bluetooth`, `cpu`, `disks`, `graphics`, `hardware`, `mem`, `os`, `printer`, `usb`, and `users`.
 
