@@ -18,13 +18,13 @@ const AUTHOR = "Arnav Thorat";
  *
  * For betas, add `-beta` to the end of the version number.
  */
-const VERSION = "2.1.7-beta";
+const VERSION = "2.2.5-beta";
 /**
  * The build of the shell.
  *
  * Make sure this is a proper build number. Change this with the version (e.g. `0.7.8` will make the build `78`).
  */
-const BUILD = 217;
+const BUILD = 225;
 
 /**
  * If the configuration file needs to be reset if it is an older version when loaded in this version.
@@ -57,7 +57,7 @@ const TIMEBOMB_ACTIVATED = true;
  *
  * To see the date in **90** days, [click here](https://www.google.com/search?q=Date+90+days+from+today).
  */
-const EXPIRY_DATE = new Date(2025, 6, 5);
+const EXPIRY_DATE = new Date(2025, 6, 8);
 
 module.exports = {
   GLOBAL_NAME,
