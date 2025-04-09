@@ -8,9 +8,6 @@ const Verbose = require("../../classes/Verbose");
 
 const battery = async (...args) => {
   try {
-    console.log("Values will be beautified in the future, this is for testing! :)\n");
-
-    Verbose.startSpinner();
     const spinner = ora({ text: "Please wait..." }).start();
 
     const batteryData = await si.battery();

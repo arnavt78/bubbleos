@@ -35,7 +35,9 @@ const fs = async (...args) => {
       console.log(`Partition ${chalk.bold(value.fs)} (${value.type})`);
       console.log(chalk.dim(`${value.used} used out of ${value.size} (${value.available} free)`));
 
-      _percentBar(parseFloat(value.use), "blue");
+      console.log(
+        `${_percentBar(parseFloat(value.use), "blue")} ${parseFloat(value.use).toFixed(1)}% used`
+      );
       if (advanced) console.log(!value.rw ? "Read-Only" : "Readable/Writeable");
       console.log();
     });

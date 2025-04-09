@@ -15,7 +15,7 @@ const _percentBar = (percentage, color = "white", width = 30) => {
   const filledBar = fillColor("█".repeat(filled));
   const emptyBar = " ".repeat(empty);
 
-  console.log(`[${filledBar}${emptyBar}] ${percentage.toFixed(0)}%`);
+  return `[${filledBar}${emptyBar}]`;
 };
 
 module.exports = _percentBar;
