@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const si = require("systeminformation");
 const ora = require("ora");
 
@@ -8,7 +9,7 @@ const Verbose = require("../../classes/Verbose");
 
 const cpu = async (...args) => {
   try {
-    console.log("Values will be beautified in the future, this is for testing! :)\n");
+    const advanced = args.includes("-a");
 
     Verbose.startSpinner();
     const spinner = ora({ text: "Please wait..." }).start();
@@ -16,51 +17,68 @@ const cpu = async (...args) => {
     const cpuData = await si.cpu();
     const cpuTempData = await si.cpuTemperature();
 
-    delete cpuData.cache;
-    delete cpuTempData.cores;
-    delete cpuTempData.socket;
-
-    if (cpuTempData.main && cpuTempData.max) {
-      Verbose.custom("CPU temperature data found.");
-      cpuData.main = cpuTempData.main;
-      cpuData.max = cpuTempData.max;
-      cpuData.chipset = cpuTempData.chipset;
-    }
-
     spinner.stop();
     Verbose.stopSpinner();
 
     Verbose.custom("Displaying CPU information...");
-    _showKeyValue(
-      cpuData,
-      new Map([
-        ["manufacturer", "Manufacturer"],
-        ["brand", "Brand"],
-        ["speed", "Speed (GHz)"],
-        ["speedMin", "Min Speed (GHz)"],
-        ["speedMax", "Max Speed (GHz)"],
-        ["governor", "Governor"],
-        ["cores", "Cores"],
-        ["physicalCores", "Physical Cores"],
-        ["performanceCores", "Performance Cores"],
-        ["efficiencyCores", "Efficiency Cores"],
-        ["processors", "Processors"],
-        ["socket", "Socket"],
-        ["vendor", "Vendor"],
-        ["family", "Family"],
-        ["model", "Model"],
-        ["stepping", "Stepping"],
-        ["revision", "Revision"],
-        ["voltage", "Voltage (V)"],
-        ["flags", "Flags"],
-        ["virtualization", "Virtualization"],
-        ["main", "Average Temperature (°C)"],
-        ["max", "Max Temperature (°C)"],
-        ["chipset", "Chipset Temperature (°C)"],
-      ]),
-      false,
-      ""
+
+    // Displaying CPU info with subtle emphasis
+    console.log(
+      chalk.bold(
+        `${cpuData.manufacturer} ${cpuData.brand} @ ${cpuData.speed.toFixed(2)}GHz x ${
+          cpuData.cores
+        }`
+      )
     );
+
+    if (advanced) {
+      console.log(
+        `${chalk.dim("Min Speed:")} ${cpuData.speedMin.toFixed(2)}GHz\n${chalk.dim(
+          "Max Speed:"
+        )} ${cpuData.speedMax.toFixed(2)}GHz`
+      );
+    }
+
+    if (advanced) {
+      console.log(
+        `\n${chalk.dim("Vendor:")} ${cpuData.vendor}\n${chalk.dim("Family:")} ${
+          cpuData.family
+        }\n${chalk.dim("Model:")} ${cpuData.model}\n${chalk.dim("Stepping:")} ${cpuData.stepping}\n`
+      );
+    }
+
+    // Color-coded CPU core count (subtle, but visually organized)
+    console.log(
+      `${chalk.bold(cpuData.cores)} cores and ${chalk.bold(
+        cpuData.physicalCores
+      )} physical cores, with ${chalk.bold(cpuData.processors)} processor.`
+    );
+
+    // Virtualization status
+    console.log(
+      cpuData.virtualization
+        ? chalk.green("Supports virtualization.")
+        : chalk.red("Does not support virtualization.")
+    );
+
+    console.log();
+
+    if (advanced) {
+      console.log(`${chalk.dim("Flags:")} ${cpuData.flags}`);
+    }
+
+    // Temperature color coding with a softer approach
+    if (cpuTempData.main) {
+      let temperatureMessage = `CPU Temperature: ${cpuTempData.main}°C`;
+
+      if (cpuTempData.main < 50) {
+        console.log(chalk.green(temperatureMessage));
+      } else if (cpuTempData.main >= 50 && cpuTempData.main < 75) {
+        console.log(chalk.yellow(temperatureMessage));
+      } else {
+        console.log(chalk.red(temperatureMessage));
+      }
+    }
   } catch (err) {
     Verbose.nonFatalError();
     _nonFatalError(err);

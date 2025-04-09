@@ -2,6 +2,21 @@
 
 This is the official BubbleOS changelog! All features will be recorded in _'groups'_, and the latest version of that _'group'_ will have an executable and a release paired with them.
 
+## Build 225 to 2?? (v2.2.5-beta to v2.?.?-beta)
+
+### Added Features
+
+- Added better value display to the `fs` command, showing a percentage bar of the space used for each partition as well as information displayed in a more human-readable format. The `-a` flag can be used to get more advanced information.
+- Added better value display to the `cpu` command, showing the CPU installed and specifications of it. The `-a` flag can be used to get more advanced information.
+
+### Changed/Fixed Features
+
+- Changed the CLI prompt to use the one used in Build 180 to Build 200 RC3, to allow compatibility with the loading spinner used in commands.
+
+### Removed Features
+
+- Removed the code for battery information in `sysinfo`.
+
 ## Build 217 to 225 (v2.1.7-beta to v2.2.5-beta)
 
 ### Added Features
