@@ -8,6 +8,7 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 - Added better value display to the `fs` command, showing a percentage bar of the space used for each partition as well as information displayed in a more human-readable format. The `-a` flag can be used to get more advanced information.
 - Added better value display to the `cpu` command, showing the CPU installed and specifications of it. The `-a` flag can be used to get more advanced information.
+- Added better value display to the `users` command, showing the username and time of login. The `-a` flag can be used to get more advanced information.
 
 ### Changed/Fixed Features
 
