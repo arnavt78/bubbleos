@@ -11,37 +11,6 @@ const Verbose = require("../../classes/Verbose");
 const PathUtil = require("../../classes/PathUtil");
 const SettingManager = require("../../classes/SettingManager");
 
-/**
- * A function to calculate and return the sizes of a file or directory.
- *
- * @param {string} path The path of the file or directory.
- * @param {object} pathChk The Checks instance for the path.
- * @returns {object} The sizes of the file or directory in different units.
- */
-const _calcSize = async (path, pathChk) => {
-  Verbose.custom("Calculating size...");
-  const totalSize = await _getSize(path, pathChk.validateType() ? "directory" : "file");
-
-  // The size shortened to 2 decimal places
-  Verbose.custom("Converting size and shortening...");
-  const allSizes = _convertSize(totalSize, 2);
-
-  // Priority order of size units
-  const sizeLabels = ["GB", "MB", "KB", "bytes"];
-  const sizeValues = [allSizes.gigabytes, allSizes.megabytes, allSizes.kilobytes, allSizes.bytes];
-
-  Verbose.custom("Finding best unit of measurement to use...");
-  for (let i = 0; i < sizeValues.length; i++) {
-    if (sizeValues[i] > 0) {
-      // Adjust "bytes" to singular if the size is 1
-      const label = sizeLabels[i] === "bytes" && sizeValues[i] === 1 ? "byte" : sizeLabels[i];
-      return { [label]: sizeValues[i] };
-    }
-  }
-
-  return { bytes: 0 };
-};
-
 const _getDate = (date) => {
   const dateOptions = {
     weekday: "long",
@@ -102,12 +71,13 @@ const stat = async (path = process.cwd(), ...args) => {
     console.log(`Location: ${chalk.bold(path)}`);
 
     Verbose.custom("Calculating size...");
-    const size = await _calcSize(path, pathChk);
-    const sizeLabel = Object.keys(size)[0];
+    const size = _convertSize(
+      await _getSize(path, pathChk.validateType() ? "directory" : "file"),
+      2
+    );
 
-    const sizeValue = size[sizeLabel];
-    const sizeColor = sizeValue === 0 ? chalk.yellow : chalk.green;
-    console.log("Size: " + chalk.bold(sizeColor(`${sizeValue} ${sizeLabel}\n`)));
+    const sizeColor = size.size === 0 ? chalk.yellow : chalk.green;
+    console.log("Size: " + chalk.bold(sizeColor(`${size.size} ${size.unit}\n`)));
 
     Verbose.custom("Obtaining and calculating created, modified and accessed date of path...");
     const stats = fs.statSync(path);

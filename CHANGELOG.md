@@ -13,11 +13,11 @@ This is the official BubbleOS changelog! All features will be recorded in _'grou
 
 ### Changed/Fixed Features
 
-- Changed the CLI prompt to use the one used in Build 180 to Build 200 RC3, to allow compatibility with the loading spinner used in commands.
+- Fixed an issue where the `stat` command would always show the size of files and directories as 0 bytes.
 
 ### Removed Features
 
-- Removed the code for battery information in `sysinfo`.
+_No removed features._
 
 ## Build 217 to 225 (v2.1.7-beta to v2.2.5-beta)
 
