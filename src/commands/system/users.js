@@ -2,7 +2,6 @@ const chalk = require("chalk");
 const si = require("systeminformation");
 const ora = require("ora");
 
-const _showKeyValue = require("../../functions/showKeyValue");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Verbose = require("../../classes/Verbose");

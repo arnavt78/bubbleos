@@ -2,7 +2,6 @@ const chalk = require("chalk");
 const si = require("systeminformation");
 const ora = require("ora");
 
-const _showKeyValue = require("../../functions/showKeyValue");
 const _convertSize = require("../../functions/convertSize");
 const _percentBar = require("../../functions/percentBar");
 const _nonFatalError = require("../../functions/nonFatalError");

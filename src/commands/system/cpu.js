@@ -2,7 +2,6 @@ const chalk = require("chalk");
 const si = require("systeminformation");
 const ora = require("ora");
 
-const _showKeyValue = require("../../functions/showKeyValue");
 const _nonFatalError = require("../../functions/nonFatalError");
 
 const Verbose = require("../../classes/Verbose");
@@ -22,7 +21,6 @@ const cpu = async (...args) => {
 
     Verbose.custom("Displaying CPU information...");
 
-    // Displaying CPU info with subtle emphasis
     console.log(
       chalk.bold(
         `${cpuData.manufacturer} ${cpuData.brand} @ ${cpuData.speed.toFixed(2)}GHz x ${
@@ -47,14 +45,12 @@ const cpu = async (...args) => {
       );
     }
 
-    // Color-coded CPU core count (subtle, but visually organized)
     console.log(
       `${chalk.bold(cpuData.cores)} cores and ${chalk.bold(
         cpuData.physicalCores
       )} physical cores, with ${chalk.bold(cpuData.processors)} processor.`
     );
 
-    // Virtualization status
     console.log(
       cpuData.virtualization
         ? chalk.green("Supports virtualization.")
@@ -67,7 +63,6 @@ const cpu = async (...args) => {
       console.log(`${chalk.dim("Flags:")} ${cpuData.flags}`);
     }
 
-    // Temperature color coding with a softer approach
     if (cpuTempData.main) {
       let temperatureMessage = `CPU Temperature: ${cpuTempData.main}°C`;
 
