@@ -53,7 +53,7 @@ const _fatalError = (err, doFileDump = true) => {
   console.log(
     `${chalk.red.bold(
       `A fatal exception has occurred in ${GLOBAL_NAME}. To avoid damage to ${GLOBAL_NAME} and the operating system, ${GLOBAL_NAME} has been aborted with a failure status.
-      \nMake sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/arnavt78/bubbleos/issues/new).`
+      \nMake sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/viradex/bubbleos/issues/new).`
     )}\n`
   );
 
@@ -91,7 +91,7 @@ const _fatalError = (err, doFileDump = true) => {
       )}:${String(date.getSeconds()).padStart(
         2,
         "0"
-      )}.\nGive the developer this information by going to https://github.com/arnavt78/bubbleos/issues/new (GitHub account required).\n\n${errorArr.join(
+      )}.\nGive the developer this information by going to https://github.com/viradex/bubbleos/issues/new (GitHub account required).\n\n${errorArr.join(
         "\n"
       )}\n`;
 

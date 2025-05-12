@@ -52,9 +52,9 @@ const _updateChecker = () => {
     const preference = new SettingManager().checkSetting("updateChecker");
     const url =
       preference === "prerelease"
-        ? "https://api.github.com/repos/arnavt78/bubbleos/releases"
+        ? "https://api.github.com/repos/viradex/bubbleos/releases"
         : preference === "release"
-        ? "https://api.github.com/repos/arnavt78/bubbleos/releases/latest"
+        ? "https://api.github.com/repos/viradex/bubbleos/releases/latest"
         : "";
 
     const options = {

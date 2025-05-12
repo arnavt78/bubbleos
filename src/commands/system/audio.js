@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const si = require("systeminformation");
 const ora = require("ora");
 
@@ -17,23 +18,12 @@ const audio = async (...args) => {
     Verbose.stopSpinner();
 
     data.forEach((device) => {
-      delete device.id;
-      _showKeyValue(
-        device,
-        new Map([
-          ["name", "Name"],
-          ["manufacturer", "Manufacturer"],
-          ["revision", "Revision"],
-          ["driver", "Driver"],
-          ["default", "Default"],
-          ["channel", "Channel"],
-          ["type", "Type"],
-          ["in", "Input"],
-          ["out", "Output"],
-          ["status", "Status"],
-        ]),
-        "name"
+      console.log(
+        chalk.bold.red(`${device.name}${chalk.reset.red(device.type ? ` (${device.type})` : "")}`)
       );
+      console.log(chalk.italic(`By ${device.manufacturer}`));
+
+      console.log();
     });
   } catch (err) {
     Verbose.nonFatalError();

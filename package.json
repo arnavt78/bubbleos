@@ -5,17 +5,17 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arnavt78/bubbleos.git"
+    "url": "git+https://github.com/viradex/bubbleos.git"
   },
   "author": "Arnav Thorat",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arnavt78/bubbleos/issues"
+    "url": "https://github.com/viradex/bubbleos/issues"
   },
   "bin": {
     "bubble": "./index.js"
   },
-  "homepage": "https://github.com/arnavt78/bubbleos#readme",
+  "homepage": "https://github.com/viradex/bubbleos#readme",
   "dependencies": {
     "@inquirer/prompts": "^7.3.2",
     "archiver": "^7.0.1",

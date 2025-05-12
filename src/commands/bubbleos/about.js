@@ -59,7 +59,7 @@ const about = (...args) => {
     }
 
     // Links
-    console.log(`GitHub: ${chalk.underline.blueBright("https://github.com/arnavt78/bubbleos")}`);
+    console.log(`GitHub: ${chalk.underline.blueBright("https://github.com/viradex/bubbleos")}`);
     console.log(`YouTube: ${chalk.underline.blueBright("https://youtube.com/InfiniTech78")}\n`);
   } catch (err) {
     Verbose.nonFatalError();

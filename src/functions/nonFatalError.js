@@ -47,7 +47,7 @@ const _nonFatalError = (err) => {
     console.log(
       `${chalk.hex("#FFA500").bold(
         `A non-fatal exception has occurred in ${GLOBAL_NAME}. ${GLOBAL_NAME} can continue to run, however, it should be used with caution.\nThe process/command that was being run has been terminated.
-        \nMake sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/arnavt78/bubbleos/issues/new).`
+        \nMake sure that your system supports ${GLOBAL_NAME}. If your system is supported, there may be a bug in ${GLOBAL_NAME}.\nIn that case, report the bug on the project's GitHub page (https://github.com/viradex/bubbleos/issues/new).`
       )}\n`
     );
 

@@ -2,7 +2,7 @@
 
 BubbleOS is a useful and colorful shell for your operating system, with several features to make your computer use easier!
 
-The latest stable version of BubbleOS is **[build 200](https://github.com/arnavt78/bubbleos/releases/tag/v2.0.0)**.
+The latest stable version of BubbleOS is **[build 200](https://github.com/viradex/bubbleos/releases/tag/v2.0.0)**.
 
 # Table of Contents
 
@@ -164,7 +164,7 @@ On Windows Vista and below, BubbleOS will fail to run. This cannot be circumvent
 To install BubbleOS from the source code, the following programs are required:
 
 - [Node.js](https://nodejs.org/en) 22 or above (LTS)
-- The BubbleOS source code, from the [Releases GitHub](https://github.com/arnavt78/bubbleos/releases) page
+- The BubbleOS source code, from the [Releases GitHub](https://github.com/viradex/bubbleos/releases) page
 
 Ensure that Node.js has been installed by running `node -v` in the terminal. When the programs above are installed, follow the steps:
 
@@ -243,7 +243,7 @@ This can be circumvented by using an operating system that is supported, such as
 
 This startup error only occurs if the BubbleOS build is a beta or a release candidate.
 
-When the timebomb expires, BubbleOS will no longer be able to startup, as a security feature to prevent using outdated unstable software. Upon encountering this error, it is recommended to download the latest version from the [Releases GitHub](https://github.com/arnavt78/bubbleos/releases) page.
+When the timebomb expires, BubbleOS will no longer be able to startup, as a security feature to prevent using outdated unstable software. Upon encountering this error, it is recommended to download the latest version from the [Releases GitHub](https://github.com/viradex/bubbleos/releases) page.
 
 The following message appears on startup when the timebomb expires:
 
@@ -680,7 +680,7 @@ An unknown error occurred when BubbleOS attempted to access a resource.
 
 ## Non-Fatal Errors and Fatal Errors
 
-When an uncaught exception occurs in BubbleOS, a non-fatal error or fatal error will occur, depending on the severity of the issue. These errors almost always describe a bug in BubbleOS and should be reported as an issue on the [GitHub page](https://github.com/arnavt78/bubbleos/issues/new).
+When an uncaught exception occurs in BubbleOS, a non-fatal error or fatal error will occur, depending on the severity of the issue. These errors almost always describe a bug in BubbleOS and should be reported as an issue on the [GitHub page](https://github.com/viradex/bubbleos/issues/new).
 
 It is recommended to submit the technical error information, as well as the steps needed to reproduce the issue.
 

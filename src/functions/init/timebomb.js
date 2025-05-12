@@ -46,7 +46,7 @@ const _timebomb = () => {
             ).padStart(2, "0")}/${String(currentDate.getDate()).padStart(
               2,
               "0"
-            )}/${currentDate.getFullYear()}.\nDownload the latest version at: https://github.com/arnavt78/bubbleos/releases\n`
+            )}/${currentDate.getFullYear()}.\nDownload the latest version at: https://github.com/viradex/bubbleos/releases\n`
           )
         );
 

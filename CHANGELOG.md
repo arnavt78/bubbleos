@@ -152,7 +152,7 @@ _No added features._
 ### Changed/Fixed Features
 
 - Changed the requirement for entering the 'all' keyword in `hash` to show all hashes; now to show all hashes, nothing has to be entered.
-- Fixed an issue where some commands would crash when interacting with files ([#17](https://github.com/arnavt78/bubbleos/issues/17)).
+- Fixed an issue where some commands would crash when interacting with files ([#17](https://github.com/viradex/bubbleos/issues/17)).
 - Fixed an issue where the `symlink` command would crash when attempting to create a symbolic link.
 - Fixed an issue where the `symlink` command would crash if the target path and source were the same.
 - Fixed an issue where the `copy` command would crash when copying a file/directory to a subdirectory of itself.
@@ -263,7 +263,7 @@ _No removed features._
 - Edited almost all help messages, error messages, and verbose messages.
 - BubbleOS now gracefully terminates when receiving a `SIGTERM` or `SIGINT` code.
 - Fixed an old issue where commands had to be in all lowercase to be recognized (this can be changed with the `setmgr` command).
-- Fixed an issue where running `lock` on some Linux systems would cause BubbleOS to crash ([#11](https://github.com/arnavt78/bubbleos/issues/11)).
+- Fixed an issue where running `lock` on some Linux systems would cause BubbleOS to crash ([#11](https://github.com/viradex/bubbleos/issues/11)).
 - Fixed an issue where commands that required a path, such as `del`, `cd`, and `readfile`, would crash if the path was not passed on some systems.
 - Fixed an issue where permission errors would crash BubbleOS with a fatal error on macOS and Linux systems in most commands.
 - Fixed an issue where the `ping` command would show the "timed out" error once the request was completed after a few seconds, causing BubbleOS to hang. This only occurred on some systems.
@@ -347,7 +347,7 @@ _No removed features._
 - The _"this may take a while"_ message in `copy` will no longer display unless the file/directory exceeds 250MB.
 - Many success, information, warning, and error messages are updated to the new style.
 - The `sysinfo` command will no longer display the tip after the first time it shows.
-- Fixed an issue where the `cd` command would not be case-sensitive on Windows, as well as other commands ([#15](https://github.com/arnavt78/bubbleos/issues/15)).
+- Fixed an issue where the `cd` command would not be case-sensitive on Windows, as well as other commands ([#15](https://github.com/viradex/bubbleos/issues/15)).
 - Fixed an issue where the `ping` and `tasklist` commands would fail to execute in the pre-boot interpreter.
 - Fixed an issue where the `bub` command would be caught in an infinite loop if the `.bub` file was executing the same file as it was running.
 - Fixed an issue where commands executing in a `.bub` file would be added to the command history.
@@ -380,7 +380,7 @@ _No removed features._
 
 ### HOTFIX!
 
-- Fixed an issue where running the `cls` and `exit` commands would crash BubbleOS, and in some cases in the `cd` command ([#14](https://github.com/arnavt78/bubbleos/issues/14)).
+- Fixed an issue where running the `cls` and `exit` commands would crash BubbleOS, and in some cases in the `cd` command ([#14](https://github.com/viradex/bubbleos/issues/14)).
 
 ### Added Features
 
@@ -398,8 +398,8 @@ _No removed features._
 - Updated help messages for commands to fix various grammar issues and other information.
 - Fixed an issue where the time would display without a preceding 0 if the seconds/minutes was a single digit in the `time` command, fatal error file, and verbose messages.
 - Fixed an issue where running the `size` command would crash BubbleOS.
-- Fixed an issue where entering any value in a yes/no prompt would always abort the process after answering, even if "yes" was entered ([#10](https://github.com/arnavt78/bubbleos/issues/10)).
-- Fixed an issue where entering the `echo` command would crash BubbleOS ([#12](https://github.com/arnavt78/bubbleos/issues/12)).
+- Fixed an issue where entering any value in a yes/no prompt would always abort the process after answering, even if "yes" was entered ([#10](https://github.com/viradex/bubbleos/issues/10)).
+- Fixed an issue where entering the `echo` command would crash BubbleOS ([#12](https://github.com/viradex/bubbleos/issues/12)).
 - Fixed an issue where if the error file was unable to be saved when a fatal error occurred, a fatal error would occur inside of the fatal error.
 - Fixed an issue where BubbleOS would allow the `taskkill` command to kill itself, even when the `--kill-self` flag was not passed.
 - Updated GitHub links to the new transfered repository.
@@ -439,7 +439,7 @@ _No removed features._
 ### Changed/Fixed Features
 
 - Updated the fatal error screen text and other related processes (e.g. the heap snapshot is no longer saved upon crashing).
-- Fixed an issue where BubbleOS would report Windows 11 devices as Windows 10 in `sysinfo` ([#7](https://github.com/arnavt78/bubbleos/issues/7)).
+- Fixed an issue where BubbleOS would report Windows 11 devices as Windows 10 in `sysinfo` ([#7](https://github.com/viradex/bubbleos/issues/7)).
 - The `print` command no longer outputs an error message when entering nothing, it just shows nothing.
 - Fixed multiple issues in the `ping` command, making it work more consistently.
 - Internally improved the code of `ifnet`.

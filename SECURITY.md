@@ -14,6 +14,6 @@ The versions below are currently supported. This file is actively updated.
 
 ## Reporting a Vulnerability
 
-To report a vulnerability, create a [new Issue](https://github.com/arnavt78/bubbleos/issues) with the `vulnerability` label.
+To report a vulnerability, create a [new Issue](https://github.com/viradex/bubbleos/issues) with the `vulnerability` label.
 
 Add as much information as possible, for example, add a few images and things that can be exploited.
